@@ -1,161 +1,155 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Container, Jumbotron, CardDeck, Col, Card, Table, Image, Row } from "react-bootstrap";
+import { Card, Container, CardDeck, Form, FormControl, Button, ButtonToolbar, Col, Pagination } from "react-bootstrap";
 
 export const Prospects = () => {
 	return (
 		<Container className="mt-5">
-			<Jumbotron style={{ background: "ghostwhite" }}>
-				<h1>Business Details</h1>
-				<p>Here will be all the info from the public data Miami Dade..</p>
-				<p>EIN</p>
-				<p>Address</p>
-				<p>Business Phone</p>
-				<p>Email</p>
+			<Form inline className="justify-content-center">
+				<FormControl type="text" placeholder="Search" />
+				<Button variant="outline-primary">Search</Button>
+			</Form>
 
-				<CardDeck>
-					<Col className="mt-5" md={4}>
-						<Card style={{ width: "18rem" }}>
-							<Card.Body>
-								<Card.Title>Name</Card.Title>
-								<Card.Subtitle className="mb-2 text-muted">Occupation</Card.Subtitle>
-								<Card.Text>Address</Card.Text>
-								<Card.Text>Personal Email</Card.Text>
-							</Card.Body>
-						</Card>
-					</Col>
-					<Col className="mt-5" md={4}>
-						<Card style={{ width: "18rem" }}>
-							<Card.Body>
-								<Card.Title>Name</Card.Title>
-								<Card.Subtitle className="mb-2 text-muted">Occupation</Card.Subtitle>
-								<Card.Text>Address</Card.Text>
-								<Card.Text>Personal Email</Card.Text>
-							</Card.Body>
-						</Card>
-					</Col>
-					<Col className="mt-5" md={4}>
-						<Card style={{ width: "18rem" }}>
-							<Card.Body>
-								<Card.Title>Name</Card.Title>
-								<Card.Subtitle className="mb-2 text-muted">Occupation</Card.Subtitle>
-								<Card.Text>Address</Card.Text>
-								<Card.Text>Personal Email</Card.Text>
-							</Card.Body>
-						</Card>
-					</Col>
-				</CardDeck>
-			</Jumbotron>
-			<Jumbotron style={{ background: "ghostwhite" }}>
-				<h1>Financial Information</h1>
-				<Table striped bordered hover size="sm">
-					<thead>
-						<tr>
-							<th />
-							<th>2018</th>
-							<th>%</th>
-							<th>2019</th>
-							<th>%</th>
-						</tr>
-					</thead>
+			<CardDeck>
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
 
-					<tbody>
-						<tr>
-							<td>Revenues</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>COGS</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Gross Profit</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-						<tr>
-							<td>@SG&A</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Interest</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Depreciation</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Amortization</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>EBITDA</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Net Income</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-
-						<tr>
-							<td>Distributions</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-							<td>xxxxxxxxx</td>
-							<td>100.0</td>
-						</tr>
-					</tbody>
-				</Table>
-			</Jumbotron>
-			<Row className="justify-content-md-center">
-				<Col xs={12} sm={4} md={4}>
-					<Image
-						src=" https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRA8H-FmoP01FDPRNao8dog2FKtHUWlcgEldg&usqp=CAU"
-						fluid
-					/>
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
 				</Col>
-				<Col xs={12} sm={4} md={4}>
-					<Image
-						src="https://lh3.googleusercontent.com/proxy/Zqs8a7jSlm-liTXFKL925lIyKhAd1AFAuIozcYsyNXd7t1u5VkZ60QQ44SMZPO2popf4l1WtXA1a7Xf4Tl94PucZSlSgJ17yNHyI1Cf0mciHCgXEHgUi5vTRDs5CYeeoQe0bFFRurM64swiN6qSyxdkzAJzvxnNHToamxJ7f"
-						fluid
-					/>
+
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
+
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
 				</Col>
-			</Row>
+
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
+
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
+				</Col>
+
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
+
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
+				</Col>
+
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
+
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
+				</Col>
+
+				<Col className="mt-5" md={4}>
+					<Card style={{ width: "18rem" }}>
+						<Card.Body>
+							<Card.Title>Business Name</Card.Title>
+							<Card.Subtitle className="mb-2 text-muted">Business Class</Card.Subtitle>
+							<Card.Text>Business Direction</Card.Text>
+							<Card.Text>Business Description etc...</Card.Text>
+							<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
+								<Link to="/prospectDetails">
+									<Button variant="primary">View</Button>
+								</Link>
+
+								<Link>
+									<Button variant="outline-primary">
+										<i className="far fa-save" />
+									</Button>
+								</Link>
+							</ButtonToolbar>
+						</Card.Body>
+					</Card>
+				</Col>
+			</CardDeck>
+			<Pagination className="mt-5 justify-content-center">
+				<Pagination.Item>1</Pagination.Item>
+				<Pagination.Item>2</Pagination.Item>
+				<Pagination.Item>3</Pagination.Item>
+				<Pagination.Item>4</Pagination.Item>
+			</Pagination>
 		</Container>
 	);
 };

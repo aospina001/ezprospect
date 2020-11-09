@@ -20,7 +20,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
@@ -42,7 +42,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
@@ -64,7 +64,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
@@ -86,7 +86,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
@@ -108,7 +108,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
@@ -130,7 +130,7 @@ export const Home = () => (
 						<Card.Text>Business Description etc...</Card.Text>
 						<ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
 							<Link to="/businessDetails">
-								<Button variant="primary">Prospect</Button>
+								<Button variant="primary">Create Prospect</Button>
 							</Link>
 
 							<Link>
