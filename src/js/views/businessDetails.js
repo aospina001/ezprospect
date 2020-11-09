@@ -21,7 +21,7 @@ export const BusinessDetails = () => {
 
 			<ButtonToolbar aria-label="Toolbar with Button groups" className="justify-content-center">
 				<Link to="">
-					<Button variant="primary">Save</Button>
+					<Button variant="primary">Create Prospect</Button>
 				</Link>
 				<Button variant="primary" className="ml-5">
 					Clear
