@@ -1,42 +1,32 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			business: [],
+			prospect: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			loadData: async () => {
+				const url = "https://opendata.arcgis.com/datasets/ee6a22d3e19b47858f9500fc4e205f7e_0.geojson";
+
+				const response = await fetch(url);
+				const data = await response.json();
+				const array = data.features;
+
+				setStore({ business: array.slice(1, 100) });
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
+
+			addProspect: (formData, objectId, data) => {
 				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
+				setStore({
+					prospect: [
+						...store.prospect,
+						{
+							objectId,
+							formData,
+							data
+						}
+					]
 				});
-
-				//reset the global store
-				setStore({ demo: demo });
 			}
 		}
 	};
