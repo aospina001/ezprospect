@@ -32,7 +32,7 @@ const Layout = () => {
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<NavigationBar />
+					<Landing />
 					{store.business.length == 0 ? (
 						<div className="d-flex justify-content-center mt-5">
 							<Spinner animation="border" role="status" variant="primary">
@@ -41,9 +41,9 @@ const Layout = () => {
 						</div>
 					) : (
 						<Switch>
-							<Route exact path="/">
+							{/* <Route exact path="/">
 								<Home data={store.business} />
-							</Route>
+							</Route> */}
 							<Route exact path="/businessDetails/:id">
 								<BusinessDetails data={store.business} />
 							</Route>
