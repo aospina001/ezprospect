@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
-import { Container, Jumbotron, ButtonToolbar, Button, Col } from "react-bootstrap";
+import { Container, Jumbotron, ButtonToolbar, Button, Tab, Tabs, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 
@@ -14,22 +14,29 @@ export const BusinessDetails = props => {
 	const { register, handleSubmit } = useForm();
 	let history = useHistory();
 
-	const onSubmit = async formData => {
+	const onSubmit = async () => {
 		const vari = props.data[id];
 		const objectId = vari.properties.OBJECTID;
-		await actions.addProspect(formData, objectId, props.data[id]);
+		await actions.addProspect(objectId, props.data[id]);
 
 		history.push(`/prospectDetails/${objectId}`);
 	};
 
 	return (
-		<Container className="mt-5">
+		<Container className="mt-2">
 			{props.data.map((each, i) => {
 				if (i == id) {
 					return (
 						<div>
-							<Jumbotron style={{ background: "ghostwhite" }}>
-								<h1>{each.properties.BUSNAME}</h1>
+							<Jumbotron style={{ background: "white" }} className="mt-2" s>
+								<Col className="d-flex justify-content-rigth">
+									<form onSubmit={handleSubmit(onSubmit)}>
+										<Button variant="success" type="submit">
+											Add Prospect
+										</Button>
+									</form>
+								</Col>
+								<h1 className="mt-2">{each.properties.BUSNAME}</h1>
 								<p>Address -- {each.properties.BUSADDR}</p>
 								<p>Folio -- {each.properties.FOLIO}</p>
 								<p>Account -- {each.properties.ACCOUNTNO}</p>
@@ -40,29 +47,6 @@ export const BusinessDetails = props => {
 								<p>Owner Name -- {each.properties.OWNERNAME}</p>
 								<p>Phone Number -- {each.properties.PHONENO}</p>
 							</Jumbotron>
-							<Jumbotron style={{ background: "ghostwhite" }}>
-								<h1>Here We have to enter the financial info (create the form for that)</h1>
-								<p>Revenues</p>
-								<p>Total OPEX</p>
-								<p>Total assets</p>
-								<p>Total Liabilities</p>
-							</Jumbotron>
-							<form onSubmit={handleSubmit(onSubmit)}>
-								<div className="form-group">
-									<label>Full Name</label>
-									<input
-										type="text"
-										className="form-control"
-										placeholder="Full Name"
-										name="full_name"
-										ref={register}
-									/>
-								</div>
-
-								<Button variant="primary" type="submit" className="form-control">
-									Create Prospect
-								</Button>
-							</form>
 						</div>
 					);
 				}

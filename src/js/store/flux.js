@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			business: [],
-			prospect: []
+			prospect: [],
+			contacts: []
 		},
 		actions: {
 			loadData: async () => {
@@ -15,14 +16,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ business: array.slice(1, 100) });
 			},
 
-			addProspect: (formData, objectId, data) => {
+			addProspect: (objectId, data) => {
+				const store = getStore();
+				let count = 0;
+				store.prospect.map(each => {
+					if (each.objectId == objectId) {
+						count = 1;
+					}
+				});
+				if (count == 0) {
+					setStore({
+						prospect: [
+							...store.prospect,
+							{
+								objectId,
+								data
+							}
+						]
+					});
+				}
+			},
+
+			addContact: data => {
 				const store = getStore();
 				setStore({
-					prospect: [
-						...store.prospect,
+					contacts: [
+						...store.contacts,
 						{
-							objectId,
-							formData,
 							data
 						}
 					]

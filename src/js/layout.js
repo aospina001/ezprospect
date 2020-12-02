@@ -13,7 +13,6 @@ import { Footer } from "./component/footer";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
-import { Landing } from "./views/landing";
 
 //create your first component
 const Layout = () => {

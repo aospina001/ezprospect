@@ -21,7 +21,7 @@ export const Prospects = () => {
 		<Container className="mt-5">
 			{store.prospect.length == 0 ? (
 				<Alert variant="success">
-					<Alert.Heading>Sorry, no perspective created yet</Alert.Heading>
+					<Alert.Heading>Sorry, no prospect created yet</Alert.Heading>
 					<p>
 						If you want to create a new prospect please go to the main page to analyze the future prospects
 						we have.
@@ -50,12 +50,6 @@ export const Prospects = () => {
 													aria-label="Toolbar with Button groups">
 													<Link to={`/prospectDetails/${each.objectId}`}>
 														<Button variant="primary">View</Button>
-													</Link>
-
-													<Link>
-														<Button variant="outline-primary">
-															<i className="far fa-save" />
-														</Button>
 													</Link>
 												</ButtonToolbar>
 											</Card.Body>
