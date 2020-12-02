@@ -7,12 +7,13 @@ import { BusinessDetails } from "./views/businessDetails";
 import { Prospects } from "./views/prospects";
 import injectContext, { Context } from "./store/appContext";
 import { ProspectDetails } from "./views/prospectDetails";
+import { Landing } from "./views/landing";
 
 import { NavigationBar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { useContext } from "react";
 import { useEffect } from "react";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Container } from "react-bootstrap";
 
 //create your first component
 const Layout = () => {
@@ -32,18 +33,21 @@ const Layout = () => {
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Landing />
+					<NavigationBar />
 					{store.business.length == 0 ? (
-						<div className="d-flex justify-content-center mt-5">
-							<Spinner animation="border" role="status" variant="primary">
+						<div className="mt-5 text-center">
+							<Spinner animation="border" role="status" variant="success">
 								<span className="sr-only justify-content-center">Loading...</span>
 							</Spinner>
 						</div>
 					) : (
 						<Switch>
-							{/* <Route exact path="/">
+							<Route exact path="/">
+								<Landing />
+							</Route>
+							<Route exact path="/logged">
 								<Home data={store.business} />
-							</Route> */}
+							</Route>
 							<Route exact path="/businessDetails/:id">
 								<BusinessDetails data={store.business} />
 							</Route>
@@ -51,7 +55,7 @@ const Layout = () => {
 								<Prospects />
 							</Route>
 							<Route exact path="/prospectDetails/:id">
-								<ProspectDetails />
+								<ProspectDetails data={store.business} />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>

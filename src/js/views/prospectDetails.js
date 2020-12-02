@@ -22,9 +22,10 @@ import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 
-export const ProspectDetails = () => {
+export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
 	const { id } = useParams();
+	const [loading, setLoading] = useState(true);
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
 	const [showfinancial, setShowfinancial] = useState(false);
@@ -42,15 +43,16 @@ export const ProspectDetails = () => {
 
 	const onSubmitContact = async data => {
 		await actions.addContact(data);
+		handleCloseContact();
 	};
 
 	return (
-		<Container className="mt-2">
+		<Container className="mt-5">
 			{store.prospect.map((each, i) => {
 				if (each.objectId == id) {
 					return (
 						<div>
-							<Tabs defaultActiveKey="info" id="uncontrolled-tab-example">
+							<Tabs fill defaultActiveKey="info" id="uncontrolled-tab-example">
 								<Tab eventKey="info" title="Business Info">
 									<Jumbotron style={{ background: "white" }} className="mt-2">
 										<h1>{each.data.properties.BUSNAME}</h1>
@@ -85,17 +87,23 @@ export const ProspectDetails = () => {
 										<div>
 											<CardDeck>
 												{store.contacts.map((each, i) => {
-													<Col className="mt-5" md={4} key={i}>
-														<Card>
-															<Card.Body>
-																<Card.Title>
-																	{each.data.firstName}
-																	{each.data.lastName}
-																</Card.Title>
-																<Card.Text>{each.data.phone}</Card.Text>
-															</Card.Body>
-														</Card>
-													</Col>;
+													return (
+														<Col className="mt-5" md={4} key={i}>
+															<Card>
+																<Card.Body>
+																	<Card.Title>
+																		{each.data.firstName}
+																		&nbsp;
+																		{each.data.lastName}
+																	</Card.Title>
+																	<Card.Text>
+																		Phone Number:&nbsp;
+																		{each.data.phone}
+																	</Card.Text>
+																</Card.Body>
+															</Card>
+														</Col>
+													);
 												})}
 											</CardDeck>
 										</div>
@@ -374,6 +382,6 @@ export const ProspectDetails = () => {
 	);
 };
 
-// BusinessDetails.propTypes = {
-// 	data: PropTypes.any
-// };
+ProspectDetails.propTypes = {
+	data: PropTypes.any
+};

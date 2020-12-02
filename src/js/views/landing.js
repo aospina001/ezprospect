@@ -16,53 +16,12 @@ import "../../styles/home.scss";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Landing = props => {
+export const Landing = () => {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	return (
 		<Container>
-			<Navbar bg="dark" variant="dark">
-				<Navbar.Brand href="#home">EZ Prospect</Navbar.Brand>
-				<Nav className="mr-auto">
-					<Nav.Link href="#home">Home</Nav.Link>
-					<Nav.Link href="#features">About Us</Nav.Link>
-					<Nav.Link href="#pricing">Contact Us</Nav.Link>
-				</Nav>
-				<Button variant="dark outline-success" onClick={handleShow}>
-					Login
-				</Button>{" "}
-				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-					<Modal.Header closeButton>
-						<Modal.Title>Loging</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<Form>
-							<Form.Group controlId="formBasicEmail">
-								<Form.Label>Username</Form.Label>
-								<Form.Control type="email" placeholder="Enter username" />
-								<Form.Text className="text-muted">
-									Well never share your email with anyone else.
-								</Form.Text>
-							</Form.Group>
-
-							<Form.Group controlId="formBasicPassword">
-								<Form.Label>Password</Form.Label>
-								<Form.Control type="password" placeholder="Password" />
-							</Form.Group>
-							<Form.Group controlId="formBasicCheckbox">
-								<Form.Check type="checkbox" label="Remember me" />
-							</Form.Group>
-							<Button variant="secondary" onClick={handleClose}>
-								Cancel
-							</Button>
-							<Button variant="dark outline-success" type="submit">
-								Submit
-							</Button>
-						</Form>
-					</Modal.Body>
-				</Modal>
-			</Navbar>
 			<Jumbotron>
 				<h1>Hello, world!</h1>
 				<p>
@@ -140,6 +99,6 @@ export const Landing = props => {
 		</Container>
 	);
 };
-Landing.propTypes = {
-	data: PropTypes.any
-};
+// Landing.propTypes = {
+// 	data: PropTypes.any
+// };

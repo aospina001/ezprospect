@@ -31,10 +31,10 @@ export const Prospects = () => {
 				<div>
 					<Form inline className="justify-content-center">
 						<FormControl type="text" placeholder="Search" />
-						<Button variant="outline-primary">Search</Button>
+						<Button variant="outline-success">Search</Button>
 					</Form>
 					<div>
-						<CardDeck>
+						<CardDeck className="justify-content-center">
 							{store.prospect.map((each, i) => {
 								return (
 									<Col className="mt-5" md={4} key={i}>
@@ -49,7 +49,7 @@ export const Prospects = () => {
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
 													<Link to={`/prospectDetails/${each.objectId}`}>
-														<Button variant="primary">View</Button>
+														<Button variant="success">View</Button>
 													</Link>
 												</ButtonToolbar>
 											</Card.Body>

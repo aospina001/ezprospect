@@ -1,36 +1,67 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Navbar, Dropdown, Nav, FormControl, Container, Image, NavLink } from "react-bootstrap";
+import { Button, Navbar, Nav, Container, Form, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export const NavigationBar = () => {
-	let value = null;
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+	const { register, handleSubmit } = useForm();
+
+	const onSubmit = async data => {
+		window.location.href = "/logged";
+	};
 	return (
-		<Container fluid={true}>
-			<Navbar bg="light" className="mt-3">
+		<Container className="mt-3">
+			<Navbar bg="dark" variant="dark">
 				<Link to="/">
 					<Navbar.Brand>EZ Prospect</Navbar.Brand>
 				</Link>
-				<Navbar.Collapse className="justify-content-end">
-					<Link to="/prospects">
-						<Button variant="primary" className="mx-3">
-							My Prospect
-						</Button>
-					</Link>
+				<Nav className="mr-auto">
+					<Nav.Link href="#features">About Us</Nav.Link>
+					<Nav.Link href="#pricing">Contact Us</Nav.Link>
+				</Nav>
+				<Link to="/prospects">
+					<Button variant="dark outline-success" className="mx-3">
+						My Prospect
+					</Button>
+				</Link>
+				<Button variant="dark outline-success" onClick={handleShow}>
+					Login
+				</Button>{" "}
+				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+					<Modal.Header closeButton>
+						<Modal.Title>Loging</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form onSubmit={handleSubmit(onSubmit)}>
+							<Form.Group controlId="formBasicEmail">
+								<Form.Label>Username</Form.Label>
+								<Form.Control type="email" placeholder="Enter username" />
+								<Form.Text className="text-muted">
+									Well never share your email with anyone else.
+								</Form.Text>
+							</Form.Group>
 
-					<Dropdown drop="down">
-						<Dropdown.Toggle variant="primary" id="dropdown-basic">
-							<i className="fas fa-bars" />
-						</Dropdown.Toggle>
-
-						<Dropdown.Menu align="right">
-							<Dropdown.Item>Saved</Dropdown.Item>
-							<Dropdown.Divider />
-							<Dropdown.Item href="#action/3.4">Log out</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
-				</Navbar.Collapse>
+							<Form.Group controlId="formBasicPassword">
+								<Form.Label>Password</Form.Label>
+								<Form.Control type="password" placeholder="Password" />
+							</Form.Group>
+							<Form.Group controlId="formBasicCheckbox">
+								<Form.Check type="checkbox" label="Remember me" />
+							</Form.Group>
+							<Button variant="secondary" onClick={handleClose}>
+								Cancel
+							</Button>
+							<Button variant="dark outline-success" type="submit">
+								Submit
+							</Button>
+						</Form>
+					</Modal.Body>
+				</Modal>
 			</Navbar>
-			<Image src="https://www.liferemodeled.com/wp-content/uploads/2017/09/Financials-Banner-1.jpg" fluid />
 		</Container>
 	);
 };
