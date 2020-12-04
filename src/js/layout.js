@@ -46,7 +46,7 @@ const Layout = () => {
 								<Landing />
 							</Route>
 							<Route exact path="/logged">
-								<Home data={store.business} />
+								<Home />
 							</Route>
 							<Route exact path="/businessDetails/:id">
 								<BusinessDetails data={store.business} />

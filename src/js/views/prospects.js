@@ -1,21 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import {
-	Card,
-	Container,
-	CardDeck,
-	Form,
-	FormControl,
-	Button,
-	ButtonToolbar,
-	Col,
-	Pagination,
-	Alert
-} from "react-bootstrap";
+import { Card, Container, CardDeck, Form, FormControl, Button, ButtonToolbar, Col, Alert } from "react-bootstrap";
+
+const people = ["Siri", "Alexa", "Google", "Facebook", "Twitter", "Linkedin", "Sinkedin"];
 
 export const Prospects = () => {
 	const { store, actions } = useContext(Context);
+
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const handleChange = e => {
+		setSearchTerm(e.target.value);
+	};
+
+	React.useEffect(
+		() => {
+			const results = store.prospect.filter(each =>
+				each.data.properties.BUSNAME.toLowerCase().includes(searchTerm)
+			);
+			setSearchResults(results);
+		},
+		[searchTerm]
+	);
 
 	return (
 		<Container className="mt-5">
@@ -30,12 +37,13 @@ export const Prospects = () => {
 			) : (
 				<div>
 					<Form inline className="justify-content-center">
-						<FormControl type="text" placeholder="Search" />
+						<FormControl type="text" placeholder="Search" value={searchTerm} onChange={handleChange} />
+
 						<Button variant="outline-success">Search</Button>
 					</Form>
 					<div>
 						<CardDeck className="justify-content-center">
-							{store.prospect.map((each, i) => {
+							{searchResults.map((each, i) => {
 								return (
 									<Col className="mt-5" md={4} key={i}>
 										<Card style={{ width: "18rem" }}>

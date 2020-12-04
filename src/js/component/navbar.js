@@ -19,6 +19,9 @@ export const NavigationBar = () => {
 				<Link to="/">
 					<Navbar.Brand>EZ Prospect</Navbar.Brand>
 				</Link>
+				<Link to="/logged">
+					<Navbar.Brand>Home</Navbar.Brand>
+				</Link>
 				<Nav className="mr-auto">
 					<Nav.Link href="#features">About Us</Nav.Link>
 					<Nav.Link href="#pricing">Contact Us</Nav.Link>

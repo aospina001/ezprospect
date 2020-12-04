@@ -16,18 +16,32 @@ import "../../styles/home.scss";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Home = props => {
+export const Home = () => {
 	const { store, actions } = useContext(Context);
+
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const handleChange = e => {
+		setSearchTerm(e.target.value);
+	};
+
+	React.useEffect(
+		() => {
+			const results = store.business.filter(each => each.properties.BUSNAME.toLowerCase().includes(searchTerm));
+			setSearchResults(results);
+		},
+		[searchTerm]
+	);
 
 	return (
 		<div>
 			<Container className="mt-5">
-				<Form inline className="justify-content-center" md={12}>
+				<Form inline className="justify-content-center" md={12} value={searchTerm} onChange={handleChange}>
 					<FormControl type="text" placeholder="Search" />
 					<Button variant="outline-success">Search</Button>
 				</Form>
 				<CardDeck className="justify-content-center">
-					{props.data.map((each, i) => {
+					{searchResults.map((each, i) => {
 						return (
 							<div key={i}>
 								<Col className="mt-5" md={4}>
@@ -66,6 +80,6 @@ export const Home = props => {
 		</div>
 	);
 };
-Home.propTypes = {
-	data: PropTypes.any
-};
+// Home.propTypes = {
+// 	data: PropTypes.any
+// };
