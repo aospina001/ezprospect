@@ -15,11 +15,19 @@ import {
 import "../../styles/home.scss";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { useForm } from "react-hook-form";
 
 export const Landing = () => {
 	const [show, setShow] = useState(false);
+	const { store, actions } = useContext(Context);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const { register, handleSubmit } = useForm();
+
+	const onSubmit = async data => {
+		actions.signup(data);
+	};
+
 	return (
 		<Container>
 			<Jumbotron>
@@ -36,18 +44,28 @@ export const Landing = () => {
 						<Modal.Header closeButton>
 							<Modal.Title>Modal title</Modal.Title>
 						</Modal.Header>
-						<Form>
+						<Form onSubmit={handleSubmit(onSubmit)}>
 							<Modal.Body>
 								<Form.Group>
 									<Form.Row>
 										<Form.Group as={Col} controlId="formGridEmail">
 											<Form.Label>Email</Form.Label>
-											<Form.Control type="email" placeholder="Enter email" />
+											<Form.Control
+												type="email"
+												placeholder="Enter email"
+												name="email"
+												ref={register}
+											/>
 										</Form.Group>
 
 										<Form.Group as={Col} controlId="formGridPassword">
 											<Form.Label>Password</Form.Label>
-											<Form.Control type="password" placeholder="Password" />
+											<Form.Control
+												type="password"
+												placeholder="Password"
+												name="password"
+												ref={register}
+											/>
 										</Form.Group>
 									</Form.Row>
 
@@ -90,7 +108,9 @@ export const Landing = () => {
 								<Button variant="secondary" onClick={handleClose}>
 									Cancel
 								</Button>
-								<Button variant="dark outline-success">Create account</Button>
+								<Button variant="dark outline-success" type="submit">
+									Create account
+								</Button>
 							</Modal.Footer>
 						</Form>
 					</Modal>

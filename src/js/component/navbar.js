@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Navbar, Nav, Container, Form, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Context } from "../store/appContext";
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
+	const { store, actions } = useContext(Context);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = async data => {
-		window.location.href = "/logged";
+		actions.login(data);
 	};
 	return (
 		<Container className="mt-3">
@@ -42,7 +44,7 @@ export const NavigationBar = () => {
 						<Form onSubmit={handleSubmit(onSubmit)}>
 							<Form.Group controlId="formBasicEmail">
 								<Form.Label>Username</Form.Label>
-								<Form.Control type="email" placeholder="Enter username" />
+								<Form.Control type="email" placeholder="Enter username" name="email" ref={register} />
 								<Form.Text className="text-muted">
 									Well never share your email with anyone else.
 								</Form.Text>
@@ -50,11 +52,11 @@ export const NavigationBar = () => {
 
 							<Form.Group controlId="formBasicPassword">
 								<Form.Label>Password</Form.Label>
-								<Form.Control type="password" placeholder="Password" />
+								<Form.Control type="password" placeholder="Password" name="password" ref={register} />
 							</Form.Group>
-							<Form.Group controlId="formBasicCheckbox">
+							{/* <Form.Group controlId="formBasicCheckbox">
 								<Form.Check type="checkbox" label="Remember me" />
-							</Form.Group>
+							</Form.Group> */}
 							<Button variant="secondary" onClick={handleClose}>
 								Cancel
 							</Button>
