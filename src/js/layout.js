@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import BusinessDetails from "./views/businessDetails";
+import { BusinessDetails } from "./views/businessDetails";
 import { Prospects } from "./views/prospects";
 import injectContext, { Context } from "./store/appContext";
 import { ProspectDetails } from "./views/prospectDetails";

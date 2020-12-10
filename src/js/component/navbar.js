@@ -22,9 +22,11 @@ export const NavigationBar = () => {
 	};
 	return (
 		<Container>
-			<Navbar style={{ background: "black" }}>
+			<Navbar style={{ background: "#03989e" }}>
 				<Link to="/">
-					<Navbar.Brand>EZ Prospect</Navbar.Brand>
+					<Navbar.Brand>
+						<Image height={50} width={100} src={Logo} className="align-items-center" />
+					</Navbar.Brand>
 				</Link>
 				<Nav className="mr-auto">
 					<Nav.Link href="#features">About Us</Nav.Link>

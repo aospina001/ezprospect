@@ -13,7 +13,7 @@ export const BusinessDetails = () => {
 	const { store, actions } = useContext(Context);
 	const { register, handleSubmit } = useForm();
 	let history = useHistory();
-	console.log(id);
+	console.log(store.business);
 
 	const onSubmit = async () => {
 		// 	const objectId = store.business[id].properties.OBJECTID;
@@ -28,7 +28,7 @@ export const BusinessDetails = () => {
 				if (each.properties.OBJECTID == id) {
 					return (
 						<div>
-							<Jumbotron style={{ background: "white" }} className="mt-2" s>
+							<Jumbotron>
 								<Col className="d-flex justify-content-rigth">
 									<form onSubmit={handleSubmit(onSubmit())}>
 										<Button variant="success" type="submit">
