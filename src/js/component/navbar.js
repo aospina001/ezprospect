@@ -4,6 +4,7 @@ import { Button, Navbar, Nav, Container, Form, Modal, Figure, Image } from "reac
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
+import Logo from "../../img/logo.png";
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);

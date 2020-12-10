@@ -13,12 +13,11 @@ export const BusinessDetails = () => {
 	const { store, actions } = useContext(Context);
 	const { register, handleSubmit } = useForm();
 	let history = useHistory();
-	console.log(store.business);
 
 	const onSubmit = async () => {
-		// 	const objectId = store.business[id].properties.OBJECTID;
-		// 	await actions.addProspect(objectId, store.business[id]);
-		// 	history.push(`/prospectDetails/${objectId}`);
+		const objectId = store.business[id].properties.OBJECTID;
+		await actions.addProspect(objectId, store.business[id]);
+		if (store.prospect[id]) history.push(`/prospectDetails/${objectId}`);
 	};
 
 	return (

@@ -16,6 +16,7 @@ import "../../styles/home.scss";
 import { Link, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
+import "../../styles/index.scss";
 
 export const Landing = () => {
 	const [show, setShow] = useState(false);
