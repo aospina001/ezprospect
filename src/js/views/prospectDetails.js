@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Redirect } from "react-router-dom";
 import {
 	Container,
 	Jumbotron,
@@ -48,6 +48,7 @@ export const ProspectDetails = props => {
 
 	return (
 		<Container className="mt-5">
+			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.prospect.map((each, i) => {
 				if (each.objectId == id) {
 					return (

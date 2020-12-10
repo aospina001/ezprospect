@@ -13,7 +13,7 @@ import {
 	Spinner
 } from "react-bootstrap";
 import "../../styles/home.scss";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Home = () => {
@@ -21,6 +21,7 @@ export const Home = () => {
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
+
 	const handleChange = e => {
 		setSearchTerm(e.target.value);
 	};
@@ -35,6 +36,7 @@ export const Home = () => {
 
 	return (
 		<div>
+			{store.token == null ? <Redirect to="/" /> : ""}
 			<Container className="mt-5">
 				<Form inline className="justify-content-center" md={12} value={searchTerm} onChange={handleChange}>
 					<FormControl type="text" placeholder="Search" />
@@ -52,14 +54,8 @@ export const Home = () => {
 											<ButtonToolbar
 												className="justify-content-between"
 												aria-label="Toolbar with Button groups">
-												<Link to={`/businessDetails/${i}`}>
+												<Link to={`/businessDetails/${each.properties.OBJECTID}`}>
 													<Button variant="success">Create Prospect</Button>
-												</Link>
-
-												<Link>
-													<Button variant="outline-success">
-														<i className="far fa-save" />
-													</Button>
 												</Link>
 											</ButtonToolbar>
 										</Card.Body>
@@ -70,13 +66,14 @@ export const Home = () => {
 					})}
 				</CardDeck>
 			</Container>
-
+			{/* //{" "}
 			<Pagination className="mt-5 justify-content-center">
-				<Pagination.Item>1</Pagination.Item>
-				<Pagination.Item>2</Pagination.Item>
-				<Pagination.Item>3</Pagination.Item>
-				<Pagination.Item>4</Pagination.Item>
-			</Pagination>
+				// <Pagination.Item>1</Pagination.Item>
+				// <Pagination.Item>2</Pagination.Item>
+				// <Pagination.Item>3</Pagination.Item>
+				// <Pagination.Item>4</Pagination.Item>
+				//{" "}
+			</Pagination> */}
 		</div>
 	);
 };

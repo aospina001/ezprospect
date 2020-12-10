@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Button, Navbar, Nav, Container, Form, Modal } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { Button, Navbar, Nav, Container, Form, Modal, Figure, Image } from "react-bootstrap";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
@@ -10,32 +10,42 @@ export const NavigationBar = () => {
 	const { store, actions } = useContext(Context);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const history = useHistory();
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = async data => {
-		actions.login(data);
+		const done = await actions.login(data);
+		if (store.token != null) {
+			handleClose();
+			history.push("/logged");
+		}
 	};
 	return (
-		<Container className="mt-3">
-			<Navbar bg="dark" variant="dark">
+		<Container>
+			<Navbar style={{ background: "black" }}>
 				<Link to="/">
 					<Navbar.Brand>EZ Prospect</Navbar.Brand>
-				</Link>
-				<Link to="/logged">
-					<Navbar.Brand>Home</Navbar.Brand>
 				</Link>
 				<Nav className="mr-auto">
 					<Nav.Link href="#features">About Us</Nav.Link>
 					<Nav.Link href="#pricing">Contact Us</Nav.Link>
 				</Nav>
-				<Link to="/prospects">
-					<Button variant="dark outline-success" className="mx-3">
-						My Prospect
-					</Button>
-				</Link>
-				<Button variant="dark outline-success" onClick={handleShow}>
-					Login
-				</Button>{" "}
+				{store.token ? (
+					<div>
+						<Link to="/prospects">
+							<Button variant="dark outline-success" className="mx-3">
+								My Prospect
+							</Button>
+						</Link>
+						<Button variant="dark outline-success">Sign Out</Button>
+					</div>
+				) : (
+					<div>
+						<Button variant="dark outline-success" onClick={handleShow}>
+							Login
+						</Button>
+					</div>
+				)}
 				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 					<Modal.Header closeButton>
 						<Modal.Title>Loging</Modal.Title>

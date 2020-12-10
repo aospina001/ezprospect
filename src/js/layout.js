@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import { BusinessDetails } from "./views/businessDetails";
+import BusinessDetails from "./views/businessDetails";
 import { Prospects } from "./views/prospects";
 import injectContext, { Context } from "./store/appContext";
 import { ProspectDetails } from "./views/prospectDetails";
@@ -33,7 +33,6 @@ const Layout = () => {
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<NavigationBar />
 					{store.business.length == 0 ? (
 						<div className="mt-5 text-center">
 							<Spinner animation="border" role="status" variant="success">
@@ -41,26 +40,29 @@ const Layout = () => {
 							</Spinner>
 						</div>
 					) : (
-						<Switch>
-							<Route exact path="/">
-								<Landing />
-							</Route>
-							<Route exact path="/logged">
-								<Home />
-							</Route>
-							<Route exact path="/businessDetails/:id">
-								<BusinessDetails data={store.business} />
-							</Route>
-							<Route exact path="/prospects">
-								<Prospects />
-							</Route>
-							<Route exact path="/prospectDetails/:id">
-								<ProspectDetails data={store.business} />
-							</Route>
-							<Route>
-								<h1>Not found!</h1>
-							</Route>
-						</Switch>
+						<div>
+							<NavigationBar />
+							<Switch>
+								<Route exact path="/">
+									<Landing />
+								</Route>
+								<Route exact path="/logged">
+									<Home />
+								</Route>
+								<Route exact path="/businessDetails/:id">
+									<BusinessDetails />
+								</Route>
+								<Route exact path="/prospects">
+									<Prospects />
+								</Route>
+								<Route exact path="/prospectDetails/:id">
+									<ProspectDetails data={store.business} />
+								</Route>
+								<Route>
+									<h1>Not found!</h1>
+								</Route>
+							</Switch>
+						</div>
 					)}
 					<Footer />
 				</ScrollToTop>

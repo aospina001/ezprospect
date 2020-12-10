@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import { Container, Jumbotron, ButtonToolbar, Button, Tab, Tabs, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
@@ -13,18 +13,19 @@ export const BusinessDetails = () => {
 	const { store, actions } = useContext(Context);
 	const { register, handleSubmit } = useForm();
 	let history = useHistory();
-	console.log(store.business[id]);
+	console.log(id);
 
 	const onSubmit = async () => {
-		const objectId = store.business[id].properties.OBJECTID;
-		await actions.addProspect(objectId, store.business[id]);
-		history.push(`/prospectDetails/${objectId}`);
+		// 	const objectId = store.business[id].properties.OBJECTID;
+		// 	await actions.addProspect(objectId, store.business[id]);
+		// 	history.push(`/prospectDetails/${objectId}`);
 	};
 
 	return (
 		<Container className="mt-2">
+			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.business.map((each, i) => {
-				if (i == id) {
+				if (each.properties.OBJECTID == id) {
 					return (
 						<div>
 							<Jumbotron style={{ background: "white" }} className="mt-2" s>
