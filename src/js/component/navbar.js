@@ -1,54 +1,47 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Navbar, Nav, Container, Form, Modal, Figure, Image } from "react-bootstrap";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
+import Logo from "../../img/logo.png";
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
-	const { store, actions } = useContext(Context);
+	const { actions } = useContext(Context);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const history = useHistory();
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = async data => {
-		const done = await actions.login(data);
-		if (store.token != null) {
-			handleClose();
-			history.push("/logged");
-		}
+		actions.login(data);
 	};
 	return (
 		<Container>
-			<Navbar style={{ background: "black" }}>
+			<Navbar style={{ background: "#03989e" }}>
 				<Link to="/">
-					<Navbar.Brand>EZ Prospect</Navbar.Brand>
+					<Navbar.Brand>
+						<Image height={50} width={100} src={Logo} className="align-items-center" />
+					</Navbar.Brand>
+				</Link>
+				<Link to="/logged">
+					<Navbar.Brand>Home</Navbar.Brand>
 				</Link>
 				<Nav className="mr-auto">
-					<Nav.Link href="#features">About Us</Nav.Link>
-					<Nav.Link href="#pricing">Contact Us</Nav.Link>
+					<Nav.Link href="#aboutus">About Us</Nav.Link>
+					<Nav.Link href="#contactus">Contact Us</Nav.Link>
 				</Nav>
-				{store.token ? (
-					<div>
-						<Link to="/prospects">
-							<Button variant="dark outline-success" className="mx-3">
-								My Prospect
-							</Button>
-						</Link>
-						<Button variant="dark outline-success">Sign Out</Button>
-					</div>
-				) : (
-					<div>
-						<Button variant="dark outline-success" onClick={handleShow}>
-							Login
-						</Button>
-					</div>
-				)}
+				<Link to="/prospects">
+					<Button variant="dark outline-success" className="mx-3">
+						My Prospect
+					</Button>
+				</Link>
+				<Button variant="dark outline-success" onClick={handleShow}>
+					Login
+				</Button>{" "}
 				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 					<Modal.Header closeButton>
-						<Modal.Title>Loging</Modal.Title>
+						<Modal.Title>Login</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<Form onSubmit={handleSubmit(onSubmit)}>

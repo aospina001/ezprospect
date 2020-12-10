@@ -13,9 +13,10 @@ import {
 	Col
 } from "react-bootstrap";
 import "../../styles/home.scss";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
+import "../../styles/index.scss";
 
 export const Landing = () => {
 	const [show, setShow] = useState(false);
@@ -30,7 +31,6 @@ export const Landing = () => {
 
 	return (
 		<Container>
-			{store.token != null ? <Redirect to="/logged" /> : ""}
 			<Jumbotron>
 				<h1>Hello, world!</h1>
 				<p>
