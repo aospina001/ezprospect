@@ -44,7 +44,7 @@ export const Landing = () => {
 					</Button>
 					<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 						<Modal.Header closeButton>
-							<Modal.Title>Modal title</Modal.Title>
+							<Modal.Title>Create an Account</Modal.Title>
 						</Modal.Header>
 						<Form onSubmit={handleSubmit(onSubmit)}>
 							<Modal.Body>
@@ -56,7 +56,7 @@ export const Landing = () => {
 												type="email"
 												placeholder="Enter email"
 												name="email"
-												ref={register}
+												ref={register({ required: true })}
 											/>
 										</Form.Group>
 
@@ -66,44 +66,41 @@ export const Landing = () => {
 												type="password"
 												placeholder="Password"
 												name="password"
-												ref={register}
+												ref={register({ required: true })}
 											/>
 										</Form.Group>
 									</Form.Row>
 
-									<Form.Group controlId="formGridAddress1">
-										<Form.Label>Address</Form.Label>
-										<Form.Control placeholder="1234 Main St" />
-									</Form.Group>
-
-									<Form.Group controlId="formGridAddress2">
-										<Form.Label>Address 2</Form.Label>
-										<Form.Control placeholder="Apartment, studio, or floor" />
-									</Form.Group>
-
 									<Form.Row>
-										<Form.Group as={Col} controlId="formGridCity">
-											<Form.Label>City</Form.Label>
-											<Form.Control />
+										<Form.Group as={Col} controlId="formGridEmail">
+											<Form.Label>First Name</Form.Label>
+											<Form.Control
+												placeholder="First Name"
+												name="first_name"
+												ref={register({ required: true })}
+											/>
 										</Form.Group>
 
-										<Form.Group as={Col} controlId="formGridState">
-											<Form.Label>State</Form.Label>
-											<Form.Control as="select" defaultValue="Choose...">
-												<option>Choose...</option>
-												<option>...</option>
-											</Form.Control>
-										</Form.Group>
-
-										<Form.Group as={Col} controlId="formGridZip">
-											<Form.Label>Zip</Form.Label>
-											<Form.Control />
+										<Form.Group as={Col} controlId="formGridPassword">
+											<Form.Label>Last Name</Form.Label>
+											<Form.Control
+												placeholder="Last Name"
+												name="last_name"
+												ref={register({ required: true })}
+											/>
 										</Form.Group>
 									</Form.Row>
 
-									<Form.Group id="formGridCheckbox">
-										<Form.Check type="checkbox" label="Check me out" />
-									</Form.Group>
+									<Form.Row>
+										<Form.Group as={Col} controlId="formGridCity">
+											<Form.Label>Phone Number</Form.Label>
+											<Form.Control
+												placeholder="Phone Number"
+												name="phone_number"
+												ref={register({ required: true })}
+											/>
+										</Form.Group>
+									</Form.Row>
 								</Form.Group>
 							</Modal.Body>
 							<Modal.Footer>

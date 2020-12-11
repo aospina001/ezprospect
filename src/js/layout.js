@@ -25,6 +25,7 @@ const Layout = () => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
+		actions.loadProspects();
 		actions.loadData();
 		setLoading(false);
 	}, []);

@@ -16,6 +16,7 @@ export const NavigationBar = () => {
 
 	const onSubmit = async data => {
 		const done = await actions.login(data);
+
 		if (store.token != null) {
 			handleClose();
 			history.push("/logged");

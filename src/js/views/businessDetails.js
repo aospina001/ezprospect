@@ -11,13 +11,11 @@ import { Context } from "../store/appContext";
 export const BusinessDetails = () => {
 	const { id } = useParams();
 	const { store, actions } = useContext(Context);
-	const { register, handleSubmit } = useForm();
 	let history = useHistory();
 
 	const onSubmit = async () => {
-		const objectId = store.business[id].properties.OBJECTID;
-		await actions.addProspect(objectId, store.business[id]);
-		if (store.prospect[id]) history.push(`/prospectDetails/${objectId}`);
+		let new_prostect = await actions.addProspect(store.business[id].properties);
+		// history.push(`/prospectDetails/${id}`);
 	};
 
 	return (
@@ -29,11 +27,9 @@ export const BusinessDetails = () => {
 						<div>
 							<Jumbotron>
 								<Col className="d-flex justify-content-rigth">
-									<form onSubmit={handleSubmit(onSubmit())}>
-										<Button variant="success" type="submit">
-											Add Prospect
-										</Button>
-									</form>
+									<Button variant="success" onClick={onSubmit}>
+										Add Prospect
+									</Button>
 								</Col>
 								<h1 className="mt-2">{each.properties.BUSNAME}</h1>
 								<p>Address -- {each.properties.BUSADDR}</p>

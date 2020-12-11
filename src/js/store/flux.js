@@ -42,48 +42,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			signup: async newUser => {
 				try {
-					const response = await fetch(
-						"https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io/signup",
-						{
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({
-								email: newUser.email,
-								password: newUser.password
-							})
-						}
-					);
+					const response = await fetch(`${ezprospectUrl}/signup`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							email: newUser.email,
+							password: newUser.password,
+							first_name: newUser.first_name,
+							last_name: newUser.last_name,
+							phone_number: newUser.phone_number
+						})
+					});
 					const body = await response.json();
-					if (response.status == 400 || response.status == 500) {
-						console.log(body);
+					if (response.status == 200) {
+						setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
-						console.log("Logged", body);
-						window.location.href = "/logged";
+						setStore({ token: null, user_id: null });
+						console.log(body);
 					}
 				} catch (error) {
 					console.log(error);
 				}
 			},
 
-			addProspect: (objectId, data) => {
-				const store = getStore();
-				let count = 0;
-				store.prospect.map(each => {
-					if (each.objectId == objectId) {
-						count = 1;
-					}
-				});
-				if (count == 0) {
-					setStore({
-						prospect: [
-							...store.prospect,
-							{
-								objectId,
-								data
-							}
-						]
+			addProspect: async data => {
+				try {
+					const response = await fetch(`${ezprospectUrl}/addProspect`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							name: data.BUSNAME,
+							industry: data.CLASSCODE,
+							address1: data.BUSADDR,
+							address2: data.BUSADDR2,
+							city: data.BUSCITY,
+							state: data.BUSSTATE,
+							zipCode: data.ZIPCODE,
+							phone_number: data.PHONENO,
+							account: data.ACCOUNTNO
+						})
 					});
+					const body = await response.json();
+					console.log(body);
+				} catch (error) {
+					console.log(error);
 				}
+			},
+
+			loadProspects: async () => {
+				const store = getStore();
+				const response = await fetch(`${ezprospectUrl}/prospects`);
+				const data = await response.json();
+				setStore({
+					prospect: data
+				});
 			},
 
 			addContact: data => {

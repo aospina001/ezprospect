@@ -10,15 +10,14 @@ export const Prospects = () => {
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
+
 	const handleChange = e => {
 		setSearchTerm(e.target.value);
 	};
 
 	React.useEffect(
 		() => {
-			const results = store.prospect.filter(each =>
-				each.data.properties.BUSNAME.toLowerCase().includes(searchTerm)
-			);
+			const results = store.prospect.filter(each => each.name.toLowerCase().includes(searchTerm));
 			setSearchResults(results);
 		},
 		[searchTerm]
@@ -49,15 +48,15 @@ export const Prospects = () => {
 									<Col className="mt-5" md={4} key={i}>
 										<Card style={{ width: "18rem" }}>
 											<Card.Body>
-												<Card.Title>{each.data.properties.BUSNAME}</Card.Title>
+												<Card.Title>{each.name}</Card.Title>
 												<Card.Subtitle className="mb-2 text-muted">
-													{each.data.properties.CLASSCODE}
+													{each.industry}
 												</Card.Subtitle>
-												<Card.Text>{each.data.properties.BUSADDR}</Card.Text>
+												<Card.Text>{each.address1}</Card.Text>
 												<ButtonToolbar
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
-													<Link to={`/prospectDetails/${each.objectId}`}>
+													<Link to={`/prospectDetails/${each.id}`}>
 														<Button variant="success">View</Button>
 													</Link>
 												</ButtonToolbar>

@@ -36,7 +36,7 @@ export const Home = () => {
 
 	return (
 		<div>
-			{store.token == null ? <Redirect to="/" /> : ""}
+			{store.token == null ? <Redirect to="/" /> : console.log(store.token)}
 			<Container className="mt-5">
 				<Form inline className="justify-content-center" md={12} value={searchTerm} onChange={handleChange}>
 					<FormControl type="text" placeholder="Search" />
@@ -44,8 +44,6 @@ export const Home = () => {
 				</Form>
 				<CardDeck className="justify-content-center">
 					{searchResults.map((each, i) => {
-						console.log(each.properties.OBJECTID);
-
 						return (
 							<div key={i}>
 								<Col className="mt-5" md={4}>
