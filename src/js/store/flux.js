@@ -98,6 +98,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
+			delete_Token: () => {
+				setStore({ token: null, user_id: null });
+			},
+
 			addContact: data => {
 				const store = getStore();
 				setStore({

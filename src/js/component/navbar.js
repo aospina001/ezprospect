@@ -41,7 +41,13 @@ export const NavigationBar = () => {
 								My Prospect
 							</Button>
 						</Link>
-						<Button variant="dark outline-success">Sign Out</Button>
+						<Button
+							variant="dark outline-success"
+							onClick={() => {
+								actions.delete_Token();
+							}}>
+							Sign Out
+						</Button>
 					</div>
 				) : (
 					<div>
