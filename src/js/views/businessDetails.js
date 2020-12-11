@@ -15,7 +15,9 @@ export const BusinessDetails = () => {
 
 	const onSubmit = async () => {
 		let new_prostect = await actions.addProspect(store.business[id].properties);
-		// history.push(`/prospectDetails/${id}`);
+		console.log(new_prostect);
+		actions.loadProspects();
+		history.push(`/prospectDetails/${new_prostect}`);
 	};
 
 	return (

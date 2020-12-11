@@ -83,6 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					});
 					const body = await response.json();
+					return data.ACCOUNTNO;
 					console.log(body);
 				} catch (error) {
 					console.log(error);
@@ -90,7 +91,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			loadProspects: async () => {
-				const store = getStore();
 				const response = await fetch(`${ezprospectUrl}/prospects`);
 				const data = await response.json();
 				setStore({

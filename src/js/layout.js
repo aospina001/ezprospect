@@ -56,7 +56,7 @@ const Layout = () => {
 								<Route exact path="/prospects">
 									<Prospects />
 								</Route>
-								<Route exact path="/prospectDetails/:id">
+								<Route exact path="/prospectDetails/:account">
 									<ProspectDetails data={store.business} />
 								</Route>
 								<Route>

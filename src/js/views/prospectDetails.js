@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-	const { id } = useParams();
+	const { account } = useParams();
 	const [loading, setLoading] = useState(true);
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
@@ -33,7 +33,7 @@ export const ProspectDetails = props => {
 	const handleShowContact = () => setShowContact(true);
 	const handleCloseFinancial = () => setShowfinancial(false);
 	const handleShowFinancial = () => setShowfinancial(true);
-	console.log(id);
+	console.log(account);
 
 	const onSubmitFinancial = async data => {
 		// const vari = props.data[id];
@@ -51,22 +51,21 @@ export const ProspectDetails = props => {
 		<Container className="mt-5">
 			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.prospect.map((each, i) => {
-				if (each.objectId == id) {
+				if (each.account == account) {
 					return (
 						<div>
 							<Tabs fill defaultActiveKey="info" id="uncontrolled-tab-example">
 								<Tab eventKey="info" title="Business Info">
 									<Jumbotron style={{ background: "white" }} className="mt-2">
-										<h1>{each.data.properties.BUSNAME}</h1>
-										<p>Address -- {each.data.properties.BUSADDR}</p>
-										<p>Folio -- {each.data.properties.FOLIO}</p>
-										<p>Account -- {each.data.properties.ACCOUNTNO}</p>
-										<p>Status -- {each.data.properties.ACCSTATUS}</p>
-										<p>Class Code -- {each.data.properties.CLASSCODE}</p>
+										<h1>{each.name}</h1>
+										<p>Address -- {each.address1}</p>
+										<p>Account -- {each.account}</p>
+										<p>Account -- {each.phone_number}</p>
+										{/* <p>Class Code -- {each.data.properties.CLASSCODE}</p>
 										<p>Class Description -- {each.data.properties.CLASSDESC}</p>
 										<p>Mail Address -- {each.data.properties.MAILADDR}</p>
 										<p>Owner Name -- {each.data.properties.OWNERNAME}</p>
-										<p>Phone Number -- {each.data.properties.PHONENO}</p>
+										<p>Phone Number -- {each.data.properties.PHONENO}</p> */}
 									</Jumbotron>
 								</Tab>
 
