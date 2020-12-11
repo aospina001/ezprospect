@@ -44,6 +44,8 @@ export const Home = () => {
 				</Form>
 				<CardDeck className="justify-content-center">
 					{searchResults.map((each, i) => {
+						console.log(each.properties.OBJECTID);
+
 						return (
 							<div key={i}>
 								<Col className="mt-5" md={4}>

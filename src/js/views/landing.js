@@ -13,7 +13,7 @@ import {
 	Col
 } from "react-bootstrap";
 import "../../styles/home.scss";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 import "../../styles/index.scss";
@@ -31,7 +31,9 @@ export const Landing = () => {
 
 	return (
 		<Container>
-			<Jumbotron className="top-landing">
+			<Jumbotron className="top-landing" />
+			{store.token != null ? <Redirect to="/logged" /> : ""}
+			<Jumbotron>
 				<h1>Hello, world!</h1>
 				<p>
 					This is a simple hero unit, a simple jumbotron-style component for calling extra attention to

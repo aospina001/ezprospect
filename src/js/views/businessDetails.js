@@ -13,12 +13,11 @@ export const BusinessDetails = () => {
 	const { store, actions } = useContext(Context);
 	const { register, handleSubmit } = useForm();
 	let history = useHistory();
-	console.log(id);
 
 	const onSubmit = async () => {
-		// 	const objectId = store.business[id].properties.OBJECTID;
-		// 	await actions.addProspect(objectId, store.business[id]);
-		// 	history.push(`/prospectDetails/${objectId}`);
+		const objectId = store.business[id].properties.OBJECTID;
+		await actions.addProspect(objectId, store.business[id]);
+		if (store.prospect[id]) history.push(`/prospectDetails/${objectId}`);
 	};
 
 	return (
@@ -28,7 +27,7 @@ export const BusinessDetails = () => {
 				if (each.properties.OBJECTID == id) {
 					return (
 						<div>
-							<Jumbotron style={{ background: "white" }} className="mt-2" s>
+							<Jumbotron>
 								<Col className="d-flex justify-content-rigth">
 									<form onSubmit={handleSubmit(onSubmit())}>
 										<Button variant="success" type="submit">
