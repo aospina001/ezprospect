@@ -22,11 +22,11 @@ export const NavigationBar = () => {
 		}
 	};
 	return (
-		<Container>
-			<Navbar style={{ background: "#03989e" }}>
+		<Navbar style={{ background: "#03989e" }}>
+			<Container>
 				<Link to="/">
 					<Navbar.Brand>
-						<Image height={50} width={100} src={Logo} className="align-items-center" />
+						<Image height={56} width={135} src={Logo} className="align-items-center" />
 					</Navbar.Brand>
 				</Link>
 				<Nav className="mr-auto">
@@ -79,7 +79,7 @@ export const NavigationBar = () => {
 						</Form>
 					</Modal.Body>
 				</Modal>
-			</Navbar>
-		</Container>
+			</Container>
+		</Navbar>
 	);
 };
