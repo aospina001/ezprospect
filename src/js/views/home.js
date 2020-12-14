@@ -51,10 +51,11 @@ export const Home = () => {
 										<Card.Header>{each.properties.BUSNAME}</Card.Header>
 										<Card.Body>
 											<Card.Text>{each.properties.BUSADDR}</Card.Text>
+											<Card.Text>{each.properties.ACCOUNTNO}</Card.Text>
 											<ButtonToolbar
 												className="justify-content-between"
 												aria-label="Toolbar with Button groups">
-												<Link to={`/businessDetails/${each.properties.OBJECTID}`}>
+												<Link to={`/businessDetails/${each.properties.ACCOUNTNO}`}>
 													<Button variant="success">Create Prospect</Button>
 												</Link>
 											</ButtonToolbar>

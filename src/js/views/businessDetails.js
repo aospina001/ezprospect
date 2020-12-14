@@ -9,13 +9,12 @@ import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 
 export const BusinessDetails = () => {
-	const { id } = useParams();
+	const { account } = useParams();
 	const { store, actions } = useContext(Context);
 	let history = useHistory();
 
-	const onSubmit = async () => {
-		let new_prostect = await actions.addProspect(store.business[id].properties);
-		console.log(new_prostect);
+	const onSubmit = async data => {
+		let new_prostect = await actions.addProspect(data);
 		actions.loadProspects();
 		history.push(`/prospectDetails/${new_prostect}`);
 	};
@@ -24,12 +23,12 @@ export const BusinessDetails = () => {
 		<Container className="mt-2">
 			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.business.map((each, i) => {
-				if (each.properties.OBJECTID == id) {
+				if (each.properties.ACCOUNTNO == account) {
 					return (
 						<div>
 							<Jumbotron>
 								<Col className="d-flex justify-content-rigth">
-									<Button variant="success" onClick={onSubmit}>
+									<Button variant="success" onClick={() => onSubmit(each.properties)}>
 										Add Prospect
 									</Button>
 								</Col>

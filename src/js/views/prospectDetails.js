@@ -33,7 +33,6 @@ export const ProspectDetails = props => {
 	const handleShowContact = () => setShowContact(true);
 	const handleCloseFinancial = () => setShowfinancial(false);
 	const handleShowFinancial = () => setShowfinancial(true);
-	console.log(account);
 
 	const onSubmitFinancial = async data => {
 		// const vari = props.data[id];

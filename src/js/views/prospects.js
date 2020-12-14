@@ -15,6 +15,10 @@ export const Prospects = () => {
 		setSearchTerm(e.target.value);
 	};
 
+	useEffect(() => {
+		actions.loadProspects();
+	}, []);
+
 	React.useEffect(
 		() => {
 			const results = store.prospect.filter(each => each.name.toLowerCase().includes(searchTerm));
@@ -56,7 +60,7 @@ export const Prospects = () => {
 												<ButtonToolbar
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
-													<Link to={`/prospectDetails/${each.id}`}>
+													<Link to={`/prospectDetails/${each.account}`}>
 														<Button variant="success">View</Button>
 													</Link>
 												</ButtonToolbar>

@@ -50,14 +50,14 @@ const Layout = () => {
 								<Route exact path="/logged">
 									<Home />
 								</Route>
-								<Route exact path="/businessDetails/:id">
+								<Route exact path="/businessDetails/:account">
 									<BusinessDetails />
 								</Route>
 								<Route exact path="/prospects">
 									<Prospects />
 								</Route>
 								<Route exact path="/prospectDetails/:account">
-									<ProspectDetails data={store.business} />
+									<ProspectDetails />
 								</Route>
 								<Route>
 									<h1>Not found!</h1>

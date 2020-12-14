@@ -1,3 +1,26 @@
-/* 
-    General Styles
-*/
+.flex {
+    display: flex;
+}
+
+.top-landing {
+    color: white;
+    background: rgba(3,152,158,.1) url('../../src/img/jumbotron-img.jpg') no-repeat center;
+    background-size: cover;
+    justify-content: center;
+
+}
+
+@media only screen and (min-width: 576px) {
+    .jumbotron {
+        padding: 6rem 2rem;
+    } 
+    .card {
+        width: 18rem;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .card {
+        width: 100%;
+    } 
+}
