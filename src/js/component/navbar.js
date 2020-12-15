@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
 import Logo from "../../img/logo.png";
+import "../../styles/index.scss";
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
@@ -23,7 +24,7 @@ export const NavigationBar = () => {
 		}
 	};
 	return (
-		<Navbar style={{ background: "#03989e" }}>
+		<Navbar className="base-color">
 			<Container>
 				<Link to="/">
 					<Navbar.Brand>
