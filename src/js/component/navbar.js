@@ -36,11 +36,6 @@ export const NavigationBar = () => {
 				</Nav>
 				{store.token ? (
 					<div>
-						<Link to="/prospects">
-							<Button variant="dark outline-success" className="mx-3">
-								My Prospect
-							</Button>
-						</Link>
 						<Button
 							variant="dark outline-success"
 							onClick={() => {

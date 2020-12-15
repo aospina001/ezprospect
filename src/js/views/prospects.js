@@ -3,8 +3,6 @@ import { Link, useParams, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Card, Container, CardDeck, Form, FormControl, Button, ButtonToolbar, Col, Alert } from "react-bootstrap";
 
-const people = ["Siri", "Alexa", "Google", "Facebook", "Twitter", "Linkedin", "Sinkedin"];
-
 export const Prospects = () => {
 	const { store, actions } = useContext(Context);
 
@@ -29,7 +27,6 @@ export const Prospects = () => {
 
 	return (
 		<Container className="mt-5">
-			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.prospect.length == 0 ? (
 				<Alert variant="success">
 					<Alert.Heading>Sorry, no prospect created yet</Alert.Heading>

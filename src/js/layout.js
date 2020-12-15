@@ -22,49 +22,36 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	const { store, actions } = useContext(Context);
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		actions.loadProspects();
-		actions.loadData();
-		setLoading(false);
-	}, []);
 
 	return (
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					{store.business.length == 0 ? (
+					{/* {store.business.length == 0 ? (
 						<div className="mt-5 text-center">
 							<Spinner animation="border" role="status" variant="success">
 								<span className="sr-only justify-content-center">Loading...</span>
 							</Spinner>
 						</div>
-					) : (
-						<div>
-							<NavigationBar />
-							<Switch>
-								<Route exact path="/">
-									<Landing />
-								</Route>
-								<Route exact path="/logged">
-									<Home />
-								</Route>
-								<Route exact path="/businessDetails/:account">
-									<BusinessDetails />
-								</Route>
-								<Route exact path="/prospects">
-									<Prospects />
-								</Route>
-								<Route exact path="/prospectDetails/:account">
-									<ProspectDetails />
-								</Route>
-								<Route>
-									<h1>Not found!</h1>
-								</Route>
-							</Switch>
-						</div>
-					)}
+					) : ( */}
+					<NavigationBar />
+					<Switch>
+						<Route exact path="/">
+							<Landing />
+						</Route>
+						<Route exact path="/logged">
+							<Home />
+						</Route>
+						<Route exact path="/businessDetails/:account">
+							<BusinessDetails />
+						</Route>
+						<Route exact path="/prospectDetails/:account">
+							<ProspectDetails />
+						</Route>
+						<Route>
+							<h1>Not found!</h1>
+						</Route>
+					</Switch>
 					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>
