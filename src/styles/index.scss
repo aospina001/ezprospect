@@ -1,5 +1,11 @@
+$base-color: #03989e;
+
 .flex {
     display: flex;
+}
+
+.base-color{
+    background-color: $base-color;
 }
 
 .top-landing {
@@ -23,4 +29,13 @@
     .card {
         width: 100%;
     } 
+}
+.footer-links {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.fab {
+    font-size: 20px;
+    margin: 0px 10px 0px 10px;
 }

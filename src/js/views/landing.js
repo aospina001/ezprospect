@@ -163,12 +163,12 @@ export const Landing = () => {
 					<Card>
 						<Card.Img variant="top" src="holder.js/100px180" />
 						<Card.Body>
-							<Card.Title>Card Title</Card.Title>
+							<Card.Title>Generate Financial Information</Card.Title>
 							<Card.Text>
-								Some quick example text to build on the card title and make up the bulk of the cards
-								content.
+								Easily input your financial information to automatically calculate important industry
+								ratios used to underwrite and analze prospects. Manage multiple periods and generate
+								charts to summarize the financial data.
 							</Card.Text>
-							<Button variant="primary">Go somewhere</Button>
 						</Card.Body>
 					</Card>
 				</CardDeck>
