@@ -13,7 +13,6 @@ $base-color: #03989e;
     background: rgba(3,152,158,.1) url('../../src/img/jumbotron-img.jpg') no-repeat center;
     background-size: cover;
     justify-content: center;
-
 }
 
 @media only screen and (min-width: 576px) {
@@ -50,4 +49,32 @@ $base-color: #03989e;
 
 .fab {
     margin: 0px 10px 0px 10px;
+}
+
+Carousel {
+    height: 500px
+}
+
+.about-us-img {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    border-radius: 100%;
+}
+
+#adolfo {
+    background: rgba(3,152,158,.1) url('../../src/img/adolfo.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.about-us-left {
+    height: 300px;
+    width: 200px;
+    background-image: linear-gradient(to right, $base-color, white );
+}
+
+.about-us-right {
+    height: 300px;
+    width: 500px;
+    background-image: linear-gradient(to right, white, $base-color);
 }

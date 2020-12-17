@@ -11,7 +11,8 @@ import {
 	Button,
 	ButtonToolbar,
 	Col,
-	Card
+	Card,
+	Image
 } from "react-bootstrap";
 import CardDeck from "react-bootstrap/CardDeck";
 import Carousel from "react-bootstrap/Carousel";
@@ -23,6 +24,7 @@ import Featured1 from "../../img/featured1.png";
 import Featured2 from "../../img/featured2.png";
 import Featured3 from "../../img/featured3.png";
 import Featured4 from "../../img/featured4.png";
+import Adolfo from "../../img/adolfo.jpg";
 
 export const Landing = () => {
 	const [show, setShow] = useState(false);
@@ -174,7 +176,7 @@ export const Landing = () => {
 					</Card>
 				</CardDeck>
 			</Container>
-			<Carousel activeIndex={index} onSelect={handleSelect}>
+			<Carousel activeIndex={index} onSelect={handleSelect} className="d-flex">
 				<Carousel.Item>
 					<div className="about-us-left">Logo</div>
 					<div className="about-us-right">
@@ -200,7 +202,10 @@ export const Landing = () => {
 					</div>
 				</Carousel.Item>
 				<Carousel.Item>
-					<div className="about-us-left">Photo</div>
+					<div className="about-us-left">
+						<div className="about-us-img" id="adolfo" />
+						{/* <Image src={Adolfo} roundedCircle /> */}
+					</div>
 					<div className="about-us-right">
 						<h3>About Adolfo Ospina</h3>
 						<p>
