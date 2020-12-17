@@ -176,24 +176,32 @@ export const Landing = () => {
 			</Container>
 			<Carousel activeIndex={index} onSelect={handleSelect}>
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="holder.js/800x400?text=First slide&bg=373940"
-						alt="First slide"
-					/>
-					<Carousel.Caption>
-						<h3>First slide label</h3>
-						<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-					</Carousel.Caption>
+					<div className="about-us-left">Logo</div>
+					<div className="about-us-right">
+						<h3>About EZ Prospect</h3>
+						<p>
+							Started in November 2020, the idea of this application began many years prior by Adolfo
+							Ospina while working in several roles in the banking industry. It was put into action as a
+							final project to complete a Full Stack Junior Developer Certification Cohort through 4Geeks
+							Academy. This application was brought to life by Adolfo and the talented Yahilyn Eizmendiz
+							Yiong.
+							<br />
+							Today this application is presently linked by an API from Miami-Dade County, where most of
+							its information is sourced from. EZ Prospect was designed to facilitate the process for
+							financial representatives or banking relationship managers to easily source new prospects
+							using data avaiable though public records.
+							<br />
+							Looking forward, we plan to grow this application, where it can be fully integrated with a
+							banks operating system. Provide information from all public records to provide its user the
+							most detailed and up to date information the user can get on their prospect.
+							<br />
+							As we grow, we hope you grow with us. Let us make your prospecting EZ.
+						</p>
+					</div>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="holder.js/800x400?text=Second slide&bg=282c34"
-						alt="Second slide"
-					/>
-
-					<Carousel.Caption>
+					<div className="about-us-left">Photo</div>
+					<div className="about-us-right">
 						<h3>About Adolfo Ospina</h3>
 						<p>
 							Adolfo Ospina graduated from Florida International University in 2009 with a Bachelors in
@@ -203,19 +211,14 @@ export const Landing = () => {
 							Junior Developer with 4Geeks Academy, where he learned the coding languages to develop the
 							front-end and back-end of applications.
 						</p>
-					</Carousel.Caption>
+					</div>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img
-						className="d-block w-100"
-						src="holder.js/800x400?text=Third slide&bg=20232a"
-						alt="Third slide"
-					/>
-
-					<Carousel.Caption>
+					<div className="about-us-left">Logo</div>
+					<div className="about-us-right">
 						<h3>About Yahilyn Eizmendiz Yiong</h3>
 						<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-					</Carousel.Caption>
+					</div>
 				</Carousel.Item>
 			</Carousel>
 		</div>
