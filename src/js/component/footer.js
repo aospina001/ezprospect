@@ -10,7 +10,7 @@ export const Footer = () => (
 				<li>About Us</li>
 				<li>Contact Us</li>
 			</ul>
-			<div>
+			<div className="footer-social">
 				<i className="fab fa-facebook" />
 				<i className="fab fa-instagram" />
 				<i className="fab fa-twitter" />

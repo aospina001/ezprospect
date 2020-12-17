@@ -32,8 +32,8 @@ export const NavigationBar = () => {
 					</Navbar.Brand>
 				</Link>
 				<Nav className="mr-auto">
-					<Nav.Link href="#features">About Us</Nav.Link>
-					<Nav.Link href="#pricing">Contact Us</Nav.Link>
+					<Nav.Link href="#aboutus">About Us</Nav.Link>
+					<Nav.Link href="#contactus">Contact Us</Nav.Link>
 				</Nav>
 				{store.token ? (
 					<div>

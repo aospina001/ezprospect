@@ -30,12 +30,24 @@ $base-color: #03989e;
         width: 100%;
     } 
 }
+
+.feature {
+    height: 100px;
+    width: 100px;
+    align-self: center;
+    margin-top: 20px;
+}
+
 .footer-links {
     text-decoration: none;
     list-style-type: none;
 }
 
-.fab {
+.footer-social {
+    margin-top: 10px;
     font-size: 20px;
+}
+
+.fab {
     margin: 0px 10px 0px 10px;
 }
