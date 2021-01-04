@@ -25,10 +25,10 @@ import { useForm } from "react-hook-form";
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
 	const { account } = useParams();
-	const [loading, setLoading] = useState(true);
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
 	const [showfinancial, setShowfinancial] = useState(false);
+	const [showcontacts, setcontacts] = useState(0);
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
 	const handleCloseFinancial = () => setShowfinancial(false);
@@ -42,9 +42,26 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitContact = async data => {
-		await actions.addContact(data);
+		await actions.addContact(data, account);
+		setcontacts(Math.random());
 		handleCloseContact();
 	};
+
+	const getContacts = async () => {
+		await actions.loadContacts();
+		console.log(store.contacts);
+	};
+
+	useEffect(
+		() => {
+			getContacts();
+		},
+		[showcontacts]
+	);
+
+	useEffect(() => {
+		getContacts();
+	}, []);
 
 	return (
 		<Container className="mt-5">
@@ -60,11 +77,6 @@ export const ProspectDetails = props => {
 										<p>Address -- {each.address1}</p>
 										<p>Account -- {each.account}</p>
 										<p>Account -- {each.phone_number}</p>
-										{/* <p>Class Code -- {each.data.properties.CLASSCODE}</p>
-										<p>Class Description -- {each.data.properties.CLASSDESC}</p>
-										<p>Mail Address -- {each.data.properties.MAILADDR}</p>
-										<p>Owner Name -- {each.data.properties.OWNERNAME}</p>
-										<p>Phone Number -- {each.data.properties.PHONENO}</p> */}
 									</Jumbotron>
 								</Tab>
 
@@ -92,13 +104,13 @@ export const ProspectDetails = props => {
 															<Card>
 																<Card.Body>
 																	<Card.Title>
-																		{each.data.firstName}
+																		{each.first_name}
 																		&nbsp;
-																		{each.data.lastName}
+																		{each.last_name}
 																	</Card.Title>
 																	<Card.Text>
 																		Phone Number:&nbsp;
-																		{each.data.phone}
+																		{each.phone_number}
 																	</Card.Text>
 																</Card.Body>
 															</Card>
@@ -231,7 +243,9 @@ export const ProspectDetails = props => {
 									</Row>
 								</Tab>
 							</Tabs>
-							{/*------------> Financial Modal */}
+
+							{/*------------> Financial Modal ------------------*/}
+
 							<Modal
 								show={showfinancial}
 								onHide={handleCloseFinancial}
@@ -320,7 +334,7 @@ export const ProspectDetails = props => {
 								</Modal.Body>
 							</Modal>
 
-							{/*------------> Contact Modal */}
+							{/*------------> Contact Modal ------------------------*/}
 
 							<Modal
 								show={showContact}
@@ -339,7 +353,7 @@ export const ProspectDetails = props => {
 												size="sm"
 												type="text"
 												placeholder="first name"
-												name="firstName"
+												name="first_name"
 												ref={register}
 											/>
 										</Form.Group>
@@ -350,17 +364,51 @@ export const ProspectDetails = props => {
 												size="sm"
 												type="text"
 												placeholder="last name"
-												name="lastName"
+												name="last_name"
 												ref={register}
 											/>
 										</Form.Group>
+
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Position</Form.Label>
+											<Form.Control
+												size="sm"
+												type="text"
+												placeholder="Position"
+												name="position"
+												ref={register}
+											/>
+										</Form.Group>
+
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Title</Form.Label>
+											<Form.Control
+												size="sm"
+												type="text"
+												placeholder="Title"
+												name="title"
+												ref={register}
+											/>
+										</Form.Group>
+
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Email</Form.Label>
+											<Form.Control
+												size="sm"
+												type="email"
+												placeholder="Email"
+												name="email"
+												ref={register}
+											/>
+										</Form.Group>
+
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Phone Number</Form.Label>
 											<Form.Control
 												size="sm"
 												type="text"
 												placeholder="phone number"
-												name="phone"
+												name="phone_number"
 												ref={register}
 											/>
 										</Form.Group>

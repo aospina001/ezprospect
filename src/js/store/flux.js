@@ -1,4 +1,5 @@
 const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -6,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user_id: null,
 			business: [],
 			prospect: [],
-			contacts: []
+			contacts: [],
+			organizations: []
 		},
 		actions: {
 			loadData: async () => {
@@ -50,7 +52,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							password: newUser.password,
 							first_name: newUser.first_name,
 							last_name: newUser.last_name,
-							phone_number: newUser.phone_number
+							phone_number: newUser.phone_number,
+							organization_id: newUser.organization_id
 						})
 					});
 					const body = await response.json();
@@ -65,7 +68,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			sign_out: () => {
+				setStore({ token: null, user_id: null, prospect: [] });
+			},
+
 			addProspect: async data => {
+				const store = getStore();
 				try {
 					const response = await fetch(`${ezprospectUrl}/addProspect`, {
 						method: "POST",
@@ -74,43 +82,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 							name: data.BUSNAME,
 							industry: data.CLASSCODE,
 							address1: data.BUSADDR,
-							address2: data.BUSADDR2,
 							city: data.BUSCITY,
 							state: data.BUSSTATE,
 							zipCode: data.ZIPCODE,
 							phone_number: data.PHONENO,
-							account: data.ACCOUNTNO
+							account: data.ACCOUNTNO,
+							user_id: store.user_id
 						})
 					});
 					const body = await response.json();
+					console.log(body, response);
 					return data.ACCOUNTNO;
-					console.log(body);
 				} catch (error) {
 					console.log(error);
 				}
 			},
 
 			loadProspects: async () => {
-				const response = await fetch(`${ezprospectUrl}/prospects`);
+				const store = getStore();
+				const user_id = store.user_id;
+				const response = await fetch(`${ezprospectUrl}/prospects/${user_id}`);
 				const data = await response.json();
 				setStore({
 					prospect: data
 				});
 			},
 
-			delete_Token: () => {
-				setStore({ token: null, user_id: null });
+			addContact: async (data, account) => {
+				try {
+					const response = await fetch(`${ezprospectUrl}/addContacts`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							first_name: data.first_name,
+							last_name: data.last_name,
+							position: data.position,
+							title: data.title,
+							email: data.email,
+							phone_number: data.phone_number,
+							account: account
+						})
+					});
+					const body = await response.json();
+				} catch (error) {
+					console.log(error);
+				}
 			},
 
-			addContact: data => {
-				const store = getStore();
+			loadContacts: async () => {
+				const response = await fetch(`${ezprospectUrl}/contacts`);
+				const data = await response.json();
 				setStore({
-					contacts: [
-						...store.contacts,
-						{
-							data
-						}
-					]
+					contacts: data
+				});
+			},
+
+			loadOrganizations: async () => {
+				const response = await fetch(`${ezprospectUrl}/organizations`);
+				const data = await response.json();
+				setStore({
+					organizations: data
 				});
 			}
 		}

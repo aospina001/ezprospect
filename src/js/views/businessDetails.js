@@ -14,9 +14,9 @@ export const BusinessDetails = () => {
 	let history = useHistory();
 
 	const onSubmit = async data => {
-		let new_prostect = await actions.addProspect(data);
-		actions.loadProspects();
-		history.push(`/prospectDetails/${new_prostect}`);
+		let account = await actions.addProspect(data);
+		await actions.loadProspects();
+		history.push(`/prospectDetails/${account}`);
 	};
 
 	return (
