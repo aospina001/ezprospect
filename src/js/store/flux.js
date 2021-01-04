@@ -67,11 +67,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			addProspect: async data => {
+				console.log("data", data);
+				const store = getStore();
 				try {
 					const response = await fetch(`${ezprospectUrl}/addProspect`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
+							user_id: store.user_id,
 							name: data.BUSNAME,
 							industry: data.CLASSCODE,
 							address1: data.BUSADDR,
@@ -79,20 +82,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 							city: data.BUSCITY,
 							state: data.BUSSTATE,
 							zipCode: data.ZIPCODE,
-							phone_number: data.PHONENO,
+							phone_number: data.PHONENO ? data.PHONENO : "",
 							account: data.ACCOUNTNO
 						})
 					});
 					const body = await response.json();
+					console.log("*", body);
 					return data.ACCOUNTNO;
-					console.log(body);
 				} catch (error) {
 					console.log(error);
 				}
 			},
 
 			loadProspects: async () => {
-				const response = await fetch(`${ezprospectUrl}/prospects`);
+				const store = getStore();
+				const response = await fetch(`${ezprospectUrl}/prospects/${store.user_id}`);
 				const data = await response.json();
 				setStore({
 					prospect: data
