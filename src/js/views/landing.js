@@ -176,9 +176,11 @@ export const Landing = () => {
 					</Card>
 				</CardDeck>
 			</Container>
-			<Carousel activeIndex={index} onSelect={handleSelect} className="d-flex">
-				<Carousel.Item>
-					<div className="about-us-left">Logo</div>
+			{/* <Carousel activeIndex={index} onSelect={handleSelect}>
+				<Carousel.Item className="d-flex flex-row d-block w-100 container">
+					<div className="about-us-left">
+						<div className="about-us-img" id="logo" />
+					</div>
 					<div className="about-us-right">
 						<h3>About EZ Prospect</h3>
 						<p>
@@ -188,24 +190,27 @@ export const Landing = () => {
 							Academy. This application was brought to life by Adolfo and the talented Yahilyn Eizmendiz
 							Yiong.
 							<br />
+							<br />
 							Today this application is presently linked by an API from Miami-Dade County, where most of
 							its information is sourced from. EZ Prospect was designed to facilitate the process for
 							financial representatives or banking relationship managers to easily source new prospects
 							using data avaiable though public records.
 							<br />
+							<br />
 							Looking forward, we plan to grow this application, where it can be fully integrated with a
 							banks operating system. Provide information from all public records to provide its user the
 							most detailed and up to date information the user can get on their prospect.
+							<br />
 							<br />
 							As we grow, we hope you grow with us. Let us make your prospecting EZ.
 						</p>
 					</div>
 				</Carousel.Item>
-				<Carousel.Item>
+				<Carousel.Item className="d-flex flex-row d-block w-100 container">
 					<div className="about-us-left">
 						<div className="about-us-img" id="adolfo" />
 						{/* <Image src={Adolfo} roundedCircle /> */}
-					</div>
+			{/* </div>
 					<div className="about-us-right">
 						<h3>About Adolfo Ospina</h3>
 						<p>
@@ -217,15 +222,15 @@ export const Landing = () => {
 							front-end and back-end of applications.
 						</p>
 					</div>
-				</Carousel.Item>
-				<Carousel.Item>
+				</Carousel.Item> */}
+			{/* <Carousel.Item className="d-flex flex-row d-block w-100">
 					<div className="about-us-left">Logo</div>
 					<div className="about-us-right">
 						<h3>About Yahilyn Eizmendiz Yiong</h3>
 						<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 					</div>
-				</Carousel.Item>
-			</Carousel>
+				</Carousel.Item> */}
+			{/* </Carousel> */}
 		</div>
 	);
 };

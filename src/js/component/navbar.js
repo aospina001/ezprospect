@@ -73,7 +73,7 @@ export const NavigationBar = () => {
 							{/* <Form.Group controlId="formBasicCheckbox">
 								<Form.Check type="checkbox" label="Remember me" />
 							</Form.Group> */}
-							<Button variant="secondary" onClick={handleClose}>
+							<Button variant="secondary mr-2" onClick={handleClose}>
 								Cancel
 							</Button>
 							<Button variant="dark outline-success" type="submit">

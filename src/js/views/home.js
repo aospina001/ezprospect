@@ -56,9 +56,9 @@ export const Home = () => {
 			{store.token == null ? <Redirect to="/" /> : console.log(store.token)}
 
 			{/* Search new prospects */}
-			<Form inline className="justify-content-center" md={12} value={searchTerm} onChange={handleChange}>
+			<Form inline className="justify-content-center mt-2" md={12} value={searchTerm} onChange={handleChange}>
 				<FormControl type="text" placeholder="Search" />
-				<Button variant="outline-success">Search</Button>
+				<Button variant="outline-success ml-2 ">Search</Button>
 			</Form>
 			<Container md={12} show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 				<CardDeck className="justify-content-center">

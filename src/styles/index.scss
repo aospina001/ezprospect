@@ -10,9 +10,13 @@ $base-color: #03989e;
 
 .top-landing {
     color: white;
-    background: rgba(3,152,158,.1) url('../../src/img/jumbotron-img.jpg') no-repeat center;
+    background: rgba(3,152,158,.0) url('../../src/img/jumbotron-img.jpg') no-repeat center;
     background-size: cover;
     justify-content: center;
+}
+
+p.intro {
+    text-shadow: 2px 2px 5px black;
 }
 
 @media only screen and (min-width: 576px) {
@@ -51,15 +55,25 @@ $base-color: #03989e;
     margin: 0px 10px 0px 10px;
 }
 
-Carousel {
-    height: 500px
+.carousel {
+    margin-top: 20px;
+    background-image: linear-gradient(to right, $base-color, white, $base-color);
 }
+
+// .carousel-item {
+    
+// }
 
 .about-us-img {
     width: 200px;
     height: 200px;
     margin-top: 20px;
     border-radius: 100%;
+}
+
+#logo {
+    background: rgba(3,152,158,.1) url('../../src/img/logo.png') no-repeat center;
+    background-size: cover;
 }
 
 #adolfo {
@@ -69,12 +83,9 @@ Carousel {
 
 .about-us-left {
     height: 300px;
-    width: 200px;
-    background-image: linear-gradient(to right, $base-color, white );
 }
 
 .about-us-right {
     height: 300px;
-    width: 500px;
-    background-image: linear-gradient(to right, white, $base-color);
+    // background-image: linear-gradient(to right, white, $base-color);
 }

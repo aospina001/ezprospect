@@ -1,4 +1,5 @@
-const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
+// const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io/";
+const ezprospectUrl = "https://3000-d6982fcb-39a5-419b-a5ac-7d3136a54d8c.ws-us03.gitpod.io";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -113,6 +114,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					]
 				});
 			}
+
+			// addFinancial: async data => {
+			// 	try {
+			// 		const response = await fetch(`${ezprospectUrl}/addFinancial`, {
+			// 			method: "POST",
+			// 			headers: { "Content-Type": "application/json" },
+			// 			body: JSON.stringify({
+			// 				name: data.BUSNAME,
+			// 				industry: data.CLASSCODE,
+			// 				address1: data.BUSADDR,
+			// 				address2: data.BUSADDR2,
+			// 				city: data.BUSCITY,
+			// 				state: data.BUSSTATE,
+			// 				zipCode: data.ZIPCODE,
+			// 				phone_number: data.PHONENO,
+			// 				account: data.ACCOUNTNO
+			// 			})
+			// 		});
+			// 		const body = await response.json();
+			// 		return data.ACCOUNTNO;
+			// 		console.log(body);
+			// 	} catch (error) {
+			// 		console.log(error);
+			// 	}
+			// }
 		}
 	};
 };
