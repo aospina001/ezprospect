@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Card, Container, CardDeck, Form, FormControl, Button, ButtonToolbar, Col, Alert } from "react-bootstrap";
+import GoogleMapReact from "google-map-react";
 
 export const Prospects = () => {
 	const { store, actions } = useContext(Context);
@@ -70,6 +71,11 @@ export const Prospects = () => {
 					</div>
 				</div>
 			)}
+			<GoogleMapReact
+				bootstrapURLKeys={{ key: "AIzaSyA-uwvOzp76L6-v-HSF0NwJ7JsYOcrhU-o" }}
+				defaultCenter={location}
+				defaultZoom="17"
+			/>
 		</Container>
 	);
 };

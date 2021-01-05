@@ -17,7 +17,7 @@ export const Home = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchResultsProspect, setSearchResultsProspect] = useState([]);
 	const [loading, setLoading] = useState(false);
-	console.log(store.business);
+
 	useEffect(() => {
 		if (store.business.length == 0) getProspects_Dade();
 	}, []);

@@ -38,7 +38,7 @@ export const Landing = () => {
 		const done = await actions.signup(data);
 		if (done) {
 			setError(done);
-		}
+		} else setError(false);
 	};
 
 	return (

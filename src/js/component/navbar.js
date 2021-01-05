@@ -21,6 +21,7 @@ export const NavigationBar = () => {
 		if (done) {
 			setError(done);
 		} else {
+			setError(false);
 			handleClose();
 			history.push("/logged");
 		}

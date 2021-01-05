@@ -8,6 +8,7 @@ import { Prospects } from "./views/prospects";
 import injectContext, { Context } from "./store/appContext";
 import { ProspectDetails } from "./views/prospectDetails";
 import { Landing } from "./views/landing";
+// import { MapContainer } from "./component/mapContainer";
 
 import { NavigationBar } from "./component/navbar";
 import { Footer } from "./component/footer";
