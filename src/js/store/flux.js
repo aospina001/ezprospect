@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user_id: null,
 			business: [],
 			prospect: [],
-			contacts: []
+			contacts: [],
+			organizations: []
 		},
 		actions: {
 			loadData: async () => {
@@ -51,7 +52,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							password: newUser.password,
 							first_name: newUser.first_name,
 							last_name: newUser.last_name,
-							phone_number: newUser.phone_number
+							phone_number: newUser.phone_number,
+							organization_id: newUser.organization_id
 						})
 					});
 					const body = await response.json();
@@ -66,8 +68,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			sign_out: () => {
+				setStore({ token: null, user_id: null, prospect: [] });
+			},
+
 			addProspect: async data => {
-				console.log("data", data);
 				const store = getStore();
 				try {
 					const response = await fetch(`${ezprospectUrl}/addProspect`, {
@@ -78,7 +83,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							name: data.BUSNAME,
 							industry: data.CLASSCODE,
 							address1: data.BUSADDR,
-							address2: data.BUSADDR2,
 							city: data.BUSCITY,
 							state: data.BUSSTATE,
 							zipCode: data.ZIPCODE,
@@ -103,19 +107,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			delete_Token: () => {
-				setStore({ token: null, user_id: null });
+			addContact: async (data, account) => {
+				try {
+					const response = await fetch(`${ezprospectUrl}/addContacts`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							first_name: data.first_name,
+							last_name: data.last_name,
+							position: data.position,
+							title: data.title,
+							email: data.email,
+							phone_number: data.phone_number,
+							account: account
+						})
+					});
+					const body = await response.json();
+				} catch (error) {
+					console.log(error);
+				}
 			},
 
-			addContact: data => {
-				const store = getStore();
+			loadContacts: async () => {
+				const response = await fetch(`${ezprospectUrl}/contacts`);
+				const data = await response.json();
 				setStore({
-					contacts: [
-						...store.contacts,
-						{
-							data
-						}
-					]
+					contacts: data
+				});
+			},
+
+			loadOrganizations: async () => {
+				const response = await fetch(`${ezprospectUrl}/organizations`);
+				const data = await response.json();
+				setStore({
+					organizations: data
 				});
 			}
 

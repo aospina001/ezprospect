@@ -29,6 +29,7 @@ import Adolfo from "../../img/adolfo.jpg";
 export const Landing = () => {
 	const [show, setShow] = useState(false);
 	const { store, actions } = useContext(Context);
+	const [organizations, setOrganizations] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const { register, handleSubmit } = useForm();
@@ -36,6 +37,15 @@ export const Landing = () => {
 	const handleSelect = (selectedIndex, e) => {
 		setIndex(selectedIndex);
 	}; //For controlled carousel
+
+	useEffect(() => {
+		if (organizations == false) getOrganizations();
+	}, []);
+
+	const getOrganizations = async () => {
+		await actions.loadOrganizations();
+		setOrganizations(true);
+	};
 
 	const onSubmit = async data => {
 		actions.signup(data);
@@ -64,7 +74,7 @@ export const Landing = () => {
 								<Modal.Body>
 									<Form.Group>
 										<Form.Row>
-											<Form.Group as={Col} controlId="formGridEmail">
+											<Form.Group as={Col}>
 												<Form.Label>Email</Form.Label>
 												<Form.Control
 													type="email"
@@ -74,7 +84,7 @@ export const Landing = () => {
 												/>
 											</Form.Group>
 
-											<Form.Group as={Col} controlId="formGridPassword">
+											<Form.Group as={Col}>
 												<Form.Label>Password</Form.Label>
 												<Form.Control
 													type="password"
@@ -83,37 +93,57 @@ export const Landing = () => {
 													ref={register({ required: true })}
 												/>
 											</Form.Group>
+										</Form.Row>
 
-											<Form.Row>
-												<Form.Group as={Col} controlId="formGridEmail">
-													<Form.Label>First Name</Form.Label>
-													<Form.Control
-														placeholder="First Name"
-														name="first_name"
-														ref={register({ required: true })}
-													/>
-												</Form.Group>
+										<Form.Row>
+											<Form.Group as={Col}>
+												<Form.Label>First Name</Form.Label>
+												<Form.Control
+													placeholder="First Name"
+													name="first_name"
+													ref={register({ required: true })}
+												/>
+											</Form.Group>
 
-												<Form.Group as={Col} controlId="formGridPassword">
-													<Form.Label>Last Name</Form.Label>
-													<Form.Control
-														placeholder="Last Name"
-														name="last_name"
-														ref={register({ required: true })}
-													/>
-												</Form.Group>
-											</Form.Row>
+											<Form.Group as={Col}>
+												<Form.Label>Last Name</Form.Label>
+												<Form.Control
+													placeholder="Last Name"
+													name="last_name"
+													ref={register({ required: true })}
+												/>
+											</Form.Group>
+										</Form.Row>
 
-											<Form.Row>
-												<Form.Group as={Col} controlId="formGridCity">
-													<Form.Label>Phone Number</Form.Label>
-													<Form.Control
-														placeholder="Phone Number"
-														name="phone_number"
-														ref={register({ required: true })}
-													/>
-												</Form.Group>
-											</Form.Row>
+										<Form.Row>
+											<Form.Group as={Col}>
+												<Form.Label>Phone Number</Form.Label>
+												<Form.Control
+													placeholder="Phone Number"
+													name="phone_number"
+													ref={register({ required: true })}
+												/>
+											</Form.Group>
+
+											<Form.Group as={Col}>
+												<Form.Label>Organization</Form.Label>
+												<Form.Control
+													size="sm"
+													as="select"
+													ref={register}
+													name="organization_id">
+													<option selected="true" disabled="disabled">
+														Select organization
+													</option>
+													{store.organizations.map((each, i) => {
+														return (
+															<option value={each.id} key={i}>
+																{each.name}
+															</option>
+														);
+													})}
+												</Form.Control>
+											</Form.Group>
 										</Form.Row>
 									</Form.Group>
 								</Modal.Body>

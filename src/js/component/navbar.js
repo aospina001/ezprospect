@@ -40,7 +40,7 @@ export const NavigationBar = () => {
 						<Button
 							variant="dark outline-success"
 							onClick={() => {
-								actions.delete_Token();
+								actions.sign_out();
 							}}>
 							Sign Out
 						</Button>

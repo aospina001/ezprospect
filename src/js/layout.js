@@ -27,13 +27,6 @@ const Layout = () => {
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					{/* {store.business.length == 0 ? (
-						<div className="mt-5 text-center">
-							<Spinner animation="border" role="status" variant="success">
-								<span className="sr-only justify-content-center">Loading...</span>
-							</Spinner>
-						</div>
-					) : ( */}
 					<NavigationBar />
 					<Switch>
 						<Route exact path="/">

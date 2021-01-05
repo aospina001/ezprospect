@@ -77,11 +77,15 @@
 		]
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.32",
+		"@fortawesome/free-solid-svg-icons": "^5.15.1",
+		"@fortawesome/react-fontawesome": "^0.1.14",
 		"bootstrap": "^4.5.3",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-bootstrap": "^1.4.0",
 		"react-dom": "^16.8.4",
+		"react-fontawesome": "^1.7.1",
 		"react-hook-form": "^6.11.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0"

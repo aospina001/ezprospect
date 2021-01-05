@@ -8,13 +8,23 @@ import { Context } from "../store/appContext";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [show, setShow] = useState(false);
+	const [prospectLoaded, setProspectLoaded] = useState(false);
+	const [dataLoaded, setDataLoaded] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const [searchTerm, setSearchTerm] = useState(null);
 	const [searchProspect, setSearchProspect] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchResultsProspect, setSearchResultsProspect] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		if (store.business.length == 0) getProspects_Dade();
+	}, []);
+
+	useEffect(() => {
+		if (store.prospect.length == 0) getProspects();
+	}, []);
 
 	const handleChange = e => {
 		if (e.target.value == "") {
@@ -30,14 +40,20 @@ export const Home = () => {
 		setSearchProspect(e.target.value);
 	};
 
-	useEffect(() => {
-		actions.loadProspects();
-	}, []);
+	const getProspects = async () => {
+		console.log("Loading user prospects");
+		await actions.loadProspects();
+		setProspectLoaded(true);
+	};
+
+	const getProspects_Dade = async () => {
+		console.log("Loading dade prospects");
+		await actions.loadData();
+		setDataLoaded(true);
+	};
 
 	useEffect(
 		() => {
-			actions.loadData();
-			setLoading(false);
 			const results = store.business.filter(each => each.properties.BUSNAME.toLowerCase().includes(searchTerm));
 			setSearchResults(results);
 		},
@@ -51,9 +67,12 @@ export const Home = () => {
 		},
 		[searchProspect]
 	);
+
 	return (
 		<div>
-			{store.token == null ? <Redirect to="/" /> : console.log(store.token)}
+			{store.token == null ? <Redirect to="/" /> : ""}
+
+			{/* Search in Miami Dade New prospects--------------------------*/}
 
 			{/* Search new prospects */}
 			<Form inline className="justify-content-center mt-2" md={12} value={searchTerm} onChange={handleChange}>
@@ -65,6 +84,8 @@ export const Home = () => {
 					{searchTerm == null
 						? ""
 						: searchResults.map((each, i) => {
+								const account2 = each.properties.ACCOUNTNO;
+								let count = 0;
 								return (
 									<Col className="mt-5" md={4} key={i}>
 										<Card style={{ width: "18rem" }}>
@@ -75,9 +96,27 @@ export const Home = () => {
 												<ButtonToolbar
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
-													<Link to={`/businessDetails/${each.properties.ACCOUNTNO}`}>
-														<Button variant="success">Create Prospect</Button>
-													</Link>
+													{store.prospect.map(x => {
+														if (x.account == account2) {
+															count = +1;
+															return (
+																<Link
+																	to={`/prospectDetails/${
+																		each.properties.ACCOUNTNO
+																	}`}>
+																	<Button variant="dark">View</Button>
+																</Link>
+															);
+														}
+													})}
+
+													{count == 0 ? (
+														<Link to={`/businessDetails/${each.properties.ACCOUNTNO}`}>
+															<Button variant="success">Create Prospect</Button>
+														</Link>
+													) : (
+														""
+													)}
 												</ButtonToolbar>
 											</Card.Body>
 										</Card>
@@ -87,7 +126,7 @@ export const Home = () => {
 				</CardDeck>
 			</Container>
 
-			{/* Show the prospects */}
+			{/*-------------------------------- Show the user prospects -------------------------------*/}
 			<Container className="mt-5">
 				{store.prospect.length == 0 ? (
 					<Alert variant="success">
@@ -109,28 +148,51 @@ export const Home = () => {
 							<Button variant="outline-success">Search</Button>
 						</Form>
 						<CardDeck className="justify-content-center">
-							{searchResultsProspect.map((each, i) => {
-								return (
-									<Col className="mt-5" md={4} key={i}>
-										<Card style={{ width: "18rem" }}>
-											<Card.Body>
-												<Card.Title>{each.name}</Card.Title>
-												<Card.Subtitle className="mb-2 text-muted">
-													{each.industry}
-												</Card.Subtitle>
-												<Card.Text>{each.address1}</Card.Text>
-												<ButtonToolbar
-													className="justify-content-between"
-													aria-label="Toolbar with Button groups">
-													<Link to={`/prospectDetails/${each.account}`}>
-														<Button variant="success">View</Button>
-													</Link>
-												</ButtonToolbar>
-											</Card.Body>
-										</Card>
-									</Col>
-								);
-							})}
+							{searchProspect == ""
+								? store.prospect.map((each, i) => {
+										return (
+											<Col className="mt-5" md={4} key={i}>
+												<Card style={{ width: "18rem" }}>
+													<Card.Body>
+														<Card.Title>{each.name}</Card.Title>
+														<Card.Subtitle className="mb-2 text-muted">
+															{each.industry}
+														</Card.Subtitle>
+														<Card.Text>{each.address1}</Card.Text>
+														<ButtonToolbar
+															className="justify-content-between"
+															aria-label="Toolbar with Button groups">
+															<Link to={`/prospectDetails/${each.account}`}>
+																<Button variant="success">View</Button>
+															</Link>
+														</ButtonToolbar>
+													</Card.Body>
+												</Card>
+											</Col>
+										);
+								  })
+								: searchResultsProspect.map((each, i) => {
+										return (
+											<Col className="mt-5" md={4} key={i}>
+												<Card style={{ width: "18rem" }}>
+													<Card.Body>
+														<Card.Title>{each.name}</Card.Title>
+														<Card.Subtitle className="mb-2 text-muted">
+															{each.industry}
+														</Card.Subtitle>
+														<Card.Text>{each.address1}</Card.Text>
+														<ButtonToolbar
+															className="justify-content-between"
+															aria-label="Toolbar with Button groups">
+															<Link to={`/prospectDetails/${each.account}`}>
+																<Button variant="success">View</Button>
+															</Link>
+														</ButtonToolbar>
+													</Card.Body>
+												</Card>
+											</Col>
+										);
+								  })}
 						</CardDeck>
 					</div>
 				) : (
@@ -140,6 +202,3 @@ export const Home = () => {
 		</div>
 	);
 };
-// Home.propTypes = {
-// 	data: PropTypes.any
-// };
