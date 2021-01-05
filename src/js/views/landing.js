@@ -1,18 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {
-	Nav,
-	Navbar,
-	Modal,
-	Jumbotron,
-	Container,
-	Form,
-	FormControl,
-	Button,
-	ButtonToolbar,
-	Col,
-	Card
-} from "react-bootstrap";
+import { Modal, Jumbotron, Container, Form, Alert, Button, ButtonToolbar, Col, Card } from "react-bootstrap";
 import CardDeck from "react-bootstrap/CardDeck";
 import Carousel from "react-bootstrap/Carousel";
 import "../../styles/home.scss";
@@ -26,6 +14,7 @@ import Featured4 from "../../img/featured4.png";
 
 export const Landing = () => {
 	const [show, setShow] = useState(false);
+	const [error, setError] = useState(false);
 	const { store, actions } = useContext(Context);
 	const [organizations, setOrganizations] = useState(false);
 	const handleClose = () => setShow(false);
@@ -46,7 +35,10 @@ export const Landing = () => {
 	};
 
 	const onSubmit = async data => {
-		actions.signup(data);
+		const done = await actions.signup(data);
+		if (done) {
+			setError(done);
+		}
 	};
 
 	return (
@@ -70,6 +62,7 @@ export const Landing = () => {
 							</Modal.Header>
 							<Form onSubmit={handleSubmit(onSubmit)}>
 								<Modal.Body>
+									{error ? <Alert variant="danger">{error}</Alert> : ""}
 									<Form.Group>
 										<Form.Row>
 											<Form.Group as={Col}>
@@ -78,7 +71,7 @@ export const Landing = () => {
 													type="email"
 													placeholder="Enter email"
 													name="email"
-													ref={register({ required: true })}
+													ref={register}
 												/>
 											</Form.Group>
 
@@ -88,7 +81,7 @@ export const Landing = () => {
 													type="password"
 													placeholder="Password"
 													name="password"
-													ref={register({ required: true })}
+													ref={register}
 												/>
 											</Form.Group>
 										</Form.Row>
@@ -99,17 +92,13 @@ export const Landing = () => {
 												<Form.Control
 													placeholder="First Name"
 													name="first_name"
-													ref={register({ required: true })}
+													ref={register}
 												/>
 											</Form.Group>
 
 											<Form.Group as={Col}>
 												<Form.Label>Last Name</Form.Label>
-												<Form.Control
-													placeholder="Last Name"
-													name="last_name"
-													ref={register({ required: true })}
-												/>
+												<Form.Control placeholder="Last Name" name="last_name" ref={register} />
 											</Form.Group>
 										</Form.Row>
 
@@ -119,17 +108,13 @@ export const Landing = () => {
 												<Form.Control
 													placeholder="Phone Number"
 													name="phone_number"
-													ref={register({ required: true })}
+													ref={register}
 												/>
 											</Form.Group>
 
 											<Form.Group as={Col}>
 												<Form.Label>Organization</Form.Label>
-												<Form.Control
-													size="sm"
-													as="select"
-													ref={register}
-													name="organization_id">
+												<Form.Control as="select" ref={register} name="organization_id">
 													<option selected="true" disabled="disabled">
 														Select organization
 													</option>

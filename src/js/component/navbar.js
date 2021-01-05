@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Navbar, Nav, Container, Form, Modal, Figure, Image } from "react-bootstrap";
+import { Button, Navbar, Nav, Container, Form, Modal, Alert, Image } from "react-bootstrap";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
@@ -9,6 +9,7 @@ import "../../styles/index.scss";
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
+	const [error, setError] = useState(false);
 	const { store, actions } = useContext(Context);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -17,8 +18,9 @@ export const NavigationBar = () => {
 
 	const onSubmit = async data => {
 		const done = await actions.login(data);
-
-		if (store.token != null) {
+		if (done) {
+			setError(done);
+		} else {
 			handleClose();
 			history.push("/logged");
 		}
@@ -57,6 +59,8 @@ export const NavigationBar = () => {
 						<Modal.Title>Login to your account</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
+						{error ? <Alert variant="danger">{error}</Alert> : ""}
+
 						<Form onSubmit={handleSubmit(onSubmit)}>
 							<Form.Group controlId="formBasicEmail">
 								<Form.Label>Username</Form.Label>
@@ -70,9 +74,6 @@ export const NavigationBar = () => {
 								<Form.Label>Password</Form.Label>
 								<Form.Control type="password" placeholder="Password" name="password" ref={register} />
 							</Form.Group>
-							{/* <Form.Group controlId="formBasicCheckbox">
-								<Form.Check type="checkbox" label="Remember me" />
-							</Form.Group> */}
 							<Button variant="secondary" onClick={handleClose}>
 								Cancel
 							</Button>

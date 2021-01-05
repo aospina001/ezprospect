@@ -17,7 +17,7 @@ export const Home = () => {
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchResultsProspect, setSearchResultsProspect] = useState([]);
 	const [loading, setLoading] = useState(false);
-
+	console.log(store.business);
 	useEffect(() => {
 		if (store.business.length == 0) getProspects_Dade();
 	}, []);
@@ -41,13 +41,11 @@ export const Home = () => {
 	};
 
 	const getProspects = async () => {
-		console.log("Loading user prospects");
 		await actions.loadProspects();
 		setProspectLoaded(true);
 	};
 
 	const getProspects_Dade = async () => {
-		console.log("Loading dade prospects");
 		await actions.loadData();
 		setDataLoaded(true);
 	};

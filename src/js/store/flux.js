@@ -35,10 +35,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
 						setStore({ token: null, user_id: null });
-						console.log(body);
+						return body.msg;
 					}
 				} catch (error) {
-					console.log(error);
+					return error;
 				}
 			},
 
@@ -61,10 +61,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
 						setStore({ token: null, user_id: null });
-						console.log(body);
+						return body.msg;
 					}
 				} catch (error) {
 					console.log(error);
+					return "Error";
 				}
 			},
 
