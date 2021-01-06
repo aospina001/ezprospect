@@ -111,7 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addContact: async (data, account) => {
 				try {
-					const response = await fetch(`${ezprospectUrl}/addContacts`, {
+					const response = await fetch(`${ezprospectUrl}/addContact`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
