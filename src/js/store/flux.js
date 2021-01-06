@@ -1,5 +1,5 @@
 // const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io/";
-const ezprospectUrl = "https://3000-d6982fcb-39a5-419b-a5ac-7d3136a54d8c.ws-us03.gitpod.io";
+const ezprospectUrl = "https://3000-a884d591-9b11-41c0-8795-eed5504a6f89.ws-us03.gitpod.io";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -109,7 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addContact: async (data, account) => {
 				try {
-					const response = await fetch(`${ezprospectUrl}/addContacts`, {
+					const response = await fetch(`${ezprospectUrl}/addContact`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
@@ -142,32 +142,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					organizations: data
 				});
-			}
+			},
 
-			// addFinancial: async data => {
-			// 	try {
-			// 		const response = await fetch(`${ezprospectUrl}/addFinancial`, {
-			// 			method: "POST",
-			// 			headers: { "Content-Type": "application/json" },
-			// 			body: JSON.stringify({
-			// 				name: data.BUSNAME,
-			// 				industry: data.CLASSCODE,
-			// 				address1: data.BUSADDR,
-			// 				address2: data.BUSADDR2,
-			// 				city: data.BUSCITY,
-			// 				state: data.BUSSTATE,
-			// 				zipCode: data.ZIPCODE,
-			// 				phone_number: data.PHONENO,
-			// 				account: data.ACCOUNTNO
-			// 			})
-			// 		});
-			// 		const body = await response.json();
-			// 		return data.ACCOUNTNO;
-			// 		console.log(body);
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// }
+			addFinancial: async data => {
+				try {
+					const response = await fetch(`${ezprospectUrl}/addFinancial`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							statement_date: data.statement_date,
+							quality: data.quality,
+							fye_month: data.fye_month,
+							fye_day: data.fye_day,
+							prepared_by: data.prepared_by,
+							cash: data.cash,
+							accounts_receivable: data.accounts_receivable,
+							raw_materials: data.raw_materials,
+							work_in_process: data.work_in_process,
+							finished_goods: data.finished_goods,
+							land: data.land,
+							construction_in_progress: data.construction_in_progress,
+							buildings: data.buildings,
+							machines_and_equipment: data.machines_and_equipment,
+							furniture_and_fixtures: data.furniture_and_fixtures,
+							vehicles: data.vehicles
+						})
+					});
+					const body = await response.json();
+					return data.ACCOUNTNO;
+					console.log(body);
+				} catch (error) {
+					console.log(error);
+				}
+			}
 		}
 	};
 };
