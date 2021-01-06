@@ -16,7 +16,6 @@ export const Landing = () => {
 	const [show, setShow] = useState(false);
 	const [error, setError] = useState(false);
 	const { store, actions } = useContext(Context);
-	const [organizations, setOrganizations] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const { register, handleSubmit } = useForm();
@@ -24,15 +23,6 @@ export const Landing = () => {
 	const handleSelect = (selectedIndex, e) => {
 		setIndex(selectedIndex);
 	}; //For controlled carousel
-
-	useEffect(() => {
-		if (organizations == false) getOrganizations();
-	}, []);
-
-	const getOrganizations = async () => {
-		await actions.loadOrganizations();
-		setOrganizations(true);
-	};
 
 	const onSubmit = async data => {
 		const done = await actions.signup(data);
@@ -110,22 +100,6 @@ export const Landing = () => {
 													name="phone_number"
 													ref={register}
 												/>
-											</Form.Group>
-
-											<Form.Group as={Col}>
-												<Form.Label>Organization</Form.Label>
-												<Form.Control as="select" ref={register} name="organization_id">
-													<option selected="true" disabled="disabled">
-														Select organization
-													</option>
-													{store.organizations.map((each, i) => {
-														return (
-															<option value={each.id} key={i}>
-																{each.name}
-															</option>
-														);
-													})}
-												</Form.Control>
 											</Form.Group>
 										</Form.Row>
 									</Form.Group>

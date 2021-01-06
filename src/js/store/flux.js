@@ -7,8 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user_id: null,
 			business: [],
 			prospect: [],
-			contacts: [],
-			organizations: []
+			contacts: []
 		},
 		actions: {
 			loadData: async () => {
@@ -52,8 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							password: newUser.password,
 							first_name: newUser.first_name,
 							last_name: newUser.last_name,
-							phone_number: newUser.phone_number,
-							organization_id: newUser.organization_id
+							phone_number: newUser.phone_number
 						})
 					});
 					const body = await response.json();
@@ -135,14 +133,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json();
 				setStore({
 					contacts: data
-				});
-			},
-
-			loadOrganizations: async () => {
-				const response = await fetch(`${ezprospectUrl}/organizations`);
-				const data = await response.json();
-				setStore({
-					organizations: data
 				});
 			}
 		}
