@@ -1,23 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-<<<<<<< HEAD
-import {
-	Nav,
-	Navbar,
-	Modal,
-	Jumbotron,
-	Container,
-	Form,
-	FormControl,
-	Button,
-	ButtonToolbar,
-	Col,
-	Card,
-	Image
-} from "react-bootstrap";
-=======
 import { Modal, Jumbotron, Container, Form, Alert, Button, ButtonToolbar, Col, Card } from "react-bootstrap";
->>>>>>> e1dd623d77718f86f970b17ab717d54236cadccc
 import CardDeck from "react-bootstrap/CardDeck";
 import Carousel from "react-bootstrap/Carousel";
 import "../../styles/home.scss";
