@@ -230,18 +230,7 @@ export const ProspectDetails = props => {
 										</Table>
 									</Jumbotron>
 									<Row className="justify-content-md-center">
-										<Col xs={12} sm={4} md={4}>
-											<Image
-												src=" https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRA8H-FmoP01FDPRNao8dog2FKtHUWlcgEldg&usqp=CAU"
-												fluid
-											/>
-										</Col>
-										<Col xs={12} sm={4} md={4}>
-											<Image
-												src=" https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRA8H-FmoP01FDPRNao8dog2FKtHUWlcgEldg&usqp=CAU"
-												fluid
-											/>
-										</Col>
+										<Col xs={12} sm={4} md={4} />
 									</Row>
 								</Tab>
 							</Tabs>
