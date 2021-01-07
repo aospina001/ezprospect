@@ -29,6 +29,11 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<NavigationBar />
+					{/* <Switch>
+						<Route exact path="/">
+							
+						</Route>
+					</Switch> */}
 
 					<Switch>
 						<Route exact path="/">

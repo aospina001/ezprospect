@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { Container, Jumbotron, ButtonToolbar, Button, Tab, Tabs, Col, Row } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+import { MyMap } from "../component/maps";
 
 import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
@@ -26,7 +27,7 @@ export const BusinessDetails = () => {
 				if (each.properties.ACCOUNTNO == account) {
 					return (
 						<div>
-							<Jumbotron>
+							<Jumbotron style={{ background: "white" }}>
 								<Col className="d-flex justify-content-rigth">
 									<Button variant="success" onClick={() => onSubmit(each.properties)}>
 										Add Prospect
@@ -42,6 +43,7 @@ export const BusinessDetails = () => {
 								<p>Mail Address -- {each.properties.MAILADDR}</p>
 								<p>Owner Name -- {each.properties.OWNERNAME}</p>
 								<p>Phone Number -- {each.properties.PHONENO}</p>
+								<MyMap lat={each.properties.LAT} lon={each.properties.LON} />
 							</Jumbotron>
 						</div>
 					);

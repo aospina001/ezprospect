@@ -93,6 +93,7 @@
 		"react-dom": "^16.8.4",
 		"react-fontawesome": "^1.7.1",
 		"react-hook-form": "^6.11.0",
+		"react-hook-google-maps": "0.0.3",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
 		"recharts": "^2.0.0"
