@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, Redirect } from "react-router-dom";
+import Chart from "../component/myChart";
 import {
 	Container,
 	Jumbotron,
@@ -39,6 +40,8 @@ export const ProspectDetails = props => {
 		// const objectId = vari.properties.OBJECTID;
 		// await actions.addProspect(objectId, props.data[id]);
 		// history.push(`/prospectDetails/${objectId}`);
+		await actions.addFinancial(data);
+		handleCloseFinancial();
 	};
 
 	const onSubmitContact = async data => {
@@ -228,7 +231,9 @@ export const ProspectDetails = props => {
 										</Table>
 									</Jumbotron>
 									<Row className="justify-content-md-center">
-										<Col xs={12} sm={4} md={4} />
+										<Col xs={10} sm={10} md={10}>
+											<Chart />
+										</Col>
 									</Row>
 								</Tab>
 							</Tabs>
@@ -282,37 +287,500 @@ export const ProspectDetails = props => {
 											</Form.Control>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Cash</Form.Label>
+											<Form.Control
+												name="cash"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Accounts Receivable</Form.Label>
+											<Form.Control
+												name="accounts_receivable"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Raw Materials</Form.Label>
+											<Form.Control
+												name="raw_materials"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Work in Process</Form.Label>
+											<Form.Control
+												name="work_in_process"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Finished Goods</Form.Label>
+											<Form.Control
+												name="finished_goods"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Land</Form.Label>
+											<Form.Control
+												name="land"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Construction in Progress</Form.Label>
+											<Form.Control
+												name="construction_in_progress"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Buildings</Form.Label>
+											<Form.Control
+												name="buildings"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Machines and Equipment</Form.Label>
+											<Form.Control
+												name="machines_and_equipment"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Furniture and Fixtures</Form.Label>
+											<Form.Control
+												name="furniture_and_fixtures"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Vehicles</Form.Label>
+											<Form.Control
+												name="vehicles"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Leasehold Improvements</Form.Label>
+											<Form.Control
+												name="leasehold_improvements"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Capital Leases</Form.Label>
+											<Form.Control
+												name="capital_leases"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Fixed Assets</Form.Label>
+											<Form.Control
+												name="other_fixed_assets"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Accumulated Depreciation</Form.Label>
+											<Form.Control
+												name="accumulated_depreciation"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Operating Assets</Form.Label>
+											<Form.Control
+												name="other_operating_assets"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Goodwill</Form.Label>
+											<Form.Control
+												name="goodwill"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Intangibles</Form.Label>
+											<Form.Control
+												name="other_intangibles"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Accumulated Amortization</Form.Label>
+											<Form.Control
+												name="accumulated_amortization"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Non-Operating Assets</Form.Label>
+											<Form.Control
+												name="other_non_operating_assets"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Short Term Debt - Secured</Form.Label>
+											<Form.Control
+												name="short_term_debt_secured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Short Term Debt - Unsecured</Form.Label>
+											<Form.Control
+												name="short_term_debt_unsecured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>CPLTD - Secured</Form.Label>
+											<Form.Control
+												name="cpltd_secured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>CPLTD - Unsecured</Form.Label>
+											<Form.Control
+												name="cpltd_unsecured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Notes Payable</Form.Label>
+											<Form.Control
+												name="other_notes_payable"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Accounts Payable - Trade</Form.Label>
+											<Form.Control
+												name="accounts_payable_trade"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Current Liabilities</Form.Label>
+											<Form.Control
+												name="other_current_liabilities"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>LTD - Secured</Form.Label>
+											<Form.Control
+												name="ltd_secured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>LTD - Unsecured</Form.Label>
+											<Form.Control
+												name="ltd_unsecured"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Long-term Notes Payable</Form.Label>
+											<Form.Control
+												name="other_lt_notes_payable"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Operating Liabilities</Form.Label>
+											<Form.Control
+												name="other_operating_liabilities"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Non-operating Liabilities</Form.Label>
+											<Form.Control
+												name="other_non_operating_liabilities"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Common Stock</Form.Label>
+											<Form.Control
+												name="common_stock"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Additional Paid in Capital</Form.Label>
+											<Form.Control
+												name="additional_paid_in_capital"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Retained Earnings</Form.Label>
+											<Form.Control
+												name="retained_earnings"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										{/* Income Statement Items */}
+										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Total Revenues</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
+											<Form.Control
+												name="total_revenue"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Cost of Goods Sold</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
+											<Form.Control
+												name="total_cogs"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Net Income</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
+											<Form.Label>Selling, General and Administrative Expenses</Form.Label>
+											<Form.Control
+												name="sga_expenses"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Rent Expense</Form.Label>
+											<Form.Control
+												name="rent_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Depreciation Expense</Form.Label>
+											<Form.Control
+												name="depreciation_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Amortization Expense</Form.Label>
+											<Form.Control
+												name="amortization_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Bad Debt Expense</Form.Label>
+											<Form.Control
+												name="bad_debt_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Operating Expenses</Form.Label>
+											<Form.Control
+												name="other_operating_expenses"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Interest Expense</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
+											<Form.Control
+												name="interest_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Depreciation and Amortization Expense</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
+											<Form.Label>Interest Income</Form.Label>
+											<Form.Control
+												name="interest_income"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Other Non-operating Income/(Expense)</Form.Label>
+											<Form.Control
+												name="other_non_operating_income_expense"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Tax Provision</Form.Label>
+											<Form.Control
+												name="tax_provision"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Distributions</Form.Label>
+											<Form.Control
+												name="distributions"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="$"
+											/>
+										</Form.Group>
+
+										{/* <Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>Net Income</Form.Label>
+											<Form.Control size="sm" type="text" placeholder="$" />
+										</Form.Group> */}
+
+										{/* <Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Total Assets</Form.Label>
 											<Form.Control size="sm" type="text" placeholder="$" />
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Total Liabilities</Form.Label>
 											<Form.Control size="sm" type="text" placeholder="$" />
-										</Form.Group>
-										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Distributions</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
-										</Form.Group>
+										</Form.Group> */}
 										<Button variant="secondary" onClick={handleCloseFinancial}>
 											Cancel
 										</Button>

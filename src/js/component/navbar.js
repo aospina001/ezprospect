@@ -34,10 +34,7 @@ export const NavigationBar = () => {
 						<Image height={56} width={135} src={Logo} className="align-items-center" />
 					</Navbar.Brand>
 				</Link>
-				<Nav className="mr-auto">
-					<Nav.Link href="#aboutus">About Us</Nav.Link>
-					<Nav.Link href="#contactus">Contact Us</Nav.Link>
-				</Nav>
+
 				{store.token ? (
 					<div>
 						<Button
@@ -49,11 +46,15 @@ export const NavigationBar = () => {
 						</Button>
 					</div>
 				) : (
-					<div>
+					<>
+						<Nav className="mr-auto">
+							<Nav.Link href="#aboutus">About Us</Nav.Link>
+							<Nav.Link href="#contactus">Contact Us</Nav.Link>
+						</Nav>
 						<Button variant="dark outline-success" onClick={handleShow}>
 							Login
 						</Button>
-					</div>
+					</>
 				)}
 				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 					<Modal.Header closeButton>
@@ -75,7 +76,7 @@ export const NavigationBar = () => {
 								<Form.Label>Password</Form.Label>
 								<Form.Control type="password" placeholder="Password" name="password" ref={register} />
 							</Form.Group>
-							<Button variant="secondary" onClick={handleClose}>
+							<Button variant="secondary mr-2" onClick={handleClose}>
 								Cancel
 							</Button>
 							<Button variant="dark outline-success" type="submit">
