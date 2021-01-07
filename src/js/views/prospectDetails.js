@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, Redirect } from "react-router-dom";
+import Chart from "../component/myChart";
 import {
 	Container,
 	Jumbotron,
@@ -230,7 +231,9 @@ export const ProspectDetails = props => {
 										</Table>
 									</Jumbotron>
 									<Row className="justify-content-md-center">
-										<Col xs={12} sm={4} md={4} />
+										<Col xs={10} sm={10} md={10}>
+											<Chart />
+										</Col>
 									</Row>
 								</Tab>
 							</Tabs>

@@ -34,10 +34,7 @@ export const NavigationBar = () => {
 						<Image height={56} width={135} src={Logo} className="align-items-center" />
 					</Navbar.Brand>
 				</Link>
-				<Nav className="mr-auto">
-					<Nav.Link href="#aboutus">About Us</Nav.Link>
-					<Nav.Link href="#contactus">Contact Us</Nav.Link>
-				</Nav>
+
 				{store.token ? (
 					<div>
 						<Button
@@ -49,11 +46,15 @@ export const NavigationBar = () => {
 						</Button>
 					</div>
 				) : (
-					<div>
+					<>
+						<Nav className="mr-auto">
+							<Nav.Link href="#aboutus">About Us</Nav.Link>
+							<Nav.Link href="#contactus">Contact Us</Nav.Link>
+						</Nav>
 						<Button variant="dark outline-success" onClick={handleShow}>
 							Login
 						</Button>
-					</div>
+					</>
 				)}
 				<Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 					<Modal.Header closeButton>
