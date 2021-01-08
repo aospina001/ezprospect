@@ -73,6 +73,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			addProspect: async data => {
 				const store = getStore();
+				const lat = data.LAT.toString();
+				const lon = data.LON.toString();
+				console.log(lon, lat);
 				try {
 					const response = await fetch(`${ezprospectUrl}/addProspect`, {
 						method: "POST",
@@ -86,6 +89,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							zipCode: data.ZIPCODE,
 							phone_number: data.PHONENO,
 							account: data.ACCOUNTNO,
+							lat: lat,
+							lon: lon,
 							user_id: store.user_id
 						})
 					});

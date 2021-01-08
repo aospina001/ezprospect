@@ -18,7 +18,7 @@ import {
 	Alert
 } from "react-bootstrap";
 import PropTypes from "prop-types";
-
+import { MyMap } from "../component/maps";
 import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
@@ -80,6 +80,7 @@ export const ProspectDetails = props => {
 										<p>Address -- {each.address1}</p>
 										<p>Account -- {each.account}</p>
 										<p>Account -- {each.phone_number}</p>
+										<MyMap lat={parseFloat(each.lat)} lon={parseFloat(each.lon)} />
 									</Jumbotron>
 								</Tab>
 
