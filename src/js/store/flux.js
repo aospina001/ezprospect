@@ -77,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(`${ezprospectUrl}/addProspect`, {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
 						body: JSON.stringify({
 							user_id: store.user_id,
 							name: data.BUSNAME,
@@ -108,10 +108,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			addContact: async (data, account) => {
+				const store = getStore();
 				try {
 					const response = await fetch(`${ezprospectUrl}/addContact`, {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
 						body: JSON.stringify({
 							first_name: data.first_name,
 							last_name: data.last_name,

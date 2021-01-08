@@ -18,7 +18,6 @@ import {
 	Alert
 } from "react-bootstrap";
 import PropTypes from "prop-types";
-
 import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
@@ -28,7 +27,7 @@ export const ProspectDetails = props => {
 	const { account } = useParams();
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
-	const [showfinancial, setShowfinancial] = useState(false);
+	const [showFinancial, setShowFinancial] = useState(false);
 	const [showcontacts, setcontacts] = useState(0);
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
@@ -45,6 +44,7 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitContact = async data => {
+		console.log("adding contact");
 		await actions.addContact(data, account);
 		setcontacts(Math.random());
 		handleCloseContact();
@@ -95,7 +95,8 @@ export const ProspectDetails = props => {
 										<Alert variant="success" className="mt-2">
 											<Alert.Heading>Sorry, no contact added</Alert.Heading>
 											<p>
-												If you want to add a new contact please clic on the button Add contact.
+												If you want to add a new contact please click on the button to add a
+												contact.
 											</p>
 										</Alert>
 									) : (
@@ -137,98 +138,84 @@ export const ProspectDetails = props => {
 											onClick={handleShowFinancial}>
 											Add financial information
 										</Button>
-										<Table striped bordered hover size="sm">
-											<thead>
-												<tr>
-													<th />
-													<th>2018</th>
-													<th>%</th>
-													<th>2019</th>
-													<th>%</th>
-												</tr>
-											</thead>
+										<div>
+											<Table striped bordered hover size="sm">
+												{store.financials.map((each, i) => {
+													return (
+														<div key={each.id}>
+															<thead>
+																<tr>
+																	<th />
+																	<th>{each.statement_date}</th>
+																	<th>%</th>
+																</tr>
+															</thead>
 
-											<tbody>
-												<tr>
-													<td>Revenues</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+															<tbody>
+																<tr>
+																	<td>Revenues</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>COGS</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>COGS</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Gross Profit</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
-												<tr>
-													<td>@SG&A</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Gross Profit</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
+																<tr>
+																	<td>@SG&A</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Interest</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Interest</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Depreciation</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Depreciation</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Amortization</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Amortization</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>EBITDA</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>EBITDA</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Net Income</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Net Income</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Distributions</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
-											</tbody>
-										</Table>
+																<tr>
+																	<td>Distributions</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
+															</tbody>
+														</div>
+													);
+												})}
+											</Table>
+										</div>
 									</Jumbotron>
 									<Row className="justify-content-md-center">
 										<Col xs={10} sm={10} md={10}>
@@ -241,7 +228,7 @@ export const ProspectDetails = props => {
 							{/*------------> Financial Modal ------------------*/}
 
 							<Modal
-								show={showfinancial}
+								show={showFinancial}
 								onHide={handleCloseFinancial}
 								id="financial"
 								backdrop="static"
