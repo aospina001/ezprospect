@@ -29,10 +29,11 @@ export const ProspectDetails = props => {
 	const [showContact, setShowContact] = useState(false);
 	const [showFinancial, setShowFinancial] = useState(false);
 	const [showcontacts, setcontacts] = useState(0);
+	const [showFinancials, setFinancials] = useState(0);
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
-	const handleCloseFinancial = () => setShowfinancial(false);
-	const handleShowFinancial = () => setShowfinancial(true);
+	const handleCloseFinancial = () => setShowFinancial(false);
+	const handleShowFinancial = () => setShowFinancial(true);
 
 	const onSubmitFinancial = async data => {
 		// const vari = props.data[id];
