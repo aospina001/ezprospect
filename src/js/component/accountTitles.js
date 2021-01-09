@@ -6,7 +6,7 @@ export const accountTitles = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-        <ul>
+        <ul className="account-titles">
             <li className="account-title statement-header">Statement Date</li>
             <li className="account-title statement-header">Statement Quality</li>
             <li className="account-title"></li>
