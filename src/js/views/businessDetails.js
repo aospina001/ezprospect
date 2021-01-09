@@ -15,9 +15,9 @@ export const BusinessDetails = () => {
 	let history = useHistory();
 
 	const onSubmit = async data => {
-		let account = await actions.addProspect(data);
+		let prospect_id = await actions.addProspect(data);
 		await actions.loadProspects();
-		history.push(`/prospectDetails/${account}`);
+		history.push(`/prospectDetails/${prospect_id}`);
 	};
 
 	return (
@@ -26,26 +26,28 @@ export const BusinessDetails = () => {
 			{store.business.map((each, i) => {
 				if (each.properties.ACCOUNTNO == account) {
 					return (
-						<div>
-							<Jumbotron style={{ background: "white" }}>
-								<Col className="d-flex justify-content-rigth">
+						<Jumbotron style={{ background: "white" }}>
+							<Row>
+								<Col md={6}>
+									<h1>{each.properties.BUSNAME}</h1>
+									<p>Address -- {each.properties.BUSADDR}</p>
+									<p>Folio -- {each.properties.FOLIO}</p>
+									<p>Account -- {each.properties.ACCOUNTNO}</p>
+									<p>Status -- {each.properties.ACCSTATUS}</p>
+									<p>Class Code -- {each.properties.CLASSCODE}</p>
+									<p>Class Description -- {each.properties.CLASSDESC}</p>
+									<p>Mail Address -- {each.properties.MAILADDR}</p>
+									<p>Owner Name -- {each.properties.OWNERNAME}</p>
+									<p>Phone Number -- {each.properties.PHONENO}</p>
 									<Button variant="success" onClick={() => onSubmit(each.properties)}>
 										Add Prospect
 									</Button>
 								</Col>
-								<h1 className="mt-2">{each.properties.BUSNAME}</h1>
-								<p>Address -- {each.properties.BUSADDR}</p>
-								<p>Folio -- {each.properties.FOLIO}</p>
-								<p>Account -- {each.properties.ACCOUNTNO}</p>
-								<p>Status -- {each.properties.ACCSTATUS}</p>
-								<p>Class Code -- {each.properties.CLASSCODE}</p>
-								<p>Class Description -- {each.properties.CLASSDESC}</p>
-								<p>Mail Address -- {each.properties.MAILADDR}</p>
-								<p>Owner Name -- {each.properties.OWNERNAME}</p>
-								<p>Phone Number -- {each.properties.PHONENO}</p>
-								<MyMap lat={each.properties.LAT} lon={each.properties.LON} />
-							</Jumbotron>
-						</div>
+								<Col md={6}>
+									<MyMap lat={each.properties.LAT} lon={each.properties.LON} />
+								</Col>
+							</Row>
+						</Jumbotron>
 					);
 				}
 			})}

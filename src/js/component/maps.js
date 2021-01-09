@@ -6,7 +6,7 @@ export const MyMap = props => {
 	const points = { lat: props.lat, lng: props.lon };
 	const { ref, map, google } = useGoogleMaps("AIzaSyA-uwvOzp76L6-v-HSF0NwJ7JsYOcrhU-o", {
 		center: points,
-		zoom: 20
+		zoom: 17
 		// mapTypeId: "satellite"
 	});
 
@@ -16,7 +16,7 @@ export const MyMap = props => {
 	}
 	// console.log(map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
 	// console.log(google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
-	return <div ref={ref} style={{ width: 800, height: 400 }} />;
+	return <div ref={ref} style={{ width: 600, height: 400 }} />;
 };
 
 MyMap.propTypes = {

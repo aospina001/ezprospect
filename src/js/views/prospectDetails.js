@@ -8,7 +8,7 @@ import {
 	Col,
 	Card,
 	Table,
-	Image,
+	FormControl,
 	Row,
 	Button,
 	Modal,
@@ -25,15 +25,16 @@ import { useForm } from "react-hook-form";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-	const { account } = useParams();
+	const { prospect_id } = useParams();
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
-	const [showfinancial, setShowfinancial] = useState(false);
+	const [showFinancial, setShowFinancial] = useState(false);
 	const [showcontacts, setcontacts] = useState(0);
+	const [showFinancials, setFinancials] = useState(0);
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
-	const handleCloseFinancial = () => setShowfinancial(false);
-	const handleShowFinancial = () => setShowfinancial(true);
+	const handleCloseFinancial = () => setShowFinancial(false);
+	const handleShowFinancial = () => setShowFinancial(true);
 
 	const onSubmitFinancial = async data => {
 		// const vari = props.data[id];
@@ -45,14 +46,13 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitContact = async data => {
-		await actions.addContact(data, account);
+		await actions.addContact(data, prospect_id);
 		setcontacts(Math.random());
 		handleCloseContact();
 	};
 
 	const getContacts = async () => {
-		await actions.loadContacts();
-		console.log(store.contacts);
+		await actions.loadContacts(prospect_id);
 	};
 
 	useEffect(
@@ -70,19 +70,30 @@ export const ProspectDetails = props => {
 		<Container className="mt-5">
 			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.prospect.map((each, i) => {
-				if (each.account == account) {
+				if (each.id == prospect_id) {
 					return (
 						<div>
 							<Tabs fill defaultActiveKey="info" id="uncontrolled-tab-example">
+								{/* -----------------------------Business Info Tab------------------ */}
+
 								<Tab eventKey="info" title="Business Info">
 									<Jumbotron style={{ background: "white" }} className="mt-2">
-										<h1>{each.name}</h1>
-										<p>Address -- {each.address1}</p>
-										<p>Account -- {each.account}</p>
-										<p>Account -- {each.phone_number}</p>
-										<MyMap lat={parseFloat(each.lat)} lon={parseFloat(each.lon)} />
+										<Row>
+											<Col md={6}>
+												<h1>{each.name}</h1>
+												<p>Address -- {each.address1}</p>
+												<p>Account -- {each.account}</p>
+												<p>Account -- {each.phone_number}</p>
+											</Col>
+
+											<Col md={6}>
+												<MyMap lat={parseFloat(each.lat)} lon={parseFloat(each.lon)} />
+											</Col>
+										</Row>
 									</Jumbotron>
 								</Tab>
+
+								{/* ----------------------------Contacts Tab------------------ */}
 
 								<Tab eventKey="contacts" title="Contacts">
 									<Button
@@ -96,7 +107,8 @@ export const ProspectDetails = props => {
 										<Alert variant="success" className="mt-2">
 											<Alert.Heading>Sorry, no contact added</Alert.Heading>
 											<p>
-												If you want to add a new contact please clic on the button Add contact.
+												If you want to add a new contact please click on the button to add a
+												contact.
 											</p>
 										</Alert>
 									) : (
@@ -126,8 +138,55 @@ export const ProspectDetails = props => {
 									)}
 								</Tab>
 
-								<Tab eventKey="background" title="Background" />
+								{/* ----------------------------Background Tab------------------ */}
+
+								<Tab eventKey="background" title="Background">
+									<Row>
+										<Col md={6}>
+											<Jumbotron className="mt-5 px-2 py-2">
+												<h1>Hello, world!</h1>
+												<Card style={{ width: "100%" }} className="mt-2">
+													<Card.Header>Note</Card.Header>
+													<Card.Body>
+														<blockquote className="blockquote mb-0">
+															<p>
+																{" "}
+																Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+																Integer posuere erat a ante.{" "}
+															</p>
+															<footer className="blockquote-footer">
+																Created at <cite title="Source Title">Date</cite>
+															</footer>
+														</blockquote>
+													</Card.Body>
+												</Card>
+											</Jumbotron>
+										</Col>
+										<Col md={6}>
+											<Jumbotron className="mt-5 px-2 py-2">
+												<h1>Hello, world!</h1>
+												<Card style={{ width: "100%" }} className="mt-2">
+													<Card.Header>Quote</Card.Header>
+													<Card.Body>
+														<blockquote className="blockquote mb-0">
+															<p>
+																{" "}
+																Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+																Integer posuere erat a ante.{" "}
+															</p>
+															<footer className="blockquote-footer">
+																Created at <cite title="Source Title">Date</cite>
+															</footer>
+														</blockquote>
+													</Card.Body>
+												</Card>
+											</Jumbotron>
+										</Col>
+									</Row>
+								</Tab>
 								<Tab eventKey="products" title="Products" />
+
+								{/* ----------------------------Financial Tab------------------ */}
 
 								<Tab eventKey="financial" title="Financial">
 									<Jumbotron style={{ background: "white" }}>
@@ -138,98 +197,84 @@ export const ProspectDetails = props => {
 											onClick={handleShowFinancial}>
 											Add financial information
 										</Button>
-										<Table striped bordered hover size="sm">
-											<thead>
-												<tr>
-													<th />
-													<th>2018</th>
-													<th>%</th>
-													<th>2019</th>
-													<th>%</th>
-												</tr>
-											</thead>
+										<div>
+											<Table striped bordered hover size="sm">
+												{store.financials.map((each, i) => {
+													return (
+														<div key={each.id}>
+															<thead>
+																<tr>
+																	<th />
+																	<th>{each.statement_date}</th>
+																	<th>%</th>
+																</tr>
+															</thead>
 
-											<tbody>
-												<tr>
-													<td>Revenues</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+															<tbody>
+																<tr>
+																	<td>Revenues</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>COGS</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>COGS</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Gross Profit</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
-												<tr>
-													<td>@SG&A</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Gross Profit</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
+																<tr>
+																	<td>@SG&A</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Interest</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Interest</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Depreciation</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Depreciation</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Amortization</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Amortization</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>EBITDA</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>EBITDA</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Net Income</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
+																<tr>
+																	<td>Net Income</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
 
-												<tr>
-													<td>Distributions</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-													<td>xxxxxxxxx</td>
-													<td>100.0</td>
-												</tr>
-											</tbody>
-										</Table>
+																<tr>
+																	<td>Distributions</td>
+																	<td>xxxxxxxxx</td>
+																	<td>100.0</td>
+																</tr>
+															</tbody>
+														</div>
+													);
+												})}
+											</Table>
+										</div>
 									</Jumbotron>
 									<Row className="justify-content-md-center">
 										<Col xs={10} sm={10} md={10}>
@@ -242,7 +287,7 @@ export const ProspectDetails = props => {
 							{/*------------> Financial Modal ------------------*/}
 
 							<Modal
-								show={showfinancial}
+								show={showFinancial}
 								onHide={handleCloseFinancial}
 								id="financial"
 								backdrop="static"
