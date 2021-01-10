@@ -8,7 +8,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			business: [],
 			prospect: [],
 			contacts: [],
-			financials: []
+			financials: [],
+			backCompany: [],
+			backOwner: []
 		},
 		actions: {
 			loadData: async () => {
@@ -110,6 +112,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
+			// loadBackCompany: async prospect_id => {
+			// 	const store = getStore();
+			// 	const response = await fetch(`${ezprospectUrl}/backCompany/${store.user_id}/${prospect_id}`);
+			// 	const data = await response.json();
+			// 	setStore({
+			// 		backCompany: data
+			// 	});
+			// },
+
+			// loadBackOwner: async prospect_id => {
+			// 	const store = getStore();
+			// 	const response = await fetch(`${ezprospectUrl}/backOwner/${store.user_id}/${prospect_id}`);
+			// 	const data = await response.json();
+			// 	setStore({
+			// 		backOwner: data
+			// 	});
+			// },
+
 			addContact: async (data, prospect_id) => {
 				const store = getStore();
 				try {
@@ -125,6 +145,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 							phone_number: data.phone_number,
 							prospect_id: prospect_id,
 							user_id: store.user_id
+						})
+					});
+					const body = await response.json();
+					console.log(body);
+				} catch (error) {
+					console.log(error);
+				}
+			},
+
+			addBackCompany: async (data, prospect_id) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${ezprospectUrl}/addBack_company`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
+						body: JSON.stringify({
+							prospect_id: prospect_id,
+							data: data.data
+						})
+					});
+					const body = await response.json();
+					console.log(body);
+					return body;
+				} catch (error) {
+					console.log(error);
+				}
+			},
+
+			addBackOwner: async (data, prospect_id) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${ezprospectUrl}/addBack_owner`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
+						body: JSON.stringify({
+							prospect_id: prospect_id,
+							data: data.data
 						})
 					});
 					const body = await response.json();

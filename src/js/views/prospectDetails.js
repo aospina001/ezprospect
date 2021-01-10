@@ -26,13 +26,26 @@ import { useForm } from "react-hook-form";
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
 	const { prospect_id } = useParams();
+	const [showcontacts, setcontacts] = useState(0);
+	const [backCompany, setBack_Company] = useState(0);
+	const [backOwner, setBack_Owner] = useState(0);
+
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
+	const [showBack_Company, setShowBack_Company] = useState(false);
+	const [showBack_Owner, setShowBack_Owner] = useState(false);
 	const [showFinancial, setShowFinancial] = useState(false);
-	const [showcontacts, setcontacts] = useState(0);
 	const [showFinancials, setFinancials] = useState(0);
+
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
+
+	const handleCloseBack_Company = () => setShowBack_Company(false);
+	const handleShowBack_Company = () => setShowBack_Company(true);
+
+	const handleCloseBack_Owner = () => setShowBack_Owner(false);
+	const handleShowBack_Owner = () => setShowBack_Owner(true);
+
 	const handleCloseFinancial = () => setShowFinancial(false);
 	const handleShowFinancial = () => setShowFinancial(true);
 
@@ -51,9 +64,43 @@ export const ProspectDetails = props => {
 		handleCloseContact();
 	};
 
+	const onSubmitBack_Company = async data => {
+		await actions.addBackCompany(data, prospect_id);
+		setBack_Company(Math.random());
+		handleCloseBack_Company();
+	};
+
+	const onSubmitBack_Owner = async data => {
+		await actions.addBackOwner(data, prospect_id);
+		setBack_Owner(Math.random());
+		handleCloseBack_Owner();
+	};
+
 	const getContacts = async () => {
 		await actions.loadContacts(prospect_id);
 	};
+
+	// const getBack_Company = async () => {
+	// 	await actions.loadBackCompany(prospect_id);
+	// };
+
+	// const getBack_Owner = async () => {
+	// 	await actions.loadBackOwner(prospect_id);
+	// };
+
+	// useEffect(
+	// 	() => {
+	// 		getBack_Company();
+	// 	},
+	// 	[backCompany]
+	// );
+
+	// useEffect(
+	// 	() => {
+	// 		getBack_Owner();
+	// 	},
+	// 	[backOwner]
+	// );
 
 	useEffect(
 		() => {
@@ -64,6 +111,8 @@ export const ProspectDetails = props => {
 
 	useEffect(() => {
 		getContacts();
+		// getBack_Company();
+		// getBack_Owner();
 	}, []);
 
 	return (
@@ -144,16 +193,12 @@ export const ProspectDetails = props => {
 									<Row>
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
-												<h1>Hello, world!</h1>
 												<Card style={{ width: "100%" }} className="mt-2">
-													<Card.Header>Note</Card.Header>
+													<Card.Header>Company</Card.Header>
+													<Button onClick={handleShowBack_Company}>Edit</Button>
 													<Card.Body>
 														<blockquote className="blockquote mb-0">
-															<p>
-																{" "}
-																Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																Integer posuere erat a ante.{" "}
-															</p>
+															<p> {store.backCompany} </p>
 															<footer className="blockquote-footer">
 																Created at <cite title="Source Title">Date</cite>
 															</footer>
@@ -164,16 +209,12 @@ export const ProspectDetails = props => {
 										</Col>
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
-												<h1>Hello, world!</h1>
 												<Card style={{ width: "100%" }} className="mt-2">
-													<Card.Header>Quote</Card.Header>
+													<Card.Header>Owner</Card.Header>
+													<Button onClick={handleShowBack_Owner}>Edit</Button>
 													<Card.Body>
 														<blockquote className="blockquote mb-0">
-															<p>
-																{" "}
-																Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-																Integer posuere erat a ante.{" "}
-															</p>
+															<p> {store.backOwner} </p>
 															<footer className="blockquote-footer">
 																Created at <cite title="Source Title">Date</cite>
 															</footer>
@@ -925,10 +966,71 @@ export const ProspectDetails = props => {
 									</Form>
 								</Modal.Body>
 							</Modal>
+							{/*------------> Background Company Modal ------------------------*/}
 
-							{/* <Button variant="secondary" onClick={save}>
-								Done
-							</Button> */}
+							<Modal
+								show={showBack_Company}
+								onHide={handleCloseBack_Company}
+								id="background_company"
+								backdrop="static"
+								keyboard={false}>
+								<Modal.Header closeButton>
+									<Modal.Title>Background Information</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>
+									<Form onSubmit={handleSubmit(onSubmitBack_Company)}>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>First Name</Form.Label>
+											<Form.Control
+												as="textarea"
+												// placeholder="first name"
+												name="data"
+												ref={register}
+											/>
+										</Form.Group>
+
+										<Button variant="secondary" onClick={handleCloseBack_Company}>
+											Cancel
+										</Button>
+										<Button variant="success" type="submit">
+											Add
+										</Button>
+									</Form>
+								</Modal.Body>
+							</Modal>
+
+							{/*------------> Background Owner Modal ------------------------*/}
+
+							<Modal
+								show={showBack_Owner}
+								onHide={handleCloseBack_Owner}
+								id="background_company"
+								backdrop="static"
+								keyboard={false}>
+								<Modal.Header closeButton>
+									<Modal.Title>Background Information</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>
+									<Form onSubmit={handleSubmit(onSubmitBack_Owner)}>
+										<Form.Group controlId="exampleForm.ControlInput1">
+											<Form.Label>First Name</Form.Label>
+											<Form.Control
+												as="textarea"
+												// placeholder="first name"
+												name="data"
+												ref={register}
+											/>
+										</Form.Group>
+
+										<Button variant="secondary" onClick={handleCloseBack_Owner}>
+											Cancel
+										</Button>
+										<Button variant="success" type="submit">
+											Add
+										</Button>
+									</Form>
+								</Modal.Body>
+							</Modal>
 						</div>
 					);
 				}
