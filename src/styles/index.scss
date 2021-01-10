@@ -91,6 +91,8 @@ p.intro {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 10px;
+    width: 150px;
+    border: solid 1px lightgray;
 }
 .statement-header {
     background-color: $base-color;
