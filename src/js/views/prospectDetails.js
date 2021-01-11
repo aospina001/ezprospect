@@ -243,7 +243,7 @@ export const ProspectDetails = props => {
 											<Form.Label>Date of Financial Information</Form.Label>
 											<Form.Control size="sm" type="text" placeholder="MM/DD/YYYY" />
 										</Form.Group>
-										<Form.Group controlId="exampleForm.ControlSelect1">
+										{/* <Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>FYE Month</Form.Label>
 											<Form.Control size="sm" as="select">
 												<option>Select a month</option>
@@ -260,7 +260,7 @@ export const ProspectDetails = props => {
 												<option>November</option>
 												<option>December</option>
 											</Form.Control>
-										</Form.Group>
+										</Form.Group> */}
 										<Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>Select quality of financial data</Form.Label>
 											<Form.Control size="sm" as="select">
@@ -728,7 +728,7 @@ export const ProspectDetails = props => {
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Other Non-operating Income/(Expense)</Form.Label>
 											<Form.Control
-												name="other_non_operating_income_expense"
+												name="other_income_expense"
 												ref={register}
 												size="sm"
 												type="text"
