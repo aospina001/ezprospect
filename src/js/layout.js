@@ -15,6 +15,7 @@ import { Footer } from "./component/footer";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { Spinner, Container } from "react-bootstrap";
+import { EditContact } from "./component/editContact";
 
 //create your first component
 const Layout = () => {
@@ -45,7 +46,10 @@ const Layout = () => {
 						<Route exact path="/businessDetails/:account">
 							<BusinessDetails />
 						</Route>
-						<Route exact path="/prospectDetails/:prospect_id">
+						<Route exact path="/editContact/:id/:prospect_id">
+							<EditContact />
+						</Route>
+						<Route exact path="/prospectDetails/:prospect_id/:editContact">
 							<ProspectDetails />
 						</Route>
 						<Route>

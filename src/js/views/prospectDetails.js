@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, Redirect } from "react-router-dom";
+import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import Chart from "../component/myChart";
 import {
 	Container,
@@ -22,16 +22,27 @@ import { MyMap } from "../component/maps";
 import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
+import { EditContact } from "../component/editContact";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-	const { prospect_id } = useParams();
+	const history = useHistory();
+	const { prospect_id, editContact } = useParams();
 	const [showcontacts, setcontacts] = useState(0);
-	const [backCompany, setBack_Company] = useState(0);
-	const [backOwner, setBack_Owner] = useState(0);
+	const [backCompany, setBack_Company] = useState([]);
+	const [backOwner, setBack_Owner] = useState([]);
+
+	// useEffect(
+	// 	() => {
+	// 		return history.listen(location => {
+	// 			console.log(`You changed the page to: ${location.pathname}`);
+	// 		});
+	// 	},
+	// 	[history]// );
 
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
+	const [showEditContact, setShow_EditContact] = useState(false);
 	const [showBack_Company, setShowBack_Company] = useState(false);
 	const [showBack_Owner, setShowBack_Owner] = useState(false);
 	const [showFinancial, setShowFinancial] = useState(false);
@@ -39,6 +50,9 @@ export const ProspectDetails = props => {
 
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
+
+	const handleClose_EditContact = () => setShow_EditContact(false);
+	const handleShow_EditContact = () => setShow_EditContact(true);
 
 	const handleCloseBack_Company = () => setShowBack_Company(false);
 	const handleShowBack_Company = () => setShowBack_Company(true);
@@ -65,42 +79,35 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitBack_Company = async data => {
-		await actions.addBackCompany(data, prospect_id);
-		setBack_Company(Math.random());
+		const response = await actions.addBackCompany(data, prospect_id);
+		setBack_Company(response);
 		handleCloseBack_Company();
 	};
 
 	const onSubmitBack_Owner = async data => {
-		await actions.addBackOwner(data, prospect_id);
-		setBack_Owner(Math.random());
+		const response = await actions.addBackOwner(data, prospect_id);
+		setBack_Owner(response);
 		handleCloseBack_Owner();
+	};
+
+	const passContactID = data => {
+		setContactInfo(data);
+		handleShow_EditContact();
 	};
 
 	const getContacts = async () => {
 		await actions.loadContacts(prospect_id);
 	};
 
-	// const getBack_Company = async () => {
-	// 	await actions.loadBackCompany(prospect_id);
-	// };
+	const getBack_Company = async () => {
+		const response = await actions.loadBackCompany(prospect_id);
+		setBack_Company(response);
+	};
 
-	// const getBack_Owner = async () => {
-	// 	await actions.loadBackOwner(prospect_id);
-	// };
-
-	// useEffect(
-	// 	() => {
-	// 		getBack_Company();
-	// 	},
-	// 	[backCompany]
-	// );
-
-	// useEffect(
-	// 	() => {
-	// 		getBack_Owner();
-	// 	},
-	// 	[backOwner]
-	// );
+	const getBack_Owner = async () => {
+		const response = await actions.loadBackOwner(prospect_id);
+		setBack_Owner(response);
+	};
 
 	useEffect(
 		() => {
@@ -111,8 +118,8 @@ export const ProspectDetails = props => {
 
 	useEffect(() => {
 		getContacts();
-		// getBack_Company();
-		// getBack_Owner();
+		getBack_Company();
+		getBack_Owner();
 	}, []);
 
 	return (
@@ -122,7 +129,7 @@ export const ProspectDetails = props => {
 				if (each.id == prospect_id) {
 					return (
 						<div>
-							<Tabs fill defaultActiveKey="info" id="uncontrolled-tab-example">
+							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example">
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
@@ -167,15 +174,39 @@ export const ProspectDetails = props => {
 													return (
 														<Col className="mt-5" md={4} key={i}>
 															<Card>
+																<Card.Header as="h5">
+																	{each.first_name}
+																	&nbsp;
+																	{each.last_name}
+																	<Link to={`/EditContact/${each.id}/${prospect_id}`}>
+																		<Button variant="dark" className="float-right">
+																			{" "}
+																			Edit
+																		</Button>
+																	</Link>
+																</Card.Header>
 																<Card.Body>
-																	<Card.Title>
-																		{each.first_name}
-																		&nbsp;
-																		{each.last_name}
-																	</Card.Title>
 																	<Card.Text>
-																		Phone Number:&nbsp;
-																		{each.phone_number}
+																		<p>
+																			<b>Position:</b>
+																			&nbsp;
+																			{each.position}
+																		</p>
+																		<p>
+																			<b>Title:</b>
+																			&nbsp;
+																			{each.title}
+																		</p>
+																		<p>
+																			<b>Phone Number:</b>
+																			&nbsp;
+																			{each.phone_number}
+																		</p>
+																		<p>
+																			<b>Email:</b>
+																			&nbsp;
+																			{each.email}
+																		</p>
 																	</Card.Text>
 																</Card.Body>
 															</Card>
@@ -194,13 +225,25 @@ export const ProspectDetails = props => {
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
 												<Card style={{ width: "100%" }} className="mt-2">
-													<Card.Header>Company</Card.Header>
-													<Button onClick={handleShowBack_Company}>Edit</Button>
+													<Card.Header>
+														Company
+														<Button
+															onClick={handleShowBack_Company}
+															className="float-right">
+															Edit
+														</Button>
+													</Card.Header>
+
 													<Card.Body>
 														<blockquote className="blockquote mb-0">
-															<p> {store.backCompany} </p>
+															<p> {backCompany == "" ? "Not note" : backCompany.data} </p>
 															<footer className="blockquote-footer">
-																Created at <cite title="Source Title">Date</cite>
+																Created at{" "}
+																<cite title="Source Title">
+																	{backCompany == ""
+																		? "No message created yet"
+																		: backCompany.date}
+																</cite>
 															</footer>
 														</blockquote>
 													</Card.Body>
@@ -210,13 +253,23 @@ export const ProspectDetails = props => {
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
 												<Card style={{ width: "100%" }} className="mt-2">
-													<Card.Header>Owner</Card.Header>
-													<Button onClick={handleShowBack_Owner}>Edit</Button>
+													<Card.Header>
+														Owner
+														<Button onClick={handleShowBack_Owner} className="float-right">
+															Edit
+														</Button>
+													</Card.Header>
+
 													<Card.Body>
 														<blockquote className="blockquote mb-0">
-															<p> {store.backOwner} </p>
+															<p> {backOwner == "" ? "No note" : backOwner.data} </p>
 															<footer className="blockquote-footer">
-																Created at <cite title="Source Title">Date</cite>
+																Created at{" "}
+																<cite title="Source Title">
+																	{backOwner == ""
+																		? "No message created yet"
+																		: backOwner.date}
+																</cite>
 															</footer>
 														</blockquote>
 													</Card.Body>
@@ -225,6 +278,9 @@ export const ProspectDetails = props => {
 										</Col>
 									</Row>
 								</Tab>
+
+								{/* -----------------------------Product Tab-------------------- */}
+
 								<Tab eventKey="products" title="Products" />
 
 								{/* ----------------------------Financial Tab------------------ */}
@@ -324,9 +380,7 @@ export const ProspectDetails = props => {
 									</Row>
 								</Tab>
 							</Tabs>
-
 							{/*------------> Financial Modal ------------------*/}
-
 							<Modal
 								show={showFinancial}
 								onHide={handleCloseFinancial}
@@ -877,9 +931,7 @@ export const ProspectDetails = props => {
 									</Form>
 								</Modal.Body>
 							</Modal>
-
 							{/*------------> Contact Modal ------------------------*/}
-
 							<Modal
 								show={showContact}
 								onHide={handleCloseContact}
@@ -967,7 +1019,6 @@ export const ProspectDetails = props => {
 								</Modal.Body>
 							</Modal>
 							{/*------------> Background Company Modal ------------------------*/}
-
 							<Modal
 								show={showBack_Company}
 								onHide={handleCloseBack_Company}
@@ -980,13 +1031,10 @@ export const ProspectDetails = props => {
 								<Modal.Body>
 									<Form onSubmit={handleSubmit(onSubmitBack_Company)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>First Name</Form.Label>
-											<Form.Control
-												as="textarea"
-												// placeholder="first name"
-												name="data"
-												ref={register}
-											/>
+											<Form.Label>Background information</Form.Label>
+											<Form.Control as="textarea" name="data" ref={register}>
+												{backCompany == "" ? "" : backCompany.data}
+											</Form.Control>
 										</Form.Group>
 
 										<Button variant="secondary" onClick={handleCloseBack_Company}>
@@ -998,9 +1046,7 @@ export const ProspectDetails = props => {
 									</Form>
 								</Modal.Body>
 							</Modal>
-
 							{/*------------> Background Owner Modal ------------------------*/}
-
 							<Modal
 								show={showBack_Owner}
 								onHide={handleCloseBack_Owner}
@@ -1013,13 +1059,10 @@ export const ProspectDetails = props => {
 								<Modal.Body>
 									<Form onSubmit={handleSubmit(onSubmitBack_Owner)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>First Name</Form.Label>
-											<Form.Control
-												as="textarea"
-												// placeholder="first name"
-												name="data"
-												ref={register}
-											/>
+											<Form.Label>Background information</Form.Label>
+											<Form.Control as="textarea" name="data" ref={register}>
+												{backOwner == "" ? "" : backOwner.data}
+											</Form.Control>
 										</Form.Group>
 
 										<Button variant="secondary" onClick={handleCloseBack_Owner}>

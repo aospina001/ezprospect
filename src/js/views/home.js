@@ -4,6 +4,8 @@ import { Card, Container, CardDeck, Form, FormControl, Button, ButtonToolbar, Co
 import "../../styles/home.scss";
 import { Link, Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -13,7 +15,26 @@ export const Home = () => {
 	const handleShow = () => setShow(true);
 	const [searchTerm, setSearchTerm] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);
-	const [loading, setLoading] = useState(false);
+	const [editContact, setContact] = useState("info");
+	const locale = "en";
+	const [today, setDate] = useState(new Date());
+
+	React.useEffect(() => {
+		const timer = setInterval(() => {
+			setDate(new Date());
+		}, 60 * 1000);
+		return () => {
+			clearInterval(timer);
+		};
+	}, []);
+
+	const day = today.toLocaleDateString(locale, { weekday: "long" });
+	const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, { month: "long" })}\n\n`;
+
+	const hour = today.getHours();
+	const wish = `Good ${(hour < 12 && "Morning") || (hour < 17 && "Afternoon") || "Evening"}, `;
+
+	const time = today.toLocaleTimeString(locale, { hour: "numeric", hour12: true, minute: "numeric" });
 
 	useEffect(() => {
 		if (store.prospect.length == 0) getProspects();
@@ -51,7 +72,7 @@ export const Home = () => {
 			{/* Search new prospects */}
 			<Form inline className="justify-content-center mt-2" md={12} value={searchTerm} onChange={handleChange}>
 				<FormControl type="text" placeholder="Search" />
-				<Button variant="outline-success ml-2 ">Search</Button>
+				<FontAwesomeIcon icon={faHome} />
 			</Form>
 			<Container md={12} show={show} onHide={handleClose} backdrop="static" keyboard={false}>
 				<CardDeck className="justify-content-center">
@@ -77,7 +98,7 @@ export const Home = () => {
 																<Link
 																	to={`/prospectDetails/${
 																		each.properties.ACCOUNTNO
-																	}`}>
+																	}/${editContact}`}>
 																	<Button variant="dark">View</Button>
 																</Link>
 															);
@@ -85,7 +106,10 @@ export const Home = () => {
 													})}
 
 													{count == 0 ? (
-														<Link to={`/businessDetails/${each.properties.ACCOUNTNO}`}>
+														<Link
+															to={`/businessDetails/${
+																each.properties.ACCOUNTNO
+															}/${editContact}`}>
 															<Button variant="success">Create Prospect</Button>
 														</Link>
 													) : (
@@ -102,6 +126,8 @@ export const Home = () => {
 
 			{/*-------------------------------- Show the user prospects -------------------------------*/}
 			<Container className="mt-5">
+				<h3>{`${wish} ${store.user_name}`}</h3>
+				<p>{`${date} | ${time}`}</p>
 				{store.prospect.length == 0 ? (
 					<Alert variant="success">
 						<Alert.Heading>Sorry, no prospect created yet</Alert.Heading>
@@ -126,7 +152,7 @@ export const Home = () => {
 												<ButtonToolbar
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
-													<Link to={`/prospectDetails/${each.id}`}>
+													<Link to={`/prospectDetails/${each.id}/${editContact}`}>
 														<Button variant="success">View</Button>
 													</Link>
 												</ButtonToolbar>

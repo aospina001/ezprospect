@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null,
+			user_name: "",
 			user_id: null,
 			business: [],
 			prospect: [],
@@ -34,9 +35,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						setStore({ token: body.jwt, user_id: body.user_id });
+						setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
 					} else {
-						setStore({ token: null, user_id: null });
+						setStore({ token: null, user_id: null, user_name: "" });
 						return body.msg;
 					}
 				} catch (error) {
@@ -59,9 +60,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						setStore({ token: body.jwt, user_id: body.user_id });
+						setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
 					} else {
-						setStore({ token: null, user_id: null });
+						setStore({ token: null, user_id: null, user_name: "" });
 						return body.msg;
 					}
 				} catch (error) {
@@ -112,23 +113,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			// loadBackCompany: async prospect_id => {
-			// 	const store = getStore();
-			// 	const response = await fetch(`${ezprospectUrl}/backCompany/${store.user_id}/${prospect_id}`);
-			// 	const data = await response.json();
-			// 	setStore({
-			// 		backCompany: data
-			// 	});
-			// },
+			loadBackCompany: async prospect_id => {
+				const store = getStore();
+				const response = await fetch(`${ezprospectUrl}/backCompany/${store.user_id}/${prospect_id}`);
+				const data = await response.json();
+				return data;
+			},
 
-			// loadBackOwner: async prospect_id => {
-			// 	const store = getStore();
-			// 	const response = await fetch(`${ezprospectUrl}/backOwner/${store.user_id}/${prospect_id}`);
-			// 	const data = await response.json();
-			// 	setStore({
-			// 		backOwner: data
-			// 	});
-			// },
+			loadBackOwner: async prospect_id => {
+				const store = getStore();
+				const response = await fetch(`${ezprospectUrl}/backOwner/${store.user_id}/${prospect_id}`);
+				const data = await response.json();
+				return data;
+			},
 
 			addContact: async (data, prospect_id) => {
 				const store = getStore();
@@ -186,6 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					console.log(body);
+					return body;
 				} catch (error) {
 					console.log(error);
 				}
@@ -198,6 +196,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					contacts: data
 				});
+			},
+
+			editContact: async (data, id) => {
+				try {
+					const response = await fetch(`${ezprospectUrl}/editContact`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							first_name: data.first_name,
+							last_name: data.last_name,
+							position: data.position,
+							title: data.title,
+							email: data.email,
+							phone_number: data.phone_number,
+							contact_id: id
+						})
+					});
+
+					getActions().getContacts();
+				} catch (error) {
+					console.log(error);
+				}
 			},
 
 			addFinancial: async data => {
@@ -267,28 +289,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 				}
 			},
-
-			// editContact: async (id, full_name, email, address, phone) => {
-			// 	try {
-			// 		const response = await fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
-			// 			method: "PUT",
-			// 			headers: {
-			// 				"Content-Type": "application/json"
-			// 			},
-			// 			body: JSON.stringify({
-			// 				full_name: full_name,
-			// 				email: email,
-			// 				agenda_slug: "aospina001",
-			// 				address: address,
-			// 				phone: phone
-			// 			})
-			// 		});
-
-			// 		getActions().getContacts();
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// },
 			deleteFinancial: async id => {
 				const response = await fetch(`${ezprospectUrl}/deleteFinancial`, {
 					method: "DELETE",
