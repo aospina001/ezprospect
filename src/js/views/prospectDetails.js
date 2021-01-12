@@ -21,6 +21,8 @@ import PropTypes from "prop-types";
 import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
+import { AccountTitles } from "../component/accountTitles";
+import { Financial } from "../component/financial";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
@@ -40,7 +42,7 @@ export const ProspectDetails = props => {
 		// const objectId = vari.properties.OBJECTID;
 		// await actions.addProspect(objectId, props.data[id]);
 		// history.push(`/prospectDetails/${objectId}`);
-		await actions.addFinancial(data);
+		await actions.addFinancial(data, account);
 		handleCloseFinancial();
 	};
 
@@ -56,12 +58,9 @@ export const ProspectDetails = props => {
 		console.log(store.contacts);
 	};
 
-	useEffect(
-		() => {
-			getContacts();
-		},
-		[showcontacts]
-	);
+	useEffect(() => {
+		actions.getFinancials(account);
+	}, []);
 
 	useEffect(() => {
 		getContacts();
@@ -139,84 +138,14 @@ export const ProspectDetails = props => {
 											onClick={handleShowFinancial}>
 											Add financial information
 										</Button>
-										<div>
-											<Table striped bordered hover size="sm">
+										{store.financials.length > 0 && (
+											<div className="d-flex flex-row flex-nowrap scroll">
+												<AccountTitles />
 												{store.financials.map((each, i) => {
-													return (
-														<div key={each.id}>
-															<thead>
-																<tr>
-																	<th />
-																	<th>{each.statement_date}</th>
-																	<th>%</th>
-																</tr>
-															</thead>
-
-															<tbody>
-																<tr>
-																	<td>Revenues</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>COGS</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Gross Profit</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-																<tr>
-																	<td>@SG&A</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Interest</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Depreciation</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Amortization</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>EBITDA</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Net Income</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Distributions</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-															</tbody>
-														</div>
-													);
+													return <Financial each={each} key={each.id} />;
 												})}
-											</Table>
-										</div>
+											</div>
+										)}
 									</Jumbotron>
 									<Row className="justify-content-md-center">
 										<Col xs={10} sm={10} md={10}>
@@ -241,7 +170,13 @@ export const ProspectDetails = props => {
 									<Form onSubmit={handleSubmit(onSubmitFinancial)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Date of Financial Information</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="MM/DD/YYYY" />
+											<Form.Control
+												name="statement_date"
+												ref={register}
+												size="sm"
+												type="text"
+												placeholder="MM/DD/YYYY"
+											/>
 										</Form.Group>
 										{/* <Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>FYE Month</Form.Label>
@@ -263,7 +198,7 @@ export const ProspectDetails = props => {
 										</Form.Group> */}
 										<Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>Select quality of financial data</Form.Label>
-											<Form.Control size="sm" as="select">
+											<Form.Control name="quality" ref={register} size="sm" as="select">
 												<option>Select Quality</option>
 												<option>Unqualified Audit</option>
 												<option>Qualified Audit</option>

@@ -137,17 +137,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 			},
 
-			addFinancial: async data => {
+			addFinancial: async (data, account) => {
+				const store = getStore();
 				try {
-					const response = await fetch(`${ezprospectUrl}/addFinancial`, {
+					console.log(data);
+					const response = await fetch(`${ezprospectUrl}/financials`, {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
 						body: JSON.stringify({
+							account: account,
 							statement_date: data.statement_date,
 							quality: data.quality,
-							fye_month: data.fye_month,
-							fye_day: data.fye_day,
-							prepared_by: data.prepared_by,
 							cash: data.cash,
 							accounts_receivable: data.accounts_receivable,
 							raw_materials: data.raw_materials,
@@ -198,6 +198,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							distributions: data.distributions
 						})
 					});
+					getActions().getFinancials(account);
 					const body = await response.json();
 					console.log(body);
 				} catch (error) {
@@ -235,11 +236,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				getActions().getFinancials();
 			},
-			getFinancials: async () => {
+			getFinancials: async account => {
+				const store = getStore();
 				try {
-					const response = await fetch(`${ezprospectUrl}/getFinancial`);
-					const contacts = await response.json();
-					setStore({ contacts: contacts });
+					const response = await fetch(`${ezprospectUrl}/financials/${account}`, {
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` }
+					});
+					const financials = await response.json();
+					setStore({ financials: financials });
 				} catch (error) {
 					console.log(error);
 				}
