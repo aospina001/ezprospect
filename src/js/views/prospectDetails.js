@@ -23,6 +23,11 @@ import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 import { EditContact } from "../component/editContact";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(faPlus, faUserEdit);
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
@@ -31,15 +36,6 @@ export const ProspectDetails = props => {
 	const [showcontacts, setcontacts] = useState(0);
 	const [backCompany, setBack_Company] = useState([]);
 	const [backOwner, setBack_Owner] = useState([]);
-
-	// useEffect(
-	// 	() => {
-	// 		return history.listen(location => {
-	// 			console.log(`You changed the page to: ${location.pathname}`);
-	// 		});
-	// 	},
-	// 	[history]// );
-
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
 	const [showEditContact, setShow_EditContact] = useState(false);
@@ -152,12 +148,9 @@ export const ProspectDetails = props => {
 								{/* ----------------------------Contacts Tab------------------ */}
 
 								<Tab eventKey="contacts" title="Contacts">
-									<Button
-										variant="success"
-										data-target="#contact"
-										onClick={handleShowContact}
-										className="mt-3 ml-3">
-										Add Contact
+									<Button data-target="#contact" onClick={handleShowContact} className="mt-3 ml-3">
+										<FontAwesomeIcon icon="plus" className="fa-lg ml-2 align-middle" />
+										{` Add Contact`}
 									</Button>
 									{store.contacts.length == 0 ? (
 										<Alert variant="success" className="mt-2">
@@ -179,9 +172,11 @@ export const ProspectDetails = props => {
 																	&nbsp;
 																	{each.last_name}
 																	<Link to={`/EditContact/${each.id}/${prospect_id}`}>
-																		<Button variant="dark" className="float-right">
-																			{" "}
-																			Edit
+																		<Button className="float-right">
+																			<FontAwesomeIcon
+																				icon="user-edit"
+																				className="fa-lg ml-2 align-middle"
+																			/>
 																		</Button>
 																	</Link>
 																</Card.Header>

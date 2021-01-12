@@ -7,6 +7,13 @@ import { Context } from "../store/appContext";
 import Logo from "../../img/logo.png";
 import "../../styles/index.scss";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(fab, faSearch);
+
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
 	const [error, setError] = useState(false);
@@ -44,6 +51,7 @@ export const NavigationBar = () => {
 							}}>
 							Sign Out
 						</Button>
+						<FontAwesomeIcon icon="faSearch" className="fa-2x ml-2 align-middle" />
 					</div>
 				) : (
 					<>

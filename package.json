@@ -78,9 +78,12 @@
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.32",
+		"@fortawesome/free-brands-svg-icons": "^5.15.1",
+		"@fortawesome/free-regular-svg-icons": "^5.15.1",
 		"@fortawesome/free-solid-svg-icons": "^5.15.1",
 		"@fortawesome/react-fontawesome": "^0.1.14",
 		"@react-google-maps/api": "^2.0.2",
+		"@react-icons/all-files": "^4.1.0",
 		"bootstrap": "^4.5.3",
 		"chart.js": "^2.9.4",
 		"google-map-react": "^2.1.9",
@@ -94,6 +97,7 @@
 		"react-fontawesome": "^1.7.1",
 		"react-hook-form": "^6.11.0",
 		"react-hook-google-maps": "0.0.3",
+		"react-icons": "^4.1.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
 		"recharts": "^2.0.0"
