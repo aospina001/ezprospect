@@ -86,40 +86,84 @@ p.intro {
     // background-image: linear-gradient(to right, white, $base-color);
 }
 
-// ACCOUNT TITLES
+// PROSPECT DETAILS
+.scroll {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 20rem;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    font-size: 10px;
+    border: solid 1px darkgray;
+    margin: 2rem 0;
+}
 
+// ACCOUNT TITLES
 .account-titles {
     display: flex;
     flex-flow: column nowrap;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    width: 150px;
+    width: 10rem;
     border: solid 1px lightgray;
     list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: max-content;
     > li {
         text-decoration: none;
+        height: 1.5rem;
+        width: 100%;
         padding: 0.2rem 0.5rem 0.2rem 0.5rem;
     }
 }
+
 .statement-header {
     background-color: $base-color;
     color: white;
 }
+
 .sub-header {
     font-size: 12px;
     border-bottom: 5px;
 }
+
 .sub-account {
     font-style: italic;
 }
+
 .sub-total {
     border-bottom: 2px;
 }
+
 .total {
     border-bottom: double;
 }
-.scroll {
-    width: 80%;
-    overflow-x: scroll;
-    font-size: 10px;
+
+.financial-col {
+    list-style-type: none;
+    margin: 0;
+    > li {
+        text-decoration: none;
+        padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+        height: 1.5rem;
+    }
+}
+
+// FINANCIAL
+.financial {
+    width: 10rem;
+    height: max-content;
+    border: solid 1px lightgray;
+    padding: 0;
+    margin: 0;
+}
+
+.left {
+    padding: 0;
+    width: 7rem;
+}
+
+.right {
+    padding: 0;
+    width: 3rem;
 }

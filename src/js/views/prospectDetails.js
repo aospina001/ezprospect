@@ -58,9 +58,12 @@ export const ProspectDetails = props => {
 		console.log(store.contacts);
 	};
 
-	useEffect(() => {
-		actions.getFinancials(account);
-	}, []);
+	useEffect(
+		() => {
+			actions.getFinancials(account);
+		},
+		[account]
+	);
 
 	useEffect(() => {
 		getContacts();

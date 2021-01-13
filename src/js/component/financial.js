@@ -8,14 +8,14 @@ export const Financial = ({ each }) => {
 
 	return (
 		<div className="financial d-flex flex-nowrap row">
-			<ul className="financial-col">
+			<ul className="financial-col left">
 				<li className="account-value-item statement-header">{each.statement_date}</li>
 				<li className="account-value-item statement-header">{each.quality}</li>
 				<li className="account-value-item" />
 				<li className="account-value-item sub-header" />
 				<li className="account-value-item">{each.cash}</li>
 				<li className="account-value-item">{each.accounts_receivable}</li>
-				<li className="account-value-item sub-account">{each.raw_material}</li>
+				<li className="account-value-item sub-account">{each.raw_materials}</li>
 				<li className="account-value-item sub-account">{each.work_in_progress}</li>
 				<li className="account-value-item sub-account">{each.finished_goods}</li>
 				<li className="account-value-item sub-total">{each.total_inventory}</li>
@@ -59,7 +59,7 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.ltd_secured}</li>
 				<li className="account-value-item">{each.ltd_unsecured}</li>
 				<li className="account-value-item">{each.other_lt_notes_payable}</li>
-				<li className="account-value-item">{each.other_operating_liaibilities}</li>
+				<li className="account-value-item">{each.other_operating_liabilities}</li>
 				<li className="account-value-item">{each.other_non_operating_liabilities}</li>
 				<li className="account-value-item sub-total">{each.total_non_current_liabilities}</li>
 				<li className="account-value-item total">{each.total_liabilities}</li>
@@ -113,7 +113,7 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.roa}</li>
 				<li className="account-value-item">{each.roe}</li>
 			</ul>
-			<ul className="financial-col">
+			<ul className="financial-col right">
 				<li className="margin-item statement-header" />
 				<li className="margin-item statement-header" />
 				<li className="margin-item" />
