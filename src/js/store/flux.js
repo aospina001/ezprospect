@@ -1,10 +1,11 @@
-const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
+const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-eu03.gitpod.io";
 // const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null,
 			user_name: "",
+			user: [],
 			user_id: null,
 			business: [],
 			prospect: [],
@@ -60,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
+						await setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
 					} else {
 						setStore({ token: null, user_id: null, user_name: "" });
 						return body.msg;
@@ -71,8 +72,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			loadUser: async () => {
+				const store = getStore();
+				console.log(store.token);
+				const response = await fetch(`${ezprospectUrl}/user`, {
+					headers: { Authorization: `Bearer ${store.token}` }
+				});
+				const data = await response.json();
+				console.log(data);
+				setStore({
+					user: data
+				});
+			},
+
 			sign_out: () => {
 				setStore({ token: null, user_id: null, prospect: [] });
+			},
+
+			editUser: async data => {
+				console.log(data.phone_number);
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${ezprospectUrl}/editUser`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
+						body: JSON.stringify({
+							phone_number: data.phone_number
+						})
+					});
+					const res = await response.json();
+					await actions.loadUser();
+					return true;
+				} catch (error) {
+					console.log(error);
+				}
 			},
 
 			addProspect: async data => {
@@ -127,30 +161,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return data;
 			},
 
-			addContact: async (data, prospect_id) => {
-				const store = getStore();
-				try {
-					const response = await fetch(`${ezprospectUrl}/addContact`, {
-						method: "POST",
-						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
-						body: JSON.stringify({
-							first_name: data.first_name,
-							last_name: data.last_name,
-							position: data.position,
-							title: data.title,
-							email: data.email,
-							phone_number: data.phone_number,
-							prospect_id: prospect_id,
-							user_id: store.user_id
-						})
-					});
-					const body = await response.json();
-					if (response.status == 400) return body.msg;
-				} catch (error) {
-					console.log(error);
-				}
-			},
-
 			addBackCompany: async (data, prospect_id) => {
 				const store = getStore();
 				try {
@@ -184,6 +194,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const body = await response.json();
 					console.log(body);
 					return body;
+				} catch (error) {
+					console.log(error);
+				}
+			},
+
+			addContact: async (data, prospect_id) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${ezprospectUrl}/addContact`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
+						body: JSON.stringify({
+							first_name: data.first_name,
+							last_name: data.last_name,
+							position: data.position,
+							title: data.title,
+							email: data.email,
+							phone_number: data.phone_number,
+							prospect_id: prospect_id,
+							user_id: store.user_id
+						})
+					});
+					const body = await response.json();
+					if (response.status == 400) return body.msg;
 				} catch (error) {
 					console.log(error);
 				}
@@ -223,13 +257,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteContact: async id => {
-				const response = await fetch(`${ezprospectUrl}/deleteContact`, {
+				const response = await fetch(`${ezprospectUrl}/deleteContact/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
 					}
 				});
-				getActions().getFinancials();
+				// getActions().getFinancials();
 			},
 
 			addFinancial: async (data, prospect_id) => {

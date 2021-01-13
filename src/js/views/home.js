@@ -34,7 +34,7 @@ export const Home = () => {
 	const locale = "en";
 	const [today, setDate] = useState(new Date());
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const timer = setInterval(() => {
 			setDate(new Date());
 		}, 60 * 1000);
@@ -53,6 +53,10 @@ export const Home = () => {
 
 	useEffect(() => {
 		if (store.prospect.length == 0) getProspects();
+	}, []);
+
+	useEffect(() => {
+		actions.loadUser();
 	}, []);
 
 	const handleChange = e => {

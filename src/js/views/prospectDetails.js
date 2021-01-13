@@ -33,8 +33,8 @@ import { Financial } from "../component/financial";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-    const history = useHistory();
-    const [error, setError] = useState(false);
+	const history = useHistory();
+	const [error, setError] = useState(false);
 	const { prospect_id, editContact } = useParams();
 	const [showcontacts, setcontacts] = useState(0);
 	const [financial, setFinancial] = useState(0);
@@ -49,8 +49,8 @@ export const ProspectDetails = props => {
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
 
-	const handleClose_EditContact = () => setShow_EditContact(false);
-	const handleShow_EditContact = () => setShow_EditContact(true);
+	// const handleClose_EditContact = () => setShow_EditContact(false);
+	// const handleShow_EditContact = () => setShow_EditContact(true);
 
 	const handleCloseBack_Company = () => setShowBack_Company(false);
 	const handleShowBack_Company = () => setShowBack_Company(true);
@@ -68,18 +68,17 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitContact = async data => {
-       const done = await actions.addContact(data, prospect_id);
-       if (done) {
+		const done = await actions.addContact(data, prospect_id);
+		if (done) {
 			setError(done);
 		} else {
 			setError(false);
 			setcontacts(Math.random());
-            handleCloseContact();
-		}		
+			handleCloseContact();
+		}
 	};
 
 	const deleteContact = async id => {
-		console.log(id);
 		await actions.deleteContact(id);
 		setcontacts(Math.random());
 	};
@@ -142,17 +141,26 @@ export const ProspectDetails = props => {
 				if (each.id == prospect_id) {
 					return (
 						<div>
-							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example">
+							<h1>{each.name}</h1>
+							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example" className="mt-3">
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
 									<Jumbotron style={{ background: "white" }} className="mt-2">
 										<Row>
 											<Col md={6}>
-												<h1>{each.name}</h1>
-												<p>Address -- {each.address1}</p>
-												<p>Account -- {each.account}</p>
-												<p>Phone Number-- {each.phone_number}</p>
+												<p>
+													<b>Address:</b>
+													{` ${each.address1}. ${each.city}, ${each.state} ${each.zipCode}`}
+												</p>
+												<p>
+													<b>Account:</b>
+													{` ${each.account}`}{" "}
+												</p>
+												<p>
+													<b>Phone Number</b>
+													{` ${each.phone_number}`}
+												</p>
 											</Col>
 
 											<Col md={6}>
@@ -189,21 +197,20 @@ export const ProspectDetails = props => {
 																	&nbsp;
 																	{each.last_name}
 																	<Link to={`/EditContact/${each.id}/${prospect_id}`}>
-																		<Button className="float-right">
+																		<div className="float-right">
 																			<FontAwesomeIcon
 																				icon="user-edit"
 																				className="fa-md ml-2 align-middle"
 																			/>
-																		</Button>
+																		</div>
 																	</Link>
-																	<Button
-																		className="float-right"
-																		onClick={deleteContact(each.id)}>
+																	<div className="float-right">
 																		<FontAwesomeIcon
+																			onClick={() => deleteContact(each.id)}
 																			icon="trash-alt"
 																			className="fa-lg md-2 align-middle"
 																		/>
-																	</Button>
+																	</div>
 																</Card.Header>
 																<Card.Body>
 																	<Card.Text>
@@ -872,7 +879,7 @@ export const ProspectDetails = props => {
 									<Modal.Title>Contact Information</Modal.Title>
 								</Modal.Header>
 								<Modal.Body>
-                                {error ? <Alert variant="danger">{error}</Alert> : ""}
+									{error ? <Alert variant="danger">{error}</Alert> : ""}
 									<Form onSubmit={handleSubmit(onSubmitContact)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>First Name</Form.Label>
