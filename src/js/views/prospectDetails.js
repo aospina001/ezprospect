@@ -173,10 +173,14 @@ export const ProspectDetails = props => {
 								{/* ----------------------------Contacts Tab------------------ */}
 
 								<Tab eventKey="contacts" title="Contacts">
-									<Button data-target="#contact" onClick={handleShowContact} className="mt-3 ml-3">
-										<FontAwesomeIcon icon="plus" className="fa-lg ml-2 align-middle" />
+									<Link data-target="#contact" className="mt-3 ml-3">
+										<FontAwesomeIcon
+											onClick={handleShowContact}
+											icon="plus"
+											className="fa-lg ml-2 align-middle"
+										/>
 										{` Add Contact`}
-									</Button>
+									</Link>
 									{store.contacts.length == 0 ? (
 										<Alert variant="success" className="mt-3">
 											<Alert.Heading>Sorry, no contact added</Alert.Heading>
@@ -196,7 +200,9 @@ export const ProspectDetails = props => {
 																	{each.first_name}
 																	&nbsp;
 																	{each.last_name}
-																	<Link to={`/EditContact/${each.id}/${prospect_id}`}>
+																	<Link
+																		to={`/EditContact/${each.id}/${prospect_id}`}
+																		style={{ color: "Black" }}>
 																		<div className="float-right">
 																			<FontAwesomeIcon
 																				icon="user-edit"
@@ -204,13 +210,13 @@ export const ProspectDetails = props => {
 																			/>
 																		</div>
 																	</Link>
-																	<div className="float-right">
+																	<Link className="float-right">
 																		<FontAwesomeIcon
 																			onClick={() => deleteContact(each.id)}
 																			icon="trash-alt"
 																			className="fa-lg md-2 align-middle"
 																		/>
-																	</div>
+																	</Link>
 																</Card.Header>
 																<Card.Body>
 																	<Card.Text>
