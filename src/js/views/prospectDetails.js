@@ -33,8 +33,8 @@ import { Financial } from "../component/financial";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-    const history = useHistory();
-    const [error, setError] = useState(false);
+	const history = useHistory();
+	const [error, setError] = useState(false);
 	const { prospect_id, editContact } = useParams();
 	const [showcontacts, setcontacts] = useState(0);
 	const [financial, setFinancial] = useState(0);
@@ -68,14 +68,14 @@ export const ProspectDetails = props => {
 	};
 
 	const onSubmitContact = async data => {
-       const done = await actions.addContact(data, prospect_id);
-       if (done) {
+		const done = await actions.addContact(data, prospect_id);
+		if (done) {
 			setError(done);
 		} else {
 			setError(false);
 			setcontacts(Math.random());
-            handleCloseContact();
-		}		
+			handleCloseContact();
+		}
 	};
 
 	const deleteContact = async id => {
@@ -872,7 +872,7 @@ export const ProspectDetails = props => {
 									<Modal.Title>Contact Information</Modal.Title>
 								</Modal.Header>
 								<Modal.Body>
-                                {error ? <Alert variant="danger">{error}</Alert> : ""}
+									{error ? <Alert variant="danger">{error}</Alert> : ""}
 									<Form onSubmit={handleSubmit(onSubmitContact)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>First Name</Form.Label>

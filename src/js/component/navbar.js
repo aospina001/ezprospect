@@ -69,7 +69,7 @@ export const NavigationBar = () => {
 						<Modal.Title>Login to your account</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						{error ? <Alert variant="danger">{error}</Alert> : ""}
+						{error ? <Alert variant="danger">{error.id}</Alert> : ""}
 
 						<Form onSubmit={handleSubmit(onSubmit)}>
 							<Form.Group controlId="formBasicEmail">
