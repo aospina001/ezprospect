@@ -1,5 +1,5 @@
-const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-eu03.gitpod.io";
-// const ezprospectUrl = "https://3000-a884d591-9b11-41c0-8795-eed5504a6f89.ws-us03.gitpod.io";
+const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
+// const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(url);
 				const data = await response.json();
 				const array = data.features;
-				setStore({ business: array.slice(1, 100) });
+				setStore({ business: array.slice(1, 300) });
 			},
 
 			login: async user => {
@@ -145,7 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 					});
 					const body = await response.json();
-					console.log(body);
+					if (response.status == 400) return body.msg;
 				} catch (error) {
 					console.log(error);
 				}
@@ -222,17 +222,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addFinancial: async data => {
+			deleteContact: async id => {
+				const response = await fetch(`${ezprospectUrl}/deleteContact`, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				});
+				getActions().getFinancials();
+			},
+
+			addFinancial: async (data, prospect_id) => {
+				const store = getStore();
+				console.log(data, prospect_id);
 				try {
-					const response = await fetch(`${ezprospectUrl}/addFinancial`, {
+					console.log(data);
+					const response = await fetch(`${ezprospectUrl}/financials`, {
 						method: "POST",
-						headers: { "Content-Type": "application/json" },
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
 						body: JSON.stringify({
+							prospect_id: prospect_id,
 							statement_date: data.statement_date,
 							quality: data.quality,
-							fye_month: data.fye_month,
-							fye_day: data.fye_day,
-							prepared_by: data.prepared_by,
 							cash: data.cash,
 							accounts_receivable: data.accounts_receivable,
 							raw_materials: data.raw_materials,
@@ -283,26 +294,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 							distributions: data.distributions
 						})
 					});
+					// await getActions().getFinancials(prospect_id);
 					const body = await response.json();
 					console.log(body);
 				} catch (error) {
 					console.log(error);
 				}
 			},
+
 			deleteFinancial: async id => {
-				const response = await fetch(`${ezprospectUrl}/deleteFinancial`, {
+				const response = await fetch(`${ezprospectUrl}/deleteFinancial/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
 					}
 				});
-				getActions().getFinancials();
+				const res = await response.json();
 			},
-			getFinancials: async () => {
+
+			getFinancials: async prospect_id => {
+				const store = getStore();
 				try {
-					const response = await fetch(`${ezprospectUrl}/getFinancial`);
-					const contacts = await response.json();
-					setStore({ contacts: contacts });
+					const response = await fetch(`${ezprospectUrl}/financials/${prospect_id}/${store.user_id}`, {
+						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` }
+					});
+					const financials = await response.json();
+					setStore({ financials: financials });
 				} catch (error) {
 					console.log(error);
 				}

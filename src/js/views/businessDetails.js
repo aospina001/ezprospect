@@ -12,12 +12,13 @@ import { Context } from "../store/appContext";
 export const BusinessDetails = () => {
 	const { account } = useParams();
 	const { store, actions } = useContext(Context);
+	const [editContact, setContact] = useState("info");
 	let history = useHistory();
 
 	const onSubmit = async data => {
 		let prospect_id = await actions.addProspect(data);
 		await actions.loadProspects();
-		history.push(`/prospectDetails/${prospect_id}`);
+		history.push(`/prospectDetails/${prospect_id}/${editContact}`);
 	};
 
 	return (

@@ -126,27 +126,29 @@ export const Home = () => {
 												<ButtonToolbar
 													className="justify-content-between"
 													aria-label="Toolbar with Button groups">
-													{store.prospect.map(x => {
-														if (x.account == account2) {
-															count = +1;
-															return (
-																<Link to={`/prospectDetails/${x.id}/${editContact}`}>
-																	<FontAwesomeIcon
-																		icon="check"
-																		style={{ color: "#03989e" }}
-																		className="fa-lg ml-2 align-middle"
-																	/>
-																	{` View Details`}
-																</Link>
-															);
-														}
-													})}
+													{store.prospect.length == 0
+														? ""
+														: store.prospect.map(x => {
+																if (x.account == account2) {
+																	count = +1;
+																	return (
+																		<Link
+																			to={`/prospectDetails/${
+																				x.id
+																			}/${editContact}`}>
+																			<FontAwesomeIcon
+																				icon="check"
+																				style={{ color: "#03989e" }}
+																				className="fa-lg ml-2 align-middle"
+																			/>
+																			{` View Details`}
+																		</Link>
+																	);
+																}
+														  })}
 
 													{count == 0 ? (
-														<Link
-															to={`/businessDetails/${
-																each.properties.ACCOUNTNO
-															}/${editContact}`}>
+														<Link to={`/businessDetails/${each.properties.ACCOUNTNO}`}>
 															<Button variant="success" className="align-text-bottom">
 																Create Prospect
 															</Button>

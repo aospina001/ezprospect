@@ -24,25 +24,27 @@ import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 import { EditContact } from "../component/editContact";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(faPlus, faUserEdit);
+library.add(faPlus, faUserEdit, faTrashAlt);
+import { AccountTitles } from "../component/accountTitles";
+import { Financial } from "../component/financial";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
-	const history = useHistory();
+    const history = useHistory();
+    const [error, setError] = useState(false);
 	const { prospect_id, editContact } = useParams();
 	const [showcontacts, setcontacts] = useState(0);
+	const [financial, setFinancial] = useState(0);
 	const [backCompany, setBack_Company] = useState([]);
 	const [backOwner, setBack_Owner] = useState([]);
 	const { register, handleSubmit } = useForm();
 	const [showContact, setShowContact] = useState(false);
-	const [showEditContact, setShow_EditContact] = useState(false);
 	const [showBack_Company, setShowBack_Company] = useState(false);
 	const [showBack_Owner, setShowBack_Owner] = useState(false);
 	const [showFinancial, setShowFinancial] = useState(false);
-	const [showFinancials, setFinancials] = useState(0);
 
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
@@ -60,18 +62,26 @@ export const ProspectDetails = props => {
 	const handleShowFinancial = () => setShowFinancial(true);
 
 	const onSubmitFinancial = async data => {
-		// const vari = props.data[id];
-		// const objectId = vari.properties.OBJECTID;
-		// await actions.addProspect(objectId, props.data[id]);
-		// history.push(`/prospectDetails/${objectId}`);
-		await actions.addFinancial(data);
+		await actions.addFinancial(data, prospect_id);
+		setFinancial(Math.random());
 		handleCloseFinancial();
 	};
 
 	const onSubmitContact = async data => {
-		await actions.addContact(data, prospect_id);
+       const done = await actions.addContact(data, prospect_id);
+       if (done) {
+			setError(done);
+		} else {
+			setError(false);
+			setcontacts(Math.random());
+            handleCloseContact();
+		}		
+	};
+
+	const deleteContact = async id => {
+		console.log(id);
+		await actions.deleteContact(id);
 		setcontacts(Math.random());
-		handleCloseContact();
 	};
 
 	const onSubmitBack_Company = async data => {
@@ -84,11 +94,6 @@ export const ProspectDetails = props => {
 		const response = await actions.addBackOwner(data, prospect_id);
 		setBack_Owner(response);
 		handleCloseBack_Owner();
-	};
-
-	const passContactID = data => {
-		setContactInfo(data);
-		handleShow_EditContact();
 	};
 
 	const getContacts = async () => {
@@ -105,6 +110,10 @@ export const ProspectDetails = props => {
 		setBack_Owner(response);
 	};
 
+	const getFinancials = async () => {
+		await actions.getFinancials(prospect_id);
+	};
+
 	useEffect(
 		() => {
 			getContacts();
@@ -112,10 +121,18 @@ export const ProspectDetails = props => {
 		[showcontacts]
 	);
 
+	useEffect(
+		() => {
+			actions.getFinancials(prospect_id);
+		},
+		[financial]
+	);
+
 	useEffect(() => {
 		getContacts();
 		getBack_Company();
 		getBack_Owner();
+		getFinancials(prospect_id);
 	}, []);
 
 	return (
@@ -135,7 +152,7 @@ export const ProspectDetails = props => {
 												<h1>{each.name}</h1>
 												<p>Address -- {each.address1}</p>
 												<p>Account -- {each.account}</p>
-												<p>Account -- {each.phone_number}</p>
+												<p>Phone Number-- {each.phone_number}</p>
 											</Col>
 
 											<Col md={6}>
@@ -153,7 +170,7 @@ export const ProspectDetails = props => {
 										{` Add Contact`}
 									</Button>
 									{store.contacts.length == 0 ? (
-										<Alert variant="success" className="mt-2">
+										<Alert variant="success" className="mt-3">
 											<Alert.Heading>Sorry, no contact added</Alert.Heading>
 											<p>
 												If you want to add a new contact please click on the button to add a
@@ -166,7 +183,7 @@ export const ProspectDetails = props => {
 												{store.contacts.map((each, i) => {
 													return (
 														<Col className="mt-5" md={4} key={i}>
-															<Card>
+															<Card style={{ width: "20rem", height: "18rem" }}>
 																<Card.Header as="h5">
 																	{each.first_name}
 																	&nbsp;
@@ -175,10 +192,18 @@ export const ProspectDetails = props => {
 																		<Button className="float-right">
 																			<FontAwesomeIcon
 																				icon="user-edit"
-																				className="fa-lg ml-2 align-middle"
+																				className="fa-md ml-2 align-middle"
 																			/>
 																		</Button>
 																	</Link>
+																	<Button
+																		className="float-right"
+																		onClick={deleteContact(each.id)}>
+																		<FontAwesomeIcon
+																			icon="trash-alt"
+																			className="fa-lg md-2 align-middle"
+																		/>
+																	</Button>
 																</Card.Header>
 																<Card.Body>
 																	<Card.Text>
@@ -281,7 +306,7 @@ export const ProspectDetails = props => {
 								{/* ----------------------------Financial Tab------------------ */}
 
 								<Tab eventKey="financial" title="Financial">
-									<Jumbotron style={{ background: "white" }}>
+									<Jumbotron className="pt-2 pb-2" style={{ background: "white" }}>
 										<h1>Financial Information</h1>
 										<Button
 											variant="success"
@@ -289,84 +314,14 @@ export const ProspectDetails = props => {
 											onClick={handleShowFinancial}>
 											Add financial information
 										</Button>
-										<div>
-											<Table striped bordered hover size="sm">
+										{store.financials.length > 0 && (
+											<div className="d-flex flex-row flex-nowrap scroll">
+												<AccountTitles />
 												{store.financials.map((each, i) => {
-													return (
-														<div key={each.id}>
-															<thead>
-																<tr>
-																	<th />
-																	<th>{each.statement_date}</th>
-																	<th>%</th>
-																</tr>
-															</thead>
-
-															<tbody>
-																<tr>
-																	<td>Revenues</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>COGS</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Gross Profit</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-																<tr>
-																	<td>@SG&A</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Interest</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Depreciation</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Amortization</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>EBITDA</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Net Income</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-
-																<tr>
-																	<td>Distributions</td>
-																	<td>xxxxxxxxx</td>
-																	<td>100.0</td>
-																</tr>
-															</tbody>
-														</div>
-													);
+													return <Financial each={each} key={each.id} />;
 												})}
-											</Table>
-										</div>
+											</div>
+										)}
 									</Jumbotron>
 									<Row className="justify-content-md-center">
 										<Col xs={10} sm={10} md={10}>
@@ -389,37 +344,31 @@ export const ProspectDetails = props => {
 									<Form onSubmit={handleSubmit(onSubmitFinancial)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Date of Financial Information</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="MM/DD/YYYY" />
-										</Form.Group>
-										<Form.Group controlId="exampleForm.ControlSelect1">
-											<Form.Label>FYE Month</Form.Label>
-											<Form.Control size="sm" as="select">
-												<option>Select a month</option>
-												<option>January</option>
-												<option>February</option>
-												<option>March</option>
-												<option>April</option>
-												<option>May</option>
-												<option>June</option>
-												<option>July</option>
-												<option>August</option>
-												<option>September</option>
-												<option>October</option>
-												<option>November</option>
-												<option>December</option>
-											</Form.Control>
+											<Form.Control
+												name="statement_date"
+												ref={register({ required: true })}
+												size="sm"
+												type="date"
+												placeholder="MM/DD/YYYY"
+											/>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>Select quality of financial data</Form.Label>
-											<Form.Control size="sm" as="select">
-												<option>Select Quality</option>
-												<option>Unqualified Audit</option>
-												<option>Qualified Audit</option>
-												<option>Reviewed</option>
-												<option>Compiled</option>
-												<option>Tax Return</option>
-												<option>Management Prepared</option>
-												<option>Pro forma</option>
+											<Form.Control
+												name="quality"
+												ref={register({ required: true })}
+												size="sm"
+												as="select">
+												<option selected="true" disabled>
+													Select Quality
+												</option>
+												<option value="Unqualified Audit">Unqualified Audit</option>
+												<option value="Qualified Audit">Qualified Audit</option>
+												<option value="Reviewed">Reviewed</option>
+												<option value="Compiled">Compiled</option>
+												<option value="Tax Return">Tax Return</option>
+												<option value="Management Prepared">Management Prepared</option>
+												<option value="Pro forma">Pro forma</option>
 											</Form.Control>
 										</Form.Group>
 										<Form.Group controlId="exampleForm.ControlInput1">
@@ -876,7 +825,7 @@ export const ProspectDetails = props => {
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Other Non-operating Income/(Expense)</Form.Label>
 											<Form.Control
-												name="other_non_operating_income_expense"
+												name="other_income_expense"
 												ref={register}
 												size="sm"
 												type="text"
@@ -903,20 +852,6 @@ export const ProspectDetails = props => {
 												placeholder="$"
 											/>
 										</Form.Group>
-
-										{/* <Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Net Income</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
-										</Form.Group> */}
-
-										{/* <Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Total Assets</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
-										</Form.Group>
-										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Total Liabilities</Form.Label>
-											<Form.Control size="sm" type="text" placeholder="$" />
-										</Form.Group> */}
 										<Button variant="secondary" onClick={handleCloseFinancial}>
 											Cancel
 										</Button>
@@ -937,6 +872,7 @@ export const ProspectDetails = props => {
 									<Modal.Title>Contact Information</Modal.Title>
 								</Modal.Header>
 								<Modal.Body>
+                                {error ? <Alert variant="danger">{error}</Alert> : ""}
 									<Form onSubmit={handleSubmit(onSubmitContact)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>First Name</Form.Label>
