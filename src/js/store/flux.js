@@ -16,7 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(url);
 				const data = await response.json();
 				const array = data.features;
-				setStore({ business: array.slice(1, 100) });
+				setStore({ business: array.slice(1, 300) });
 			},
 
 			login: async user => {

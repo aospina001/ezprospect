@@ -16,7 +16,7 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.cash}</li>
 				<li className="account-value-item">{each.accounts_receivable}</li>
 				<li className="account-value-item sub-account">{each.raw_materials}</li>
-				<li className="account-value-item sub-account">{each.work_in_progress}</li>
+				<li className="account-value-item sub-account">{each.work_in_process}</li>
 				<li className="account-value-item sub-account">{each.finished_goods}</li>
 				<li className="account-value-item sub-total">{each.total_inventory}</li>
 				<li className="account-value-item total">{each.total_current_assets}</li>
@@ -31,7 +31,7 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item sub-account">{each.capital_leases}</li>
 				<li className="account-value-item sub-account">{each.other_fixed_assets}</li>
 				<li className="account-value-item sub-total">{each.total_gross_fixed_assets}</li>
-				<li className="account-value-item sub-account">{each.accumulated_depreciation}</li>
+				<li className="account-value-item sub-account sub-total">{each.accumulated_depreciation}</li>
 				<li className="account-value-item total">{each.net_fixed_assets}</li>
 				<li className="account-value-item" />
 				<li className="account-value-item">{each.other_operating_assets}</li>
@@ -54,7 +54,7 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.other_notes_payable}</li>
 				<li className="account-value-item">{each.accounts_payable_trade}</li>
 				<li className="account-value-item">{each.other_current_liabilities}</li>
-				<li className="account-value-item sub-total">{each.total_current_liaibilities}</li>
+				<li className="account-value-item sub-total">{each.total_current_liabilities}</li>
 				<li className="account-value-item" />
 				<li className="account-value-item">{each.ltd_secured}</li>
 				<li className="account-value-item">{each.ltd_unsecured}</li>
@@ -114,8 +114,8 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.roe}</li>
 			</ul>
 			<ul className="financial-col right">
-				<li className="margin-item statement-header" />
-				<li className="margin-item statement-header" />
+				<li className="statement-header" />
+				<li className="statement-header" />
 				<li className="margin-item" />
 				<li className="margin-item sub-header">%</li>
 				<li className="margin-item" />
@@ -136,7 +136,7 @@ export const Financial = ({ each }) => {
 				<li className="margin-item sub-account" />
 				<li className="margin-item sub-account" />
 				<li className="margin-item sub-total" />
-				<li className="margin-item sub-account" />
+				<li className="margin-item sub-account sub-total" />
 				<li className="margin-item total" />
 				<li className="margin-item" />
 				<li className="margin-item" />

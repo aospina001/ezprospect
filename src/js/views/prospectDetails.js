@@ -133,7 +133,7 @@ export const ProspectDetails = props => {
 								<Tab eventKey="products" title="Products" />
 
 								<Tab eventKey="financial" title="Financial">
-									<Jumbotron style={{ background: "white" }}>
+									<Jumbotron className="pt-2 pb-2" style={{ background: "white" }}>
 										<h1>Financial Information</h1>
 										<Button
 											variant="success"
@@ -181,24 +181,6 @@ export const ProspectDetails = props => {
 												placeholder="MM/DD/YYYY"
 											/>
 										</Form.Group>
-										{/* <Form.Group controlId="exampleForm.ControlSelect1">
-											<Form.Label>FYE Month</Form.Label>
-											<Form.Control size="sm" as="select">
-												<option>Select a month</option>
-												<option>January</option>
-												<option>February</option>
-												<option>March</option>
-												<option>April</option>
-												<option>May</option>
-												<option>June</option>
-												<option>July</option>
-												<option>August</option>
-												<option>September</option>
-												<option>October</option>
-												<option>November</option>
-												<option>December</option>
-											</Form.Control>
-										</Form.Group> */}
 										<Form.Group controlId="exampleForm.ControlSelect1">
 											<Form.Label>Select quality of financial data</Form.Label>
 											<Form.Control name="quality" ref={register} size="sm" as="select">

@@ -29,7 +29,7 @@ export const AccountTitles = () => {
 			<li className="account-title sub-account">Capital Leases</li>
 			<li className="account-title sub-account">Other Fixed Asets</li>
 			<li className="account-title sub-total">Total Gross Fixed Assets</li>
-			<li className="account-title sub-account">Accumulated Depreciation</li>
+			<li className="account-title sub-account sub-total">Accumulated Depreciation</li>
 			<li className="account-title total">Net Fixed Assets</li>
 			<li className="account-title" />
 			<li className="account-title">Other Operating Assets</li>
@@ -82,7 +82,7 @@ export const AccountTitles = () => {
 			<li className="account-title sub-total">Gross Profit</li>
 			<li className="account-title" />
 			<li className="account-title sub-header">OPERATING EXPENSES</li>
-			<li className="account-title">Selling, General & Administrative Expenses</li>
+			<li className="account-title">S G & A Expenses</li>
 			<li className="account-title">Rent Expense</li>
 			<li className="account-title">Depreciation Expense</li>
 			<li className="account-title">Amortization Expense</li>
