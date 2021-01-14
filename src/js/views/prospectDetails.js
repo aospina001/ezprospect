@@ -143,7 +143,7 @@ export const ProspectDetails = props => {
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
-									<Jumbotron style={{ background: "white" }} className="mt-2">
+									<Jumbotron style={{ background: "white" }} className="mt-2 pt-2 pl-0 pr-0">
 										<Row>
 											<Col md={6}>
 												<p>

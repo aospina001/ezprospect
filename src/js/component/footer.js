@@ -8,7 +8,7 @@ export const Footer = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5 base-color">
+		<div className="text-center mt-5 base-color mt-auto">
 			<Container className="d-flex justify-content-between">
 				{!store.token ? (
 					""

@@ -1,10 +1,20 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import { Button } from "react-bootstrap";
 import "../../styles/index.scss";
 import PropTypes from "prop-types";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus, faUserEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Financial = ({ each }) => {
 	const { store, actions } = useContext(Context);
+
+	const deleteFinancial = async id => {
+		console.log(id);
+		await actions.deleteFinancial(id);
+		setfinancials(Math.random());
+	};
 
 	return (
 		<div className="financial d-flex flex-nowrap row">
@@ -114,7 +124,11 @@ export const Financial = ({ each }) => {
 				<li className="account-value-item">{each.roe}</li>
 			</ul>
 			<ul className="financial-col right">
-				<li className="statement-header" />
+				<li className="statement-header">
+					<Button className="float-right" onClick={deleteFinancial(each.id)}>
+						<FontAwesomeIcon icon="trash-alt" className="fa-sm md-2 align-middle" />
+					</Button>
+				</li>
 				<li className="statement-header" />
 				<li className="margin-item" />
 				<li className="margin-item sub-header">%</li>
