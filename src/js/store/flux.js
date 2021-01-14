@@ -1,3 +1,5 @@
+import { get } from "react-hook-form";
+
 const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
 // const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
 
@@ -68,19 +70,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return body.msg;
 					}
 				} catch (error) {
-					console.log(error);
+					console.log("Error in signup");
 					return "Error";
 				}
 			},
 
 			loadUser: async () => {
 				const store = getStore();
-				console.log(store.token);
 				const response = await fetch(`${ezprospectUrl}/user`, {
 					headers: { Authorization: `Bearer ${store.token}` }
 				});
 				const data = await response.json();
-				console.log(data);
 				setStore({
 					user: data
 				});
@@ -106,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					await actions.loadUser();
 					return true;
 				} catch (error) {
-					console.log(error);
+					console.log("Error in editUser");
 				}
 			},
 
@@ -135,7 +135,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const body = await response.json();
 					return body.id;
 				} catch (error) {
-					console.log(error);
+					console.log("addProspect");
 				}
 			},
 
@@ -177,7 +177,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(body);
 					return body;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addBackCompany");
 				}
 			},
 
@@ -196,7 +196,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(body);
 					return body;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addBackOwner");
 				}
 			},
 
@@ -220,7 +220,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const body = await response.json();
 					if (response.status == 400) return body.msg;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addContact");
 				}
 			},
 
@@ -253,7 +253,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					getActions().getContacts();
 				} catch (error) {
-					console.log(error);
+					console.log("error in editContact");
 				}
 			},
 
@@ -264,14 +264,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Content-Type": "application/json"
 					}
 				});
-				// getActions().getFinancials();
 			},
 
 			addFinancial: async (data, prospect_id) => {
 				const store = getStore();
-				console.log(data, prospect_id);
 				try {
-					console.log(data);
 					const response = await fetch(`${ezprospectUrl}/financials`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
@@ -331,20 +328,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					// await getActions().getFinancials(prospect_id);
 					const body = await response.json();
-					console.log(body);
 				} catch (error) {
-					console.log(error);
+					console.log("error in AddFinancial");
 				}
 			},
 
 			deleteFinancial: async id => {
+				const action = getActions();
+				const store = getStore();
 				const response = await fetch(`${ezprospectUrl}/deleteFinancial/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
 					}
 				});
-				const res = await response.json();
 			},
 
 			getFinancials: async prospect_id => {
@@ -356,7 +353,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const financials = await response.json();
 					setStore({ financials: financials });
 				} catch (error) {
-					console.log(error);
+					console.log("Error in getFinancials");
 				}
 			}
 		}

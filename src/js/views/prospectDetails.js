@@ -260,7 +260,8 @@ export const ProspectDetails = props => {
 											<Jumbotron className="mt-5 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														Company
+														<h3>Company</h3>
+
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Company}
@@ -273,7 +274,7 @@ export const ProspectDetails = props => {
 													<Card.Body style={{ height: "26rem" }}>
 														<blockquote className="blockquote mb-0">
 															<p className="background">
-																{backCompany == "" ? "Not note" : backCompany.data}
+																{backCompany == "" ? "Empty note" : backCompany.data}
 
 																<footer className="blockquote-footer">
 																	Created at{" "}
@@ -293,7 +294,7 @@ export const ProspectDetails = props => {
 											<Jumbotron className="mt-5 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														Owner
+														<h3>Owner</h3>
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Owner}
@@ -307,7 +308,7 @@ export const ProspectDetails = props => {
 														<blockquote className="blockquote mb-0">
 															<p className="background">
 																{" "}
-																{backOwner == "" ? "No note" : backOwner.data}{" "}
+																{backOwner == "" ? "Empty note" : backOwner.data}{" "}
 															</p>
 															<footer className="blockquote-footer">
 																Created at{" "}
@@ -341,19 +342,23 @@ export const ProspectDetails = props => {
 											Add financial information
 										</Button>
 										{store.financials.length > 0 && (
-											<div className="d-flex flex-row flex-nowrap scroll">
-												<AccountTitles />
-												{store.financials.map((each, i) => {
-													return <Financial each={each} key={each.id} />;
-												})}
-											</div>
+											<>
+												<div className="d-flex flex-row flex-nowrap scroll">
+													<AccountTitles />
+													{store.financials.map((each, i) => {
+														return <Financial each={each} key={each.id} />;
+													})}
+												</div>
+												{store.financials.length > 1 && (
+													<Row className="justify-content-md-center">
+														<Col xs={10} sm={10} md={10}>
+															<Chart />
+														</Col>
+													</Row>
+												)}
+											</>
 										)}
 									</Jumbotron>
-									<Row className="justify-content-md-center">
-										<Col xs={10} sm={10} md={10}>
-											<Chart />
-										</Col>
-									</Row>
 								</Tab>
 							</Tabs>
 							{/*------------> Financial Modal ------------------*/}
