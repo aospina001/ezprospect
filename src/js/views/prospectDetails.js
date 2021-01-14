@@ -24,10 +24,10 @@ import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 import { EditContact } from "../component/editContact";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus, faUserEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserEdit, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(faPlus, faUserEdit, faTrashAlt);
+library.add(faPlus, faUserEdit, faTrashAlt, faEdit);
 import { AccountTitles } from "../component/accountTitles";
 import { Financial } from "../component/financial";
 
@@ -48,9 +48,6 @@ export const ProspectDetails = props => {
 
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
-
-	const handleClose_EditContact = () => setShow_EditContact(false);
-	const handleShow_EditContact = () => setShow_EditContact(true);
 
 	const handleCloseBack_Company = () => setShowBack_Company(false);
 	const handleShowBack_Company = () => setShowBack_Company(true);
@@ -79,7 +76,6 @@ export const ProspectDetails = props => {
 	};
 
 	const deleteContact = async id => {
-		console.log(id);
 		await actions.deleteContact(id);
 		setcontacts(Math.random());
 	};
@@ -142,17 +138,26 @@ export const ProspectDetails = props => {
 				if (each.id == prospect_id) {
 					return (
 						<div>
-							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example">
+							<h1>{each.name}</h1>
+							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example" className="mt-3">
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
 									<Jumbotron style={{ background: "white" }} className="mt-2 pt-2 pl-0 pr-0">
 										<Row>
 											<Col md={6}>
-												<h1>{each.name}</h1>
-												<p>Address -- {each.address1}</p>
-												<p>Account -- {each.account}</p>
-												<p>Phone Number-- {each.phone_number}</p>
+												<p>
+													<b>Address:</b>
+													{` ${each.address1}. ${each.city}, ${each.state} ${each.zipCode}`}
+												</p>
+												<p>
+													<b>Account:</b>
+													{` ${each.account}`}{" "}
+												</p>
+												<p>
+													<b>Phone Number</b>
+													{` ${each.phone_number}`}
+												</p>
 											</Col>
 
 											<Col md={6}>
@@ -164,11 +169,17 @@ export const ProspectDetails = props => {
 
 								{/* ----------------------------Contacts Tab------------------ */}
 
-								<Tab eventKey="contacts" title="Contacts">
-									<Button data-target="#contact" onClick={handleShowContact} className="mt-3 ml-3">
-										<FontAwesomeIcon icon="plus" className="fa-lg ml-2 align-middle" />
-										{` Add Contact`}
-									</Button>
+								<Tab eventKey="contacts" title="Contacts" style={{ color: "black" }}>
+									<div className="mt-4 ">
+										<Link
+											data-target="#contact"
+											className="ml-3"
+											style={{ color: "black" }}
+											onClick={handleShowContact}>
+											<FontAwesomeIcon icon="plus" className="fa-lg mr-2 align-middle" />
+											{` Add Contact`}
+										</Link>
+									</div>
 									{store.contacts.length == 0 ? (
 										<Alert variant="success" className="mt-3">
 											<Alert.Heading>Sorry, no contact added</Alert.Heading>
@@ -188,22 +199,25 @@ export const ProspectDetails = props => {
 																	{each.first_name}
 																	&nbsp;
 																	{each.last_name}
-																	<Link to={`/EditContact/${each.id}/${prospect_id}`}>
-																		<Button className="float-right">
+																	<Link
+																		to={`/EditContact/${each.id}/${prospect_id}`}
+																		style={{ color: "Black" }}>
+																		<div className="float-right">
 																			<FontAwesomeIcon
 																				icon="user-edit"
 																				className="fa-md ml-2 align-middle"
 																			/>
-																		</Button>
+																		</div>
 																	</Link>
-																	<Button
+																	<Link
 																		className="float-right"
-																		onClick={deleteContact(each.id)}>
+																		style={{ color: "Black" }}>
 																		<FontAwesomeIcon
+																			onClick={() => deleteContact(each.id)}
 																			icon="trash-alt"
 																			className="fa-lg md-2 align-middle"
 																		/>
-																	</Button>
+																	</Link>
 																</Card.Header>
 																<Card.Body>
 																	<Card.Text>
@@ -244,27 +258,32 @@ export const ProspectDetails = props => {
 									<Row>
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
-												<Card style={{ width: "100%" }} className="mt-2">
+												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
 														Company
-														<Button
-															onClick={handleShowBack_Company}
-															className="float-right">
-															Edit
-														</Button>
+														<Link style={{ color: "black" }} className="float-right">
+															<FontAwesomeIcon
+																onClick={handleShowBack_Company}
+																icon="edit"
+																className="fa-lg align-middle"
+															/>
+														</Link>
 													</Card.Header>
 
-													<Card.Body>
+													<Card.Body style={{ height: "26rem" }}>
 														<blockquote className="blockquote mb-0">
-															<p> {backCompany == "" ? "Not note" : backCompany.data} </p>
-															<footer className="blockquote-footer">
-																Created at{" "}
-																<cite title="Source Title">
-																	{backCompany == ""
-																		? "No message created yet"
-																		: backCompany.date}
-																</cite>
-															</footer>
+															<p className="background">
+																{backCompany == "" ? "Not note" : backCompany.data}
+
+																<footer className="blockquote-footer">
+																	Created at{" "}
+																	<cite title="Source Title">
+																		{backCompany == ""
+																			? "No message created yet"
+																			: backCompany.date}
+																	</cite>
+																</footer>
+															</p>
 														</blockquote>
 													</Card.Body>
 												</Card>
@@ -272,17 +291,24 @@ export const ProspectDetails = props => {
 										</Col>
 										<Col md={6}>
 											<Jumbotron className="mt-5 px-2 py-2">
-												<Card style={{ width: "100%" }} className="mt-2">
+												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
 														Owner
-														<Button onClick={handleShowBack_Owner} className="float-right">
-															Edit
-														</Button>
+														<Link style={{ color: "black" }} className="float-right">
+															<FontAwesomeIcon
+																onClick={handleShowBack_Owner}
+																icon="edit"
+																className="fa-lg align-middle"
+															/>
+														</Link>
 													</Card.Header>
 
 													<Card.Body>
 														<blockquote className="blockquote mb-0">
-															<p> {backOwner == "" ? "No note" : backOwner.data} </p>
+															<p className="background">
+																{" "}
+																{backOwner == "" ? "No note" : backOwner.data}{" "}
+															</p>
 															<footer className="blockquote-footer">
 																Created at{" "}
 																<cite title="Source Title">
@@ -881,7 +907,7 @@ export const ProspectDetails = props => {
 												type="text"
 												placeholder="first name"
 												name="first_name"
-												ref={register}
+												ref={register({ required: true })}
 											/>
 										</Form.Group>
 
@@ -892,7 +918,7 @@ export const ProspectDetails = props => {
 												type="text"
 												placeholder="last name"
 												name="last_name"
-												ref={register}
+												ref={register({ required: true })}
 											/>
 										</Form.Group>
 
@@ -936,14 +962,14 @@ export const ProspectDetails = props => {
 												type="text"
 												placeholder="phone number"
 												name="phone_number"
-												ref={register}
+												ref={register({ required: true })}
 											/>
 										</Form.Group>
 
 										<Button variant="secondary" onClick={handleCloseContact}>
 											Cancel
 										</Button>
-										<Button variant="success" type="submit">
+										<Button variant="success" type="submit" className="ml-2">
 											Add
 										</Button>
 									</Form>
@@ -962,8 +988,12 @@ export const ProspectDetails = props => {
 								<Modal.Body>
 									<Form onSubmit={handleSubmit(onSubmitBack_Company)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
-											<Form.Label>Background information</Form.Label>
-											<Form.Control as="textarea" name="data" ref={register}>
+											<Form.Control
+												style={{ height: "30rem" }}
+												as="textarea"
+												name="data"
+												ref={register}
+												className="background">
 												{backCompany == "" ? "" : backCompany.data}
 											</Form.Control>
 										</Form.Group>
@@ -971,7 +1001,7 @@ export const ProspectDetails = props => {
 										<Button variant="secondary" onClick={handleCloseBack_Company}>
 											Cancel
 										</Button>
-										<Button variant="success" type="submit">
+										<Button variant="success" type="submit" className="ml-2">
 											Add
 										</Button>
 									</Form>
@@ -991,7 +1021,11 @@ export const ProspectDetails = props => {
 									<Form onSubmit={handleSubmit(onSubmitBack_Owner)}>
 										<Form.Group controlId="exampleForm.ControlInput1">
 											<Form.Label>Background information</Form.Label>
-											<Form.Control as="textarea" name="data" ref={register}>
+											<Form.Control
+												as="textarea"
+												name="data"
+												ref={register}
+												className="background">
 												{backOwner == "" ? "" : backOwner.data}
 											</Form.Control>
 										</Form.Group>
