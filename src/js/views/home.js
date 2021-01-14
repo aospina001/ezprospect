@@ -90,11 +90,11 @@ export const Home = () => {
 
 			{/* Search new prospects */}
 			<Container>
-				<h3>{`${wish} ${store.user_name}`}</h3>
+				<h3 className="mt-2">{`${wish} ${store.user_name}`}</h3>
 				<p>{`${date} | ${time}`}</p>
 			</Container>
 			<Form inline className="justify-content-center mt-2" md={12} value={searchTerm} onChange={handleChange}>
-				<FormControl type="text" placeholder="Search New Business" />
+				<FormControl type="text" placeholder="Search New Business" style={{ width: "20rem" }} />
 				<FontAwesomeIcon icon="search" style={{ color: "DarkGray " }} className="fa-lg ml-2 align-middle" />
 			</Form>
 
@@ -127,8 +127,10 @@ export const Home = () => {
 													<b>Account Number:</b>
 													{` ${each.properties.ACCOUNTNO}`}
 												</Card.Text>
+											</Card.Body>
+											<Card.Footer>
 												<ButtonToolbar
-													className="justify-content-between"
+													className="justify-content-center"
 													aria-label="Toolbar with Button groups">
 													{store.prospect.length == 0
 														? ""
@@ -161,7 +163,7 @@ export const Home = () => {
 														""
 													)}
 												</ButtonToolbar>
-											</Card.Body>
+											</Card.Footer>
 										</Card>
 									</Col>
 								);
@@ -187,8 +189,7 @@ export const Home = () => {
 									<Col className="mt-2" md={4} key={i}>
 										<Card style={{ width: "18rem", height: "20rem" }}>
 											<Card.Header>
-												<b>Business Name:</b>
-												{` ${each.name}`}
+												<b>{` ${each.name}`}</b>
 											</Card.Header>
 											<Card.Body>
 												<Card.Subtitle className="mb-2 text-muted">
@@ -206,14 +207,16 @@ export const Home = () => {
 													<b>Phone Number</b>
 													{` ${each.account}`}
 												</Card.Text>
+											</Card.Body>
+											<Card.Footer>
 												<ButtonToolbar
-													className="align-text-bottom"
-													aria-label="Toolbar with Button groups">
+													aria-label="Toolbar with Button groups"
+													className="justify-content-center">
 													<Link to={`/prospectDetails/${each.id}/${editContact}`}>
 														<Button variant="dark outline-success">View</Button>
 													</Link>
 												</ButtonToolbar>
-											</Card.Body>
+											</Card.Footer>
 										</Card>
 									</Col>
 								);

@@ -60,11 +60,13 @@ export const NavigationBar = () => {
 							}}>
 							Sign Out
 						</Button>
-						<FontAwesomeIcon
-							icon="users-cog"
-							className="fa-2x ml-2 align-middle"
-							onClick={handleShow_EditUser}
-						/>
+						<Link style={{ color: "black" }}>
+							<FontAwesomeIcon
+								icon="users-cog"
+								className="fa-2x ml-2 align-middle"
+								onClick={handleShow_EditUser}
+							/>
+						</Link>
 					</div>
 				) : (
 					<>
@@ -113,10 +115,10 @@ export const NavigationBar = () => {
 				</Modal>
 
 				{/* --------------------------User Edit Modal------------------------ */}
-				{/*------------> User Edit Modal ------------------------*/}
+
 				<Modal show={showUser} onHide={handleClose_EditUser} id="user_Edit" backdrop="static" keyboard={false}>
 					<Modal.Header closeButton>
-						<Modal.Title>Background Information</Modal.Title>
+						<Modal.Title>User Information</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<Form onSubmit={handleSubmit(onSubmit_EditUser)}>
