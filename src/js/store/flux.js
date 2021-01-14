@@ -1,4 +1,4 @@
-const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-eu03.gitpod.io";
+const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
 // const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -36,9 +36,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
+						setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
-						setStore({ token: null, user_id: null, user_name: "" });
+						setStore({ token: null, user_id: null });
 						return body.msg;
 					}
 				} catch (error) {
@@ -61,9 +61,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						await setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
+						await setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
-						setStore({ token: null, user_id: null, user_name: "" });
+						setStore({ token: null, user_id: null });
 						return body.msg;
 					}
 				} catch (error) {
