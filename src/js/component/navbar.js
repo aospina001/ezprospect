@@ -87,20 +87,18 @@ export const NavigationBar = () => {
 						<Modal.Title>Login to your account</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						{error ? <Alert variant="danger">{error.id}</Alert> : ""}
+						{error ? <Alert variant="danger">{error}</Alert> : ""}
 
 						<Form onSubmit={handleSubmit(onSubmit_Login)}>
-							<Form.Group controlId="formBasicEmail">
+							<Form.Group>
 								<Form.Label>Username</Form.Label>
-								<Form.Control type="email" placeholder="Enter username" name="email" ref={register}>
-									{store.user.email}
-								</Form.Control>
+								<Form.Control type="email" placeholder="Enter username" name="email" ref={register} />
 								<Form.Text className="text-muted">
 									Well never share your email with anyone else.
 								</Form.Text>
 							</Form.Group>
 
-							<Form.Group controlId="formBasicPassword">
+							<Form.Group>
 								<Form.Label>Password</Form.Label>
 								<Form.Control type="password" placeholder="Password" name="password" ref={register} />
 							</Form.Group>

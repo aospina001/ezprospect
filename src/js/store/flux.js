@@ -36,9 +36,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
+						setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
-						setStore({ token: null, user_id: null, user_name: "" });
+						setStore({ token: null, user_id: null });
 						return body.msg;
 					}
 				} catch (error) {
@@ -61,25 +61,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					const body = await response.json();
 					if (response.status == 200) {
-						await setStore({ token: body.jwt, user_id: body.user_id, user_name: body.user_name });
+						await setStore({ token: body.jwt, user_id: body.user_id });
 					} else {
-						setStore({ token: null, user_id: null, user_name: "" });
+						setStore({ token: null, user_id: null });
 						return body.msg;
 					}
 				} catch (error) {
-					console.log(error);
+					console.log("Error in signup");
 					return "Error";
 				}
 			},
 
 			loadUser: async () => {
 				const store = getStore();
-				console.log(store.token);
 				const response = await fetch(`${ezprospectUrl}/user`, {
 					headers: { Authorization: `Bearer ${store.token}` }
 				});
 				const data = await response.json();
-				console.log(data);
 				setStore({
 					user: data
 				});
@@ -105,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					await actions.loadUser();
 					return true;
 				} catch (error) {
-					console.log(error);
+					console.log("Error in editUser");
 				}
 			},
 
@@ -134,7 +132,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const body = await response.json();
 					return body.id;
 				} catch (error) {
-					console.log(error);
+					console.log("addProspect");
 				}
 			},
 
@@ -176,7 +174,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(body);
 					return body;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addBackCompany");
 				}
 			},
 
@@ -195,7 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(body);
 					return body;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addBackOwner");
 				}
 			},
 
@@ -219,7 +217,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const body = await response.json();
 					if (response.status == 400) return body.msg;
 				} catch (error) {
-					console.log(error);
+					console.log("error in addContact");
 				}
 			},
 
@@ -252,7 +250,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					getActions().getContacts();
 				} catch (error) {
-					console.log(error);
+					console.log("error in editContact");
 				}
 			},
 
@@ -263,14 +261,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Content-Type": "application/json"
 					}
 				});
-				// getActions().getFinancials();
 			},
 
 			addFinancial: async (data, prospect_id) => {
 				const store = getStore();
-				console.log(data, prospect_id);
 				try {
-					console.log(data);
 					const response = await fetch(`${ezprospectUrl}/financials`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json", Authorization: `Bearer ${store.token}` },
@@ -330,20 +325,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					// await getActions().getFinancials(prospect_id);
 					const body = await response.json();
-					console.log(body);
 				} catch (error) {
-					console.log(error);
+					console.log("error in AddFinancial");
 				}
 			},
 
 			deleteFinancial: async id => {
+				const action = getActions();
+				const store = getStore();
 				const response = await fetch(`${ezprospectUrl}/deleteFinancial/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
 					}
 				});
-				const res = await response.json();
 			},
 
 			getFinancials: async prospect_id => {
@@ -355,7 +350,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const financials = await response.json();
 					setStore({ financials: financials });
 				} catch (error) {
-					console.log(error);
+					console.log("Error in getFinancials");
 				}
 			}
 		}

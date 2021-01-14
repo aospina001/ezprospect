@@ -1,20 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { Button } from "react-bootstrap";
 import "../../styles/index.scss";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus, faUserEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
 
 export const Financial = ({ each }) => {
 	const { store, actions } = useContext(Context);
+	const [financial, setFinancial] = useState(0);
 
-	const deleteFinancial = async id => {
-		console.log(id);
+	const deleteFinancial = async (id, prospect_id) => {
 		await actions.deleteFinancial(id);
-		setfinancials(Math.random());
+		setFinancial(Math.random());
 	};
+
+	useEffect(
+		() => {
+			actions.getFinancials(each.prospect_id);
+		},
+		[financial]
+	);
 
 	return (
 		<div className="financial d-flex flex-nowrap row">
@@ -125,9 +134,15 @@ export const Financial = ({ each }) => {
 			</ul>
 			<ul className="financial-col right">
 				<li className="statement-header">
-					<Button className="float-right" onClick={deleteFinancial(each.id)}>
-						<FontAwesomeIcon icon="trash-alt" className="fa-sm md-2 align-middle" />
-					</Button>
+					<Link className="float-right" style={{ color: "black" }}>
+						<FontAwesomeIcon
+							icon="trash-alt"
+							className="fa-md md-2 align-middle"
+							onClick={() => {
+								deleteFinancial(each.id, each.prospect_id);
+							}}
+						/>
+					</Link>
 				</li>
 				<li className="statement-header" />
 				<li className="margin-item" />

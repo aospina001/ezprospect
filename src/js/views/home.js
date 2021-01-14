@@ -90,7 +90,7 @@ export const Home = () => {
 
 			{/* Search new prospects */}
 			<Container>
-				<h3 className="mt-2">{`${wish} ${store.user_name}`}</h3>
+				<h3 className="mt-2">{`${wish} ${store.user["first_name"]}`}</h3>
 				<p>{`${date} | ${time}`}</p>
 			</Container>
 			<Form inline className="justify-content-center mt-2" md={12} value={searchTerm} onChange={handleChange}>
