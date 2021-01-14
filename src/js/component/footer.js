@@ -13,12 +13,10 @@ export const Footer = () => {
 				{!store.token ? (
 					""
 				) : (
-					<div>
-						<ul className="footer-links">
+					<div>{/* <ul className="footer-links">
 							<li>About Us</li>
 							<li>Contact Us</li>
-						</ul>
-					</div>
+						</ul> */}</div>
 				)}
 
 				<div className="footer-social">

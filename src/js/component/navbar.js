@@ -70,10 +70,10 @@ export const NavigationBar = () => {
 					</div>
 				) : (
 					<>
-						<Nav className="mr-auto">
+						{/* <Nav className="mr-auto">
 							<Nav.Link href="#aboutus">About Us</Nav.Link>
 							<Nav.Link href="#contactus">Contact Us</Nav.Link>
-						</Nav>
+						</Nav> */}
 						<Button variant="dark outline-success" onClick={handleShow}>
 							Login
 						</Button>

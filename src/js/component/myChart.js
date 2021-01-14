@@ -90,7 +90,7 @@ const Chart = () => {
 		updateDataset(0, data);
 	};
 	return (
-		<div>
+		<div className="mb-3">
 			<canvas ref={chartContainer} />
 		</div>
 	);

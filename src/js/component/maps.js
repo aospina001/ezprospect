@@ -16,7 +16,7 @@ export const MyMap = props => {
 	}
 	// console.log(map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
 	// console.log(google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
-	return <div ref={ref} style={{ width: 600, height: 400 }} />;
+	return <div ref={ref} style={{ width: 450, height: 300 }} />;
 };
 
 MyMap.propTypes = {

@@ -132,7 +132,7 @@ export const ProspectDetails = props => {
 	}, []);
 
 	return (
-		<Container className="mt-5">
+		<Container className="mt-2">
 			{store.token == null ? <Redirect to="/" /> : ""}
 			{store.prospect.map((each, i) => {
 				if (each.id == prospect_id) {
@@ -143,7 +143,7 @@ export const ProspectDetails = props => {
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
-									<Jumbotron style={{ background: "white" }} className="mt-2 pt-2 pl-0 pr-0">
+									<Jumbotron style={{ background: "white" }} className="mt-3 pb-0 pt-0 pl-0 pr-0">
 										<Row>
 											<Col md={6}>
 												<p>
@@ -190,10 +190,10 @@ export const ProspectDetails = props => {
 										</Alert>
 									) : (
 										<div>
-											<CardDeck>
+											<CardDeck className="mb-3">
 												{store.contacts.map((each, i) => {
 													return (
-														<Col className="mt-5" md={4} key={i}>
+														<Col className="mt-3" md={4} key={i}>
 															<Card style={{ width: "20rem", height: "18rem" }}>
 																<Card.Header as="h5">
 																	{each.first_name}
@@ -257,10 +257,10 @@ export const ProspectDetails = props => {
 								<Tab eventKey="background" title="Background">
 									<Row>
 										<Col md={6}>
-											<Jumbotron className="mt-5 px-2 py-2">
+											<Jumbotron className="mt-3 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														Company
+														<strong>Company Background</strong>
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Company}
@@ -290,10 +290,10 @@ export const ProspectDetails = props => {
 											</Jumbotron>
 										</Col>
 										<Col md={6}>
-											<Jumbotron className="mt-5 px-2 py-2">
+											<Jumbotron className="mt-3 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														Owner
+														<strong>Owner/Management Background</strong>
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Owner}
@@ -332,7 +332,7 @@ export const ProspectDetails = props => {
 								{/* ----------------------------Financial Tab------------------ */}
 
 								<Tab eventKey="financial" title="Financial">
-									<Jumbotron className="pt-2 pb-2" style={{ background: "white" }}>
+									<Jumbotron className="pt-2 pb-3 mb-0" style={{ background: "white" }}>
 										<h1>Financial Information</h1>
 										<Button
 											variant="success"

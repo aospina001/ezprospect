@@ -26,7 +26,7 @@ export const Prospects = () => {
 	);
 
 	return (
-		<Container className="mt-5">
+		<Container className="mt-3">
 			{store.prospect.length == 0 ? (
 				<Alert variant="success">
 					<Alert.Heading>Sorry, no prospect created yet</Alert.Heading>
@@ -46,7 +46,7 @@ export const Prospects = () => {
 						<CardDeck className="justify-content-center">
 							{searchResults.map((each, i) => {
 								return (
-									<Col className="mt-5" md={4} key={i}>
+									<Col className="mt-3 mb-3" md={4} key={i}>
 										<Card style={{ width: "18rem" }}>
 											<Card.Body>
 												<Card.Title>{each.name}</Card.Title>

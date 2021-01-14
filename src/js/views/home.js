@@ -172,7 +172,7 @@ export const Home = () => {
 			</Container>
 
 			{/*-------------------------------- Show the user prospects -------------------------------*/}
-			<Container className="mt-5">
+			<Container className="mt-3 mb-3">
 				{store.prospect.length == 0 ? (
 					<Alert variant="success">
 						<Alert.Heading>Sorry, no prospect created yet</Alert.Heading>

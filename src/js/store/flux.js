@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 //const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-us03.gitpod.io";
 const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
-=======
-const ezprospectUrl = "https://3000-fe882c22-43b8-48a2-8467-13f140f61248.ws-eu03.gitpod.io";
-// const ezprospectUrl = "https://3000-c410509c-d029-4272-958a-8672c9b57f4e.ws-eu03.gitpod.io";
->>>>>>> yahilyn
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
