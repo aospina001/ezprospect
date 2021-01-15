@@ -26,7 +26,10 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [show, setShow] = useState(false);
 	const [prospectLoaded, setProspectLoaded] = useState(false);
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		setError(false);
+		setShow(false);
+	};
 	const handleShow = () => setShow(true);
 	const [searchTerm, setSearchTerm] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);

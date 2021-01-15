@@ -19,7 +19,10 @@ export const NavigationBar = () => {
 	const [error, setError] = useState(false);
 	const { store, actions } = useContext(Context);
 	const [showUser, setShowUser] = useState(false);
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		setError(false);
+		setShow(false);
+	};
 	const handleShow = () => setShow(true);
 	const history = useHistory();
 	const { register, handleSubmit } = useForm();
@@ -37,7 +40,6 @@ export const NavigationBar = () => {
 		if (done) {
 			setError(done);
 		} else {
-			setError(false);
 			handleClose();
 			history.push("/logged");
 		}
