@@ -18,7 +18,10 @@ export const Landing = () => {
 	const [error, setError] = useState(false);
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const { store, actions } = useContext(Context);
-	const handleClose = () => setShow(false);
+	const handleClose = () => {
+		setError(false);
+		setShow(false);
+	};
 	const handleShow = () => setShow(true);
 	const { register, handleSubmit } = useForm();
 	const [index, setIndex] = useState(0); //Hook for controlled carousel

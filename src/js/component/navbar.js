@@ -116,6 +116,7 @@ export const NavigationBar = () => {
 					<Modal.Header closeButton>
 						<Modal.Title>User Information</Modal.Title>
 					</Modal.Header>
+					<Form.Text className="text-muted ml-3">Sorry, your can only edit you phone number</Form.Text>
 					<Modal.Body>
 						<Form onSubmit={handleSubmit(onSubmit_EditUser)}>
 							<Form.Group>

@@ -26,10 +26,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [show, setShow] = useState(false);
 	const [prospectLoaded, setProspectLoaded] = useState(false);
-	const handleClose = () => {
-		setError(false);
-		setShow(false);
-	};
+	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const [searchTerm, setSearchTerm] = useState(null);
 	const [searchResults, setSearchResults] = useState([]);
@@ -190,7 +187,7 @@ export const Home = () => {
 						<CardDeck className="justify-content-center">
 							{store.prospect.map((each, i) => {
 								return (
-									<Col className="mt-2" md={4} key={i}>
+									<Col className="mt-3 mb-2" md={4} key={i}>
 										<Card style={{ width: "18rem", height: "20rem" }}>
 											<Card.Header>
 												<b>{` ${each.name}`}</b>
