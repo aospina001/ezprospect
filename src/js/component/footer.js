@@ -10,22 +10,11 @@ export const Footer = () => {
 	return (
 		<div className="text-center mt-5 base-color mt-auto">
 			<Container className="d-flex justify-content-between">
-				{!store.token ? (
-					""
-				) : (
-					<div>
-						<ul className="footer-links">
-							<li>About Us</li>
-							<li>Contact Us</li>
-						</ul>
-					</div>
-				)}
-
-				<div className="footer-social">
+				{/* <div className="footer-social">
 					<i className="fab fa-facebook" />
 					<i className="fab fa-instagram" />
 					<i className="fab fa-twitter" />
-				</div>
+				</div> */}
 			</Container>
 			<p>© EZ Prospect, Inc. All rights reserved</p>
 		</div>

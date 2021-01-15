@@ -24,9 +24,9 @@ import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form";
 import { EditContact } from "../component/editContact";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus, faUserEdit, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserEdit, faTrashAlt, faEdit, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-library.add(faPlus, faUserEdit, faTrashAlt, faEdit);
+library.add(faPlus, faUserEdit, faTrashAlt, faEdit, faFilePdf);
 import { AccountTitles } from "../component/accountTitles";
 import { Financial } from "../component/financial";
 import { PDF } from "../component/pdf";
@@ -341,6 +341,7 @@ export const ProspectDetails = props => {
 									<Jumbotron className="pt-2 pb-2" style={{ background: "white" }}>
 										<h1>Financial Information</h1>
 										<Button
+											className="mr-2"
 											variant="success"
 											data-target="#financial"
 											onClick={handleShowFinancial}>
@@ -355,7 +356,7 @@ export const ProspectDetails = props => {
 													{store.financials.map((each, i) => {
 														return (
 															<>
-																<Financial each={each} key={each.id} />;
+																<Financial each={each} key={each.id} />
 															</>
 														);
 													})}
@@ -894,7 +895,7 @@ export const ProspectDetails = props => {
 												placeholder="$"
 											/>
 										</Form.Group>
-										<Button variant="secondary" onClick={handleCloseFinancial}>
+										<Button className="mr-2" variant="secondary" onClick={handleCloseFinancial}>
 											Cancel
 										</Button>
 										<Button variant="success" type="submit">

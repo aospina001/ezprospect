@@ -4,11 +4,16 @@ import { Financial } from "./financial";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+library.add(faFilePdf);
 
 import { format } from "date-fns";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ref = React.createRef();
 
@@ -201,7 +206,9 @@ export const PDF = () => {
 
 	return (
 		<>
-			<Button onClick={() => generatePDF()}>Download PDF</Button>
+			<Link className="ml-3" style={{ color: "black" }} onClick={() => generatePDF()}>
+				<FontAwesomeIcon icon="file-pdf" className="fa-lg mr-2 align-middle" />
+			</Link>
 		</>
 	);
 };

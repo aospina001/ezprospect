@@ -9,10 +9,10 @@ import "../../styles/index.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { faUsersCog, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(fab, faUsersCog, faHome);
+library.add(fab, faEllipsisV);
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
@@ -51,11 +51,6 @@ export const NavigationBar = () => {
 					<Navbar.Brand>
 						<Image height={56} width={135} src={Logo} className="align-items-center" />
 					</Navbar.Brand>
-					{store.token && (
-						<Link to={"/"} style={{ color: "black" }}>
-							<FontAwesomeIcon icon="home" className="fa-2x ml-2 mb-0 " /> Home
-						</Link>
-					)}
 				</Link>
 
 				{store.token ? (
@@ -69,7 +64,7 @@ export const NavigationBar = () => {
 						</Button>
 						<Link style={{ color: "black" }}>
 							<FontAwesomeIcon
-								icon="users-cog"
+								icon="ellipsis-v"
 								className="fa-2x ml-2 align-middle"
 								onClick={handleShow_EditUser}
 							/>
@@ -77,10 +72,6 @@ export const NavigationBar = () => {
 					</div>
 				) : (
 					<>
-						<Nav className="mr-auto">
-							<Nav.Link href="#aboutus">About Us</Nav.Link>
-							<Nav.Link href="#contactus">Contact Us</Nav.Link>
-						</Nav>
 						<Button variant="dark outline-success" onClick={handleShow}>
 							Login
 						</Button>
