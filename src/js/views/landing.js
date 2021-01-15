@@ -128,7 +128,7 @@ export const Landing = () => {
 					</p>
 				</Container>
 			</Jumbotron>
-			<Container>
+			<Container className="my-3">
 				<CardDeck>
 					<Card>
 						<Card.Img variant="top" src={Featured1} className="feature" />

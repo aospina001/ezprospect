@@ -9,10 +9,10 @@ import "../../styles/index.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { faUsersCog } from "@fortawesome/free-solid-svg-icons";
+import { faUsersCog, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(fab, faUsersCog);
+library.add(fab, faUsersCog, faHome);
 
 export const NavigationBar = () => {
 	const [show, setShow] = useState(false);
@@ -49,6 +49,11 @@ export const NavigationBar = () => {
 					<Navbar.Brand>
 						<Image height={56} width={135} src={Logo} className="align-items-center" />
 					</Navbar.Brand>
+					{store.token && (
+						<Link to={"/"} style={{ color: "black" }}>
+							<FontAwesomeIcon icon="home" className="fa-2x ml-2 mb-0 " /> Home
+						</Link>
+					)}
 				</Link>
 
 				{store.token ? (
