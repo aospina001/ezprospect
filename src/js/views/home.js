@@ -141,7 +141,8 @@ export const Home = () => {
 																		<Link
 																			to={`/prospectDetails/${
 																				x.id
-																			}/${editContact}`}>
+																			}/${editContact}`}
+																			style={{ color: "black" }}>
 																			<FontAwesomeIcon
 																				icon="check"
 																				style={{ color: "#03989e" }}

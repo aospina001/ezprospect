@@ -86,8 +86,11 @@
 		"@react-icons/all-files": "^4.1.0",
 		"bootstrap": "^4.5.3",
 		"chart.js": "^2.9.4",
+		"date-fns": "^2.16.1",
 		"google-map-react": "^2.1.9",
 		"google-maps-react": "^2.0.6",
+		"jspdf": "^2.2.0",
+		"jspdf-autotable": "^3.5.13",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-bootstrap": "^1.4.0",
@@ -100,6 +103,7 @@
 		"react-icons": "^4.1.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
+		"react-to-pdf": "0.0.13",
 		"recharts": "^2.0.0"
 	}
 }

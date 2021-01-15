@@ -26,10 +26,10 @@ import { EditContact } from "../component/editContact";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus, faUserEdit, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 library.add(faPlus, faUserEdit, faTrashAlt, faEdit);
 import { AccountTitles } from "../component/accountTitles";
 import { Financial } from "../component/financial";
+import { PDF } from "../component/pdf";
 
 export const ProspectDetails = props => {
 	const { store, actions } = useContext(Context);
@@ -139,12 +139,14 @@ export const ProspectDetails = props => {
 					return (
 						<div>
 							<h1>{each.name}</h1>
-							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example" className="mt-3">
+							<Tabs fill defaultActiveKey={editContact} id="uncontrolled-tab-example" className="mt-5">
 								{/* -----------------------------Business Info Tab------------------ */}
 
 								<Tab eventKey="info" title="Business Info">
-									<Jumbotron style={{ background: "white" }} className="mt-3 pb-0 pt-0 pl-0 pr-0">
-										<Row>
+									<Jumbotron
+										style={{ background: "white", border: "border" }}
+										className="mt-2 pt-2 pl-0 pr-0">
+										<Row className="d-flex align-items-center">
 											<Col md={6}>
 												<p>
 													<b>Address:</b>
@@ -260,7 +262,8 @@ export const ProspectDetails = props => {
 											<Jumbotron className="mt-3 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														<strong>Company Background</strong>
+														<h3>Business Background</h3>
+
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Company}
@@ -293,7 +296,7 @@ export const ProspectDetails = props => {
 											<Jumbotron className="mt-3 px-2 py-2">
 												<Card style={{ width: "100%", height: "30rem" }} className="mt-2">
 													<Card.Header>
-														<strong>Owner/Management Background</strong>
+														<h3>Management/Ownership Background</h3>
 														<Link style={{ color: "black" }} className="float-right">
 															<FontAwesomeIcon
 																onClick={handleShowBack_Owner}
@@ -340,8 +343,10 @@ export const ProspectDetails = props => {
 											onClick={handleShowFinancial}>
 											Add financial information
 										</Button>
+
 										{store.financials.length > 0 && (
 											<>
+												<PDF />
 												<div className="d-flex flex-row flex-nowrap scroll">
 													<AccountTitles />
 													{store.financials.map((each, i) => {
