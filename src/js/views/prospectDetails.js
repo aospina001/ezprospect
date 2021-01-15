@@ -45,6 +45,7 @@ export const ProspectDetails = props => {
 	const [showBack_Company, setShowBack_Company] = useState(false);
 	const [showBack_Owner, setShowBack_Owner] = useState(false);
 	const [showFinancial, setShowFinancial] = useState(false);
+	const [export_var, setExport] = useState(false);
 
 	const handleCloseContact = () => setShowContact(false);
 	const handleShowContact = () => setShowContact(true);
@@ -57,6 +58,8 @@ export const ProspectDetails = props => {
 
 	const handleCloseFinancial = () => setShowFinancial(false);
 	const handleShowFinancial = () => setShowFinancial(true);
+
+	const handleExport = () => setExport(true);
 
 	const onSubmitFinancial = async data => {
 		await actions.addFinancial(data, prospect_id);
@@ -350,7 +353,11 @@ export const ProspectDetails = props => {
 												<div className="d-flex flex-row flex-nowrap scroll">
 													<AccountTitles />
 													{store.financials.map((each, i) => {
-														return <Financial each={each} key={each.id} />;
+														return (
+															<>
+																<Financial each={each} key={each.id} />;
+															</>
+														);
 													})}
 												</div>
 												{store.financials.length > 1 && (
